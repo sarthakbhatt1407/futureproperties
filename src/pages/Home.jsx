@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import MobileNav from "../components/MobileNav";
 import PropertyCategory from "../components/PropertyCategory";
+import OurWork from "../components/OurWork";
+import ContactsUs from "../components/ContactUs";
+import Footer from "../components/Footer";
 
 const MainBox = styled.div`
   position: relative;
@@ -22,6 +25,9 @@ const Home = () => {
       <ContentBox>
         <Header />
         <PropertyCategory />
+        <OurWork />
+        <ContactsUs />
+        <Footer />
       </ContentBox>
       <MobileNav />
     </MainBox>
