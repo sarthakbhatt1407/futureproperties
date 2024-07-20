@@ -1,7 +1,6 @@
 import React from "react";
 import PcNav from "./PcNav";
 import styled from "styled-components";
-import favicon from "../assets/favicon.ico";
 import intro from "../assets/intro.jpg";
 import home from "../assets/side-city-1.png";
 import { AutoComplete } from "antd";
@@ -9,7 +8,7 @@ import { Search } from "@mui/icons-material";
 
 const MainBox = styled.div`
   background-color: #efefee;
-  height: 100svh;
+  height: 90svh;
   position: relative;
 
   &::before {
@@ -30,7 +29,7 @@ const MainBox = styled.div`
     }
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
-    height: 65svh;
+    height: 85svh;
   }
 `;
 const SearchBox = styled.div`
@@ -48,6 +47,22 @@ const InpTextBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  p {
+    font-size: 0.9rem;
+    width: 100%;
+    margin: -0.1rem auto;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+
+    span {
+      background-color: white;
+      padding: 0.1rem 0.5rem;
+      color: black;
+      text-transform: uppercase;
+      font-weight: 450;
+    }
+  }
   h1 {
     display: flex;
     flex-direction: column;
@@ -94,7 +109,7 @@ const InpBox = styled.div`
 
 const MobileSearchBox = styled.div`
   overflow-x: hidden;
-  height: 100%;
+  height: 90%;
   padding: 0 0.6rem;
   display: flex;
   justify-content: center;
@@ -106,6 +121,22 @@ const MobileSearchBox = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    p {
+      font-size: 0.9rem;
+      width: 100%;
+      margin: -0.1rem auto;
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+
+      span {
+        background-color: white;
+        padding: 0.1rem 0.3rem;
+        color: black;
+        text-transform: uppercase;
+        font-weight: 450;
+      }
+    }
     h1 {
       display: flex;
       flex-direction: column;
@@ -139,7 +170,7 @@ const MobileSearchBox = styled.div`
       }
     }
     img {
-      width: 12rem;
+      width: 15rem;
       margin: 0 auto;
     }
   }
@@ -151,13 +182,13 @@ const MobileSearchBox = styled.div`
 const Header = () => {
   const options = [
     {
-      value: "Dehradun - 248001",
+      value: "Dehradun",
     },
     {
-      value: "Rishikesh - 249201",
+      value: "Rishikesh ",
     },
     {
-      value: "Haridwar - 249110",
+      value: "Haridwar",
     },
   ];
   return (
@@ -181,7 +212,7 @@ const Header = () => {
                 onSelect={(e) => {
                   console.log(e);
                 }}
-                placeholder="Search City or Pincode "
+                placeholder="Search City"
                 filterOption={(inputValue, option) =>
                   option.value
                     .toUpperCase()
@@ -192,35 +223,40 @@ const Header = () => {
                 <Search />
               </button>
             </InpBox>
+            <p>
+              Popular Searches : <span>Dehradun</span> <span>Haridwar</span>{" "}
+              <span>Rishikesh</span>
+            </p>
           </InpTextBox>
           <img src={home} alt="" data-aos="fade-left" />
         </InpImgBox>
       </SearchBox>
       <MobileSearchBox>
         <div>
-          <span>
-            <img data-aos="fade-right" src={favicon} alt="" />
-            <span data-aos="fade-left">Future Properties</span>
-          </span>
+          <img data-aos="zoom-in" src={home} alt="" />
           <h1 data-aos="zoom-in">
             <span>find your dream house</span>
           </h1>
-          <img data-aos="zoom-in" src={home} alt="" />
+
           <AutoComplete
             style={{
               width: "100%",
-              height: 35,
+              height: 40,
             }}
             onSelect={(e) => {
               console.log(e);
             }}
             options={options}
-            placeholder="try to type `b`"
+            placeholder=""
             filterOption={(inputValue, option) =>
               option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
               -1
             }
           />
+          <p>
+            Popular Searches : <span>Dehradun</span> <span>Haridwar</span>{" "}
+            <span>Rishikesh</span>
+          </p>
           <button data-aos="zoom-in">Search</button>
         </div>
       </MobileSearchBox>

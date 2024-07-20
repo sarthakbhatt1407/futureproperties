@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import favicon from "../assets/favicon.ico";
+import { AccountCircle } from "@mui/icons-material";
 
 const MainDiv = styled.nav`
   display: flex;
@@ -14,7 +15,7 @@ const MainDiv = styled.nav`
   margin: auto;
   border-radius: 0.4rem;
   @media only screen and (min-width: 0px) and (max-width: 699px) {
-    display: none;
+    display: flex;
     padding: 0;
     width: 90%;
   }
@@ -56,6 +57,7 @@ const RightDiv = styled.div`
 const PcNav = () => {
   return (
     <MainDiv data-aos="fade-down">
+      {/*  */}
       <LeftDiv>
         <img src={favicon} alt="" />
         <span>future Properties</span>
@@ -64,7 +66,11 @@ const PcNav = () => {
         <Link>Home</Link>
         <Link>Properties</Link>
         <Link>Contact</Link>
-        <Link>Sign In</Link>
+        <Link>
+          <AccountCircle
+            style={{ transform: "scale(1.3)", color: "#3F7BFF" }}
+          />
+        </Link>
       </RightDiv>
     </MainDiv>
   );

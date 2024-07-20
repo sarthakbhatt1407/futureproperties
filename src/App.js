@@ -3,6 +3,11 @@ import { Route, Routes } from "react-router";
 import Home from "./pages/Home";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import styled from "styled-components";
+
+const MainDiv = styled.div`
+  max-height: 100svh;
+`;
 
 const App = () => {
   useEffect(() => {
@@ -17,11 +22,11 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <MainDiv>
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-    </div>
+    </MainDiv>
   );
 };
 
