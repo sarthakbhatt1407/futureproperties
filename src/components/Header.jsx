@@ -1,10 +1,13 @@
 import React from "react";
 import PcNav from "./PcNav";
 import styled from "styled-components";
+import logo from "../assets/logo.png";
 import intro from "../assets/intro.jpg";
 import home from "../assets/side-city-1.png";
 import { AutoComplete } from "antd";
 import { Search } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa";
 
 const MainBox = styled.div`
   background-color: #efefee;
@@ -29,7 +32,7 @@ const MainBox = styled.div`
     }
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
-    height: 85svh;
+    height: 65svh;
   }
 `;
 const SearchBox = styled.div`
@@ -108,15 +111,16 @@ const InpBox = styled.div`
 `;
 
 const MobileSearchBox = styled.div`
-  overflow-x: hidden;
+  overflow: hidden;
   height: 90%;
+  /* background-color: red; */
   padding: 0 0.6rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   z-index: 29;
-
   div {
     display: flex;
     flex-direction: column;
@@ -178,6 +182,56 @@ const MobileSearchBox = styled.div`
     display: none;
   }
 `;
+const TextBox = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  img {
+    margin: auto -0.3rem;
+    width: 12%;
+  }
+  span {
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+    letter-spacing: 0.08rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+`;
+const OwnerBox = styled.div`
+  position: absolute;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0%;
+  background-color: #5487f4;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  padding: 0.3rem 0;
+  display: none;
+  span {
+    display: flex;
+    gap: 0.5rem;
+    color: #f1f1f1;
+    a {
+      color: white;
+      letter-spacing: 0.06rem;
+      display: flex;
+      align-items: center;
+      svg {
+        color: white;
+        transform: scale(0.7);
+      }
+    }
+  }
+  @media only screen and (min-width: 0px) and (max-width: 700px) {
+    display: flex;
+    left: 10%;
+    width: 80%;
+  }
+`;
 
 const Header = () => {
   const options = [
@@ -232,8 +286,11 @@ const Header = () => {
         </InpImgBox>
       </SearchBox>
       <MobileSearchBox>
+        <TextBox>
+          <img src={logo} alt="" />
+          <span>Future properties</span>
+        </TextBox>
         <div>
-          <img data-aos="zoom-in" src={home} alt="" />
           <h1 data-aos="zoom-in">
             <span>find your dream house</span>
           </h1>
@@ -258,8 +315,17 @@ const Header = () => {
             <span>Rishikesh</span>
           </p>
           <button data-aos="zoom-in">Search</button>
+          {/* <img data-aos="zoom-in" src={home} alt="" /> */}
         </div>
       </MobileSearchBox>
+      <OwnerBox>
+        <span>
+          Are you a Owner?{" "}
+          <Link>
+            Post property for free <FaChevronRight />
+          </Link>
+        </span>
+      </OwnerBox>
     </MainBox>
   );
 };

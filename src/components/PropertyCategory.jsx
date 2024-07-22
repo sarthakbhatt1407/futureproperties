@@ -1,17 +1,6 @@
 import React from "react";
 import { CiShop } from "react-icons/ci";
-import {
-  FaBuilding,
-  FaCampground,
-  FaHome,
-  FaHotel,
-  FaWarehouse,
-} from "react-icons/fa";
-import { FaHouseChimneyWindow, FaHouseTsunami } from "react-icons/fa6";
-import { GiFamilyHouse } from "react-icons/gi";
-import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
-import { MdFactory } from "react-icons/md";
-import { TbBuildingFactory } from "react-icons/tb";
+import { FaBuilding, FaCampground, FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -22,7 +11,7 @@ const MainDiv = styled.div`
     width: 80%;
     margin: 0.5rem auto;
 
-    text-align: start;
+    text-align: center;
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     h2 {
@@ -34,17 +23,19 @@ const MainDiv = styled.div`
 `;
 
 const AllCategoryBox = styled.div`
-  display: grid;
+  display: flex;
   padding: 1rem 0;
-  grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
   width: 80%;
+  justify-content: center;
+  align-items: center;
   margin: auto;
   a {
     text-decoration: none;
     color: black;
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 0;
     width: 95%;
@@ -104,38 +95,7 @@ const PropertyCategory = () => {
       label: "Plot/Land",
       icon: <FaCampground />,
     },
-    {
-      label: "Farmhouse",
-      icon: <GiFamilyHouse />,
-    },
-    {
-      label: "Office",
-      icon: <HiOutlineBuildingOffice2 />,
-    },
-    {
-      label: "Factory",
-      icon: <MdFactory />,
-    },
-    {
-      label: "Manufacturing",
-      icon: <TbBuildingFactory />,
-    },
-    {
-      label: "Hotel/Resort",
-      icon: <FaHotel />,
-    },
-    {
-      label: "Guest House",
-      icon: <FaHouseChimneyWindow />,
-    },
-    {
-      label: "Warehouse",
-      icon: <FaWarehouse />,
-    },
-    {
-      label: "Cold-Storage",
-      icon: <FaHouseTsunami />,
-    },
+
     {
       label: "Shop",
       icon: <CiShop />,
