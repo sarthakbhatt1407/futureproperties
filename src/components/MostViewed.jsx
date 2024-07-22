@@ -66,7 +66,7 @@ const PropertiesBox = styled.div`
 const PropertyBox = styled.div`
   a {
     width: 26rem;
-    box-shadow: 0.1rem 0.1rem 0.5rem #e3e2e2;
+    box-shadow: 0.1rem 0.1rem 0.5rem #eeeded;
     display: flex;
     border-radius: 0.4rem;
     gap: 0.7rem;
@@ -97,19 +97,20 @@ const PropertyBox = styled.div`
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     a {
-      width: 20rem;
+      width: 17rem;
       height: fit-content;
-      gap: 0.3rem;
+      gap: 0.5rem;
       img {
-        width: 10rem;
-        height: 8rem;
+        width: 48%;
+        height: 6.5rem;
       }
       div {
         gap: 0.1rem;
         span {
+          font-size: 0.85rem;
         }
         p {
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
       }
     }
