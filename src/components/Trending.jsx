@@ -66,7 +66,7 @@ const PropertiesBox = styled.div`
 const PropertyBox = styled.div`
   display: flex;
   flex-direction: column;
-  box-shadow: 0.2rem 0.2rem 0.6rem #8b8b8b;
+  box-shadow: 0.1rem 0.1rem 0.5rem #e3e2e2;
 
   border-radius: 0.6rem;
   img {

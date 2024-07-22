@@ -66,7 +66,7 @@ const PropertiesBox = styled.div`
 const PropertyBox = styled.div`
   a {
     width: 26rem;
-    box-shadow: 0.2rem 0.2rem 0.6rem #8b8b8b;
+    box-shadow: 0.1rem 0.1rem 0.5rem #e3e2e2;
     display: flex;
     border-radius: 0.4rem;
     gap: 0.7rem;
