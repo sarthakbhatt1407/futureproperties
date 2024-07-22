@@ -206,7 +206,7 @@ const OwnerBox = styled.div`
   justify-content: center;
   align-items: center;
   bottom: 0%;
-  background-color: #5487f4;
+  background-color: #2566f1;
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
   padding: 0.3rem 0;
@@ -214,7 +214,7 @@ const OwnerBox = styled.div`
   span {
     display: flex;
     gap: 0.5rem;
-    color: #f1f1f1;
+    color: #ecebeb;
     a {
       color: white;
       letter-spacing: 0.06rem;
