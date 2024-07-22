@@ -6,6 +6,7 @@ import PropertyCategory from "../components/PropertyCategory";
 import OurWork from "../components/OurWork";
 import ContactsUs from "../components/ContactUs";
 import Footer from "../components/Footer";
+import Trending from "../components/Trending";
 
 const MainBox = styled.div`
   position: relative;
@@ -25,6 +26,7 @@ const Home = () => {
       <ContentBox>
         <Header />
         <PropertyCategory />
+        <Trending />
         <OurWork />
         <ContactsUs />
         <Footer />
