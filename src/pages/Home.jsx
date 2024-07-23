@@ -8,6 +8,7 @@ import ContactsUs from "../components/ContactUs";
 import Footer from "../components/Footer";
 import Trending from "../components/Trending";
 import MostViewed from "../components/MostViewed";
+import News from "../components/News";
 
 const MainBox = styled.div`
   position: relative;
@@ -29,7 +30,9 @@ const Home = () => {
         <PropertyCategory />
         <Trending />
         <MostViewed />
+
         <OurWork />
+        <News />
         <ContactsUs />
         <Footer />
       </ContentBox>

@@ -89,7 +89,7 @@ const PropertyBox = styled.div`
       margin: 0;
       font-weight: 550;
       text-transform: capitalize;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       letter-spacing: 0.07rem;
     }
   }
@@ -240,9 +240,7 @@ const Trending = () => {
                 <img src={p.image} alt="" />
                 <div>
                   <span>{p.title}</span>
-                  <p>
-                    {p.price} | {p.category}
-                  </p>
+                  <p>₹ {p.price}</p>
                   <span>{p.location}</span>
                   <span>{p.category}</span>
                 </div>

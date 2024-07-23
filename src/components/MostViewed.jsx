@@ -248,9 +248,7 @@ const MostViewd = () => {
                 <img src={p.image} alt="" />
                 <div>
                   <span>{p.title}</span>
-                  <p>
-                    {p.price} | {p.category}
-                  </p>
+                  <p>₹ {p.price}</p>
                   <span>{p.location}</span>
                   <span>{p.category}</span>
                 </div>
