@@ -75,8 +75,8 @@ const Videos = () => {
     {
       content: (
         <iframe
-          width={window.screen.width > 700 ? "400" : "250"}
-          height={window.screen.width > 700 ? "230" : "170"}
+          width={window.screen.width > 700 ? "400" : "200"}
+          height={window.screen.width > 700 ? "230" : "130"}
           src="https://www.youtube.com/embed/zaAwlboOaB8"
           title="पार्क,मंदिर और Swimming Pool सुविधा के साथ 3Bhk Villa For Sale in dehradun,Mdda Approved"
           frameborder="0"
@@ -90,8 +90,8 @@ const Videos = () => {
     {
       content: (
         <iframe
-          width={window.screen.width > 700 ? "400" : "250"}
-          height={window.screen.width > 700 ? "230" : "170"}
+          width={window.screen.width > 700 ? "400" : "200"}
+          height={window.screen.width > 700 ? "230" : "130"}
           src="https://www.youtube.com/embed/6BZvtVdxmMg"
           title="उत्तर दिशा का घर - 4 Bedroom 116 Gaj House/Villa For Sale in Dehradun"
           frameborder="0"
@@ -105,8 +105,8 @@ const Videos = () => {
     {
       content: (
         <iframe
-          width={window.screen.width > 700 ? "400" : "250"}
-          height={window.screen.width > 700 ? "230" : "170"}
+          width={window.screen.width > 700 ? "400" : "200"}
+          height={window.screen.width > 700 ? "230" : "130"}
           src="https://www.youtube.com/embed/3c5FzalER_A"
           title="Budget Friendly 3 Bedroom House For Sale in dehradun,100 Square Yard, Mdda Approved"
           frameborder="0"
@@ -120,8 +120,8 @@ const Videos = () => {
     {
       content: (
         <iframe
-          width={window.screen.width > 700 ? "400" : "250"}
-          height={window.screen.width > 700 ? "230" : "170"}
+          width={window.screen.width > 700 ? "400" : "200"}
+          height={window.screen.width > 700 ? "230" : "130"}
           src="https://www.youtube.com/embed/QvTQhDmWo-Q"
           title="ISBT Dehradun Ke Paas MDDA Approved 3BHK House! Top Real Estate Company Ki Exclusive Offer! 🏡✨"
           frameborder="0"
