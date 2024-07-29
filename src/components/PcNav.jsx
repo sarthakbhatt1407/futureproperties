@@ -10,10 +10,14 @@ import { VscAccount } from "react-icons/vsc";
 const MainDiv = styled.nav`
   display: flex;
   justify-content: space-between;
-
+  position: sticky;
+  top: 0;
+  background-color: #efefee;
+  z-index: 2000;
   align-items: center;
-  padding: 0.2rem 2rem;
-  width: 90%;
+  /* padding: 0.2rem 6rem 0.2rem 0; */
+  justify-content: space-around;
+  width: 100%;
   margin: auto;
   border-radius: 0.4rem;
   @media only screen and (min-width: 0px) and (max-width: 699px) {

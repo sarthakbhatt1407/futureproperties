@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
+import Property from "./pages/Property";
 
 const MainDiv = styled.div`
   max-height: 100svh;
@@ -25,6 +26,7 @@ const App = () => {
     <MainDiv>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/property" element={<Property />} />
       </Routes>
     </MainDiv>
   );

@@ -236,7 +236,7 @@ const Trending = () => {
         {properties.map((p) => {
           return (
             <PropertyBox key={p.image}>
-              <Link>
+              <Link to={"/property"}>
                 <img src={p.image} alt="" />
                 <div>
                   <span>{p.title}</span>

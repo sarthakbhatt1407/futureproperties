@@ -1,45 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
-const divStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundSize: "cover",
-  height: "100vh",
-};
-const slideImages = [
-  {
-    url: "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-    caption: "Slide 1",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-    caption: "Slide 2",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-    caption: "Slide 3",
-  },
-];
+const Slideshow = (props) => {
+  const images = props.images;
+  useEffect(() => {}, [images]);
 
-const Slideshow = () => {
+  const h = window.screen.width > 700 ? "70svh" : "50svh";
   return (
-    <div className="slide-container">
-      <Slide>
-        {slideImages.map((slideImage, index) => (
-          <div key={index}>
-            <div
-              style={{
-                ...divStyle,
-                backgroundImage: `url(${slideImage.url})`,
-              }}
-            ></div>
-          </div>
-        ))}
-      </Slide>
-    </div>
+    <>
+      {images && (
+        <div className="slide-container">
+          <Slide
+            slidesToScroll={window.screen.width > 700 ? 2 : 1}
+            slidesToShow={window.screen.width > 700 ? 2 : 1}
+            indicators={true}
+            transitionDuration={500}
+          >
+            {images.map((fadeImage, index) => (
+              <div key={index}>
+                <img
+                  style={{ width: "100%", height: `${h}` }}
+                  src={fadeImage.url}
+                />
+              </div>
+            ))}
+          </Slide>
+        </div>
+      )}
+    </>
   );
 };
+
 export default Slideshow;

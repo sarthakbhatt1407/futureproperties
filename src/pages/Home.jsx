@@ -10,6 +10,7 @@ import Trending from "../components/Trending";
 import MostViewed from "../components/MostViewed";
 import News from "../components/News";
 import Videos from "../components/Videos";
+import Slideshow from "../components/Slideshow";
 
 const MainBox = styled.div`
   position: relative;
@@ -24,6 +25,26 @@ const ContentBox = styled.div`
 `;
 
 const Home = () => {
+  const images = [
+    {
+      url: "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
+    {
+      url: "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
+    },
+    {
+      url: "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
+    {
+      url: "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
+    },
+    {
+      url: "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
+    {
+      url: "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
+    },
+  ];
   return (
     <MainBox>
       <ContentBox>
@@ -34,6 +55,7 @@ const Home = () => {
         <OurWork />
         <News />
         <Videos />
+
         <ContactsUs />
         <Footer />
       </ContentBox>

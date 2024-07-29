@@ -82,7 +82,7 @@ const Videos = () => {
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       ),
       key: 0,
@@ -97,7 +97,7 @@ const Videos = () => {
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       ),
       key: 1,
@@ -112,7 +112,7 @@ const Videos = () => {
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       ),
       key: 2,
@@ -127,7 +127,7 @@ const Videos = () => {
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       ),
       key: 3,
