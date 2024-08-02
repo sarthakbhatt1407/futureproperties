@@ -240,9 +240,13 @@ const SelectionBox = styled.div`
   div {
     div {
       span {
-        color: red;
-        margin-top: 0.1rem;
-        z-index: 10;
+        @media only screen and (min-width: 0px) and (max-width: 700px) {
+          display: grid;
+          position: absolute;
+          top: 50%;
+          left: 3%;
+          transform: translate(0%, -50%);
+        }
       }
     }
   }
@@ -329,7 +333,7 @@ const Header = () => {
           <AutoComplete
             style={{
               width: "100%",
-              height: "3.4rem",
+              height: 45,
             }}
             placeholder={`Search by city - ${p}`}
             onSelect={(e) => {
