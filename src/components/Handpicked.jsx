@@ -14,7 +14,7 @@ const ImgBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 45svh;
+  height: 80svh;
   background-image: url(${(props) => props.bg});
   background-repeat: no-repeat;
   background-size: cover;
@@ -23,7 +23,9 @@ const ImgBox = styled.div`
   -webkit-box-shadow: inset 0px 0px 50px 70px rgba(0, 0, 0, 0.43);
   -moz-box-shadow: inset 0px 0px 50px 70px rgba(0, 0, 0, 0.43);
   box-shadow: inset 0px 0px 50px 70px rgba(0, 0, 0, 0.43);
-
+  @media only screen and (min-width: 0px) and (max-width: 700px) {
+    height: 45svh;
+  }
   div {
     padding: 1rem;
     span {
@@ -205,8 +207,12 @@ const Handpicked = () => {
           See All <FaChevronRight />
         </Link>
       </HeaderBox>
-      <Carousel autoplay>
-        {/* style={{ width: "70%", height: "70svh", margin: "auto" }} */}
+      <Carousel
+        autoplay
+        style={
+          window.screen.width > 700 ? { width: "90%", margin: "auto" } : ""
+        }
+      >
         {properties.map((p) => {
           return (
             <ImgBox key={p.image} bg={p.image}>
