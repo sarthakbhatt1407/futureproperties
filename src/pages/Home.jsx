@@ -57,7 +57,6 @@ const Home = () => {
         <OurWork />
         <News />
         <Videos />
-
         <ContactsUs />
         <Footer />
       </ContentBox>

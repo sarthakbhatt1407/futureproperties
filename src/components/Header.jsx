@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PcNav from "./PcNav";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
@@ -112,7 +112,8 @@ const InpBox = styled.div`
 
 const MobileSearchBox = styled.div`
   overflow: hidden;
-  height: 90%;
+  height: 85%;
+
   /* background-color: red; */
   padding: 0 0.6rem;
   display: flex;
@@ -124,11 +125,11 @@ const MobileSearchBox = styled.div`
   div {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+
     p {
       font-size: 0.9rem;
       width: 100%;
-      margin: -0.1rem auto;
+      margin: 0.7rem auto;
       display: flex;
       gap: 0.4rem;
       align-items: center;
@@ -146,7 +147,7 @@ const MobileSearchBox = styled.div`
       flex-direction: column;
       text-transform: uppercase;
       font-size: 1.8rem;
-      margin: 0;
+      margin-top: 0;
       font-weight: 700;
     }
     button {
@@ -233,7 +234,22 @@ const OwnerBox = styled.div`
   }
 `;
 
+const SelectionBox = styled.div`
+  display: flex;
+
+  div {
+    div {
+      span {
+        color: red;
+        margin-top: 0.1rem;
+        z-index: 10;
+      }
+    }
+  }
+`;
+
 const Header = () => {
+  const [p, setP] = useState("Dehradun");
   const options = [
     {
       value: "Dehradun",
@@ -245,6 +261,16 @@ const Header = () => {
       value: "Haridwar",
     },
   ];
+  let c = 1;
+
+  setInterval(() => {
+    if (c == 3) {
+      c = 0;
+    }
+    setP(options[c].value);
+    c++;
+  }, 2000);
+
   return (
     <MainBox>
       <PcNav />
@@ -255,7 +281,7 @@ const Header = () => {
               <span>find your dream house</span>
               <span>in your city</span>
             </h1>
-            <InpBox className="lll">
+            <InpBox>
               <AutoComplete
                 style={{
                   width: "38rem",
@@ -290,7 +316,7 @@ const Header = () => {
           <img src={logo} alt="" />
           <span>Future properties</span>
         </TextBox>
-        <div>
+        <SelectionBox>
           <h1 data-aos="zoom-in">
             <span>find your dream house</span>
           </h1>
@@ -298,13 +324,13 @@ const Header = () => {
           <AutoComplete
             style={{
               width: "100%",
-              height: 40,
+              height: "3.4rem",
             }}
+            placeholder={`Search by city - ${p}`}
             onSelect={(e) => {
               console.log(e);
             }}
             options={options}
-            placeholder=""
             filterOption={(inputValue, option) =>
               option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
               -1
@@ -316,7 +342,7 @@ const Header = () => {
           </p>
           <button data-aos="zoom-in">Search</button>
           {/* <img data-aos="zoom-in" src={home} alt="" /> */}
-        </div>
+        </SelectionBox>
       </MobileSearchBox>
       <OwnerBox>
         <span>

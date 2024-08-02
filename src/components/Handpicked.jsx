@@ -12,7 +12,6 @@ const MainBox = styled.div`
 
 const ImgBox = styled.div`
   display: flex;
-
   flex-direction: column;
   justify-content: space-between;
   height: 45svh;
