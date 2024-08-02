@@ -2,7 +2,6 @@ import React from "react";
 import { Carousel } from "antd";
 import styled from "styled-components";
 import { Descriptions } from "antd";
-import PcNav from "../components/PcNav";
 
 const items = [
   {
@@ -64,14 +63,14 @@ const UpperBox = styled.div`
   gap: 1rem;
   @media only screen and (min-width: 0px) and (max-width: 699px) {
     flex-direction: column;
-    padding: 1rem 0;
+    padding: 0;
   }
 `;
 const UpperDetailsBox = styled.div``;
 
 const Property = () => {
   const w = window.screen.width > 700 ? "50vw" : "100vw";
-  const h = window.screen.width > 700 ? "70vh" : "60vh";
+  const h = window.screen.width > 700 ? "70vh" : "35vh";
   const images = [
     {
       url: "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
@@ -94,7 +93,6 @@ const Property = () => {
   ];
   return (
     <>
-      <PcNav />
       <MainBox>
         <UpperBox>
           <SliderBox>

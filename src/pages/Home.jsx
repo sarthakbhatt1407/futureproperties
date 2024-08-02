@@ -11,6 +11,7 @@ import MostViewed from "../components/MostViewed";
 import News from "../components/News";
 import Videos from "../components/Videos";
 import Slideshow from "../components/Slideshow";
+import Handpicked from "../components/Handpicked";
 
 const MainBox = styled.div`
   position: relative;
@@ -51,6 +52,7 @@ const Home = () => {
         <Header />
         <PropertyCategory />
         <Trending />
+        <Handpicked />
         <MostViewed />
         <OurWork />
         <News />
