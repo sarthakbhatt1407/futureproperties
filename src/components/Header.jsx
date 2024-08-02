@@ -239,7 +239,7 @@ const SelectionBox = styled.div`
 
   div {
     div {
-      span {
+      span:not(:first-child) {
         @media only screen and (min-width: 0px) and (max-width: 700px) {
           display: grid;
           position: absolute;
