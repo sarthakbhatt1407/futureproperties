@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PcNav from "./PcNav";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
@@ -263,13 +263,18 @@ const Header = () => {
   ];
   let c = 1;
 
-  setInterval(() => {
-    if (c == 3) {
-      c = 0;
-    }
-    setP(options[c].value);
-    c++;
-  }, 2000);
+  useEffect(() => {
+    const intv = setInterval(() => {
+      if (c == 3) {
+        c = 0;
+      }
+      setP(options[c].value);
+      c++;
+    }, 2000);
+    return () => {
+      clearInterval(intv);
+    };
+  }, []);
 
   return (
     <MainBox>
