@@ -107,7 +107,8 @@ const MobileNavDiv = styled.div`
   }
 `;
 
-const PcNav = () => {
+const PcNav = (props) => {
+  const show = props.show;
   return (
     <>
       <MainDiv data-aos="fade-down">
@@ -126,17 +127,19 @@ const PcNav = () => {
           </Link>
         </RightDiv>
       </MainDiv>
-      <MobileNavDiv>
-        <span>
-          <IoLocationOutline /> Dehradun
-        </span>
-        <div>
-          <span>List Property</span>
+      {show && (
+        <MobileNavDiv>
           <span>
-            <VscAccount />
+            <IoLocationOutline /> Dehradun
           </span>
-        </div>
-      </MobileNavDiv>
+          <div>
+            <span>List Property</span>
+            <span>
+              <VscAccount />
+            </span>
+          </div>
+        </MobileNavDiv>
+      )}
     </>
   );
 };

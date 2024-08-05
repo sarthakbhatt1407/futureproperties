@@ -72,13 +72,29 @@ const UpperDetailsBox = styled.div`
     letter-spacing: 0.03rem;
   }
   p {
-    display: flex;
+    display: none;
     gap: 1rem;
     font-size: 0.9rem;
     span {
       background-color: #e4e8f1;
       padding: 0.2rem 0.5rem;
       border-radius: 0.2rem;
+    }
+  }
+  @media only screen and (min-width: 0px) and (max-width: 700px) {
+    h1 {
+      font-size: 1.6rem;
+    }
+    h2 {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+    }
+    h3 {
+      font-size: 1rem;
+      margin-top: -0.5rem;
+    }
+    p {
+      display: flex;
     }
   }
 `;
@@ -104,6 +120,7 @@ const AniBox = styled.div`
       align-items: center;
       gap: 0.5rem;
       padding: 1rem;
+      text-align: center;
       i {
         border-radius: 50%;
         width: 1rem;
@@ -112,6 +129,28 @@ const AniBox = styled.div`
         padding-top: 0.8rem;
         svg {
           transform: scale(1.3);
+        }
+      }
+    }
+  }
+  @media only screen and (min-width: 0px) and (max-width: 700px) {
+    width: 100%;
+    padding: 1rem 0;
+    p {
+      font-size: 1.3rem;
+    }
+    div {
+      align-items: start;
+      div {
+        padding: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        i {
+          padding: 0.5rem 0.7rem;
+          padding-bottom: 0.7rem;
+          svg {
+            transform: scale(1);
+          }
         }
       }
     }
@@ -172,7 +211,7 @@ const Property = () => {
     <>
       <MainBox>
         <ContentBox>
-          <PcNav />
+          <PcNav show={false} />
           <UpperBox>
             <SliderBox>
               <Carousel
@@ -210,10 +249,10 @@ const Property = () => {
               <Divider />
               <h3>{property.desc}</h3>
               <h4>{property.address}</h4>
-              {/* <p>
+              <p>
                 <span>{property.propertystatus}</span>{" "}
                 <span>{property.furnishing}</span>
-              </p>{" "} */}
+              </p>{" "}
               <Divider />
               <AniBox>
                 <p>
