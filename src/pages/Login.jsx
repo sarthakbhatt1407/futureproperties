@@ -11,19 +11,42 @@ const LoginBox = styled.div`
   height: 100svh;
   justify-content: center;
   align-items: center;
+  div {
+    z-index: 100000;
+  }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
-    height: 100svh;
   }
 `;
 const Login = () => {
   useEffect(() => {
-    window.otpless = (otplessUser) => {
-      alert(JSON.stringify(otplessUser));
+    // Create and append the script
+    const script = document.createElement("script");
+    script.id = "otpless-sdk";
+    script.type = "text/javascript";
+    script.src = "https://otpless.com/v2/auth.js";
+    script.dataset.appid = "HXJEOACUY6ND36A5JIJZ";
+    document.body.appendChild(script);
+
+    // Initialize the SDK or handle any setup after the script loads
+    script.onload = () => {
+      // Assuming the SDK provides a global object or function
+      if (window.Otpless) {
+        // Initialize or configure Otpless SDK here
+        window.Otpless.initialize({
+          /* options */
+        });
+      }
+    };
+
+    // Clean up by removing the script when the component unmounts
+    return () => {
+      document.body.removeChild(script);
     };
   }, []);
   return (
     <MainBox>
       {/* <PcNav /> */}
+      <MobileNav />
       <LoginBox>
         <div id="otpless-login-page"></div>
       </LoginBox>
