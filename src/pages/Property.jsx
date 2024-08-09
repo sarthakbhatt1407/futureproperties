@@ -1,12 +1,18 @@
 import React from "react";
-import { Carousel, Divider, Image } from "antd";
+import { Avatar, Carousel, Divider, Image } from "antd";
 import styled from "styled-components";
 import { Descriptions } from "antd";
 import MobileNav from "../components/MobileNav";
 import PcNav from "../components/PcNav";
 import { BiArea } from "react-icons/bi";
-import { FaHouseChimneyWindow, FaIndianRupeeSign } from "react-icons/fa6";
+import {
+  FaHouseChimneyWindow,
+  FaIndianRupeeSign,
+  FaPhone,
+  FaUser,
+} from "react-icons/fa6";
 import { FaChartPie, FaRegCompass } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 const MainBox = styled.div`
   position: relative;
@@ -140,11 +146,15 @@ const AniBox = styled.div`
       font-size: 1.3rem;
     }
     div {
-      align-items: start;
+      align-items: center;
+      justify-content: center;
       div {
         padding: 0.5rem;
         justify-content: center;
         align-items: center;
+        span {
+          font-size: 0.9rem;
+        }
         i {
           padding: 0.5rem 0.7rem;
           padding-bottom: 0.7rem;
@@ -162,14 +172,80 @@ const LowerBox = styled.div`
 `;
 const DescAndContactBox = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2.9fr 1fr;
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     grid-template-columns: 1fr;
   }
 `;
 const DescBox = styled.div``;
+const LoginBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  height: fit-content;
+  padding: 1rem 0;
+  /* gap: 2rem; */
+  background-color: #ebe8e6;
+  h6 {
+    margin: 0;
+    font-size: 2rem;
+    @media only screen and (min-width: 0px) and (max-width: 700px) {
+      font-size: 1.8rem;
+    }
+  }
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    p {
+      margin: 0;
+      display: flex;
+      font-size: 1.2rem;
+      gap: 0.5rem;
+
+      span {
+        font-size: 0.8rem;
+      }
+    }
+  }
+  p {
+    margin: 0;
+    font-size: 2rem;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media only screen and (min-width: 0px) and (max-width: 700px) {
+      font-size: 1.9rem;
+    }
+  }
+  button {
+    border: none;
+    margin: 1rem 0;
+    background-color: #3f7bfe;
+    color: white;
+    padding: 0.7rem 3rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  span:not(:last-child) {
+    letter-spacing: 0.07rem;
+    font-size: 0.9rem;
+    color: #282727;
+    @media only screen and (min-width: 0px) and (max-width: 700px) {
+      font-size: 0.8rem;
+    }
+  }
+`;
 
 const Property = () => {
+  const navigate = useNavigate();
   const w = window.screen.width > 700 ? "52vw" : "100vw";
   const h = window.screen.width > 700 ? "83vh" : "35vh";
   const images = [
@@ -303,10 +379,11 @@ const Property = () => {
                   <li>3 Bedrooms , 4 Bathrooms, 2 Balconies with Pooja Room</li>
                 </ul>
               </AniBox>
-              <Divider />
             </UpperDetailsBox>
           </UpperBox>
           <LowerBox>
+            {" "}
+            <Divider />
             <DescAndContactBox>
               <DescBox>
                 <Descriptions
@@ -432,21 +509,35 @@ const Property = () => {
                       {property.facingRoad}
                     </span>
                   </Descriptions.Item>{" "}
-                  <Descriptions.Item label="desc">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      3 Bedrooms , 4 Bathrooms, 2 Balconies with Pooja Room
-                    </span>
-                  </Descriptions.Item>
                 </Descriptions>
               </DescBox>
+
+              <LoginBox>
+                <h6>Seller Details</h6>
+                <Divider />
+                <div>
+                  <Avatar
+                    style={{ backgroundColor: "#87d068" }}
+                    icon={<FaUser />}
+                  />
+                  <p>
+                    Sarthak bhatt <span> (Since 2020)</span>
+                  </p>
+                </div>
+                <p>
+                  <FaPhone /> +91-789XXXXXX4
+                </p>
+                <span>Login to see full contact details.</span>
+                <button
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Login
+                </button>
+              </LoginBox>
             </DescAndContactBox>
+            <Divider />
           </LowerBox>
           <MobileNav />
         </ContentBox>
