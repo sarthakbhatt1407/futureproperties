@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa6";
 import { FaChartPie, FaRegCompass } from "react-icons/fa";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const MainBox = styled.div`
   position: relative;
@@ -533,7 +534,9 @@ const Property = () => {
                     navigate("/login");
                   }}
                 >
-                  Login
+                  {/* <Link to={"/login"}>Login</Link>
+                   */}
+                  <a href="/login">Login</a>
                 </button>
               </LoginBox>
             </DescAndContactBox>
