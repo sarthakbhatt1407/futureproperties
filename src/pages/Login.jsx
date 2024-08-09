@@ -8,13 +8,16 @@ const MainBox = styled.div``;
 const LoginBox = styled.div`
   margin-top: 1rem;
   display: flex;
-  height: 100svh;
+  height: 85svh;
   justify-content: center;
   align-items: center;
+
   div {
     z-index: 100000;
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
+    padding: 1rem;
+    height: 90svh;
   }
 `;
 const Login = () => {
@@ -45,8 +48,7 @@ const Login = () => {
   }, []);
   return (
     <MainBox>
-      {/* <PcNav /> */}
-      <MobileNav />
+      <PcNav />
       <LoginBox>
         <div id="otpless-login-page"></div>
       </LoginBox>

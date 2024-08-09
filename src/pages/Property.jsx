@@ -234,6 +234,10 @@ const LoginBox = styled.div`
     font-size: 1.2rem;
     text-transform: uppercase;
     font-weight: 600;
+    a {
+      color: black;
+      text-decoration: none;
+    }
   }
   span:not(:last-child) {
     letter-spacing: 0.07rem;
@@ -534,9 +538,7 @@ const Property = () => {
                     navigate("/login");
                   }}
                 >
-                  {/* <Link to={"/login"}>Login</Link>
-                   */}
-                  <a href="/login">Login</a>
+                  Login
                 </button>
               </LoginBox>
             </DescAndContactBox>
