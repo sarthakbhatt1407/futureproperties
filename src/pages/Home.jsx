@@ -12,6 +12,7 @@ import News from "../components/News";
 import Videos from "../components/Videos";
 import Slideshow from "../components/Slideshow";
 import Handpicked from "../components/Handpicked";
+import MobileBottomNavigation from "../components/MobileBottomNavigation";
 
 const MainBox = styled.div`
   position: relative;
@@ -60,7 +61,8 @@ const Home = () => {
         <ContactsUs />
         <Footer />
       </ContentBox>
-      <MobileNav />
+      <MobileBottomNavigation view={0} />
+      {/* <MobileNav /> */}
     </MainBox>
   );
 };

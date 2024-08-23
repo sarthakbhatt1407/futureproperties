@@ -14,11 +14,15 @@ import {
 import { FaChartPie, FaRegCompass } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import MobileBottomNavigation from "../components/MobileBottomNavigation";
+import News from "../components/News";
+import MostViewd from "../components/MostViewed";
+import Footer from "../components/Footer";
 
 const MainBox = styled.div`
   position: relative;
   height: 100svh;
-  background-color: #fafafa;
+  background-color: #f5f5f5;
 `;
 const ContentBox = styled.div`
   height: 100svh;
@@ -54,6 +58,7 @@ const UpperBox = styled.div`
   display: flex;
   padding: 1rem;
   gap: 1rem;
+
   @media only screen and (min-width: 0px) and (max-width: 699px) {
     flex-direction: column;
     padding: 0;
@@ -169,16 +174,24 @@ const AniBox = styled.div`
 `;
 
 const LowerBox = styled.div`
-  padding: 1rem;
+  /* padding: 1rem; */
 `;
 const DescAndContactBox = styled.div`
   display: grid;
   grid-template-columns: 2.9fr 1fr;
+  background-color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.7rem;
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     grid-template-columns: 1fr;
   }
 `;
-const DescBox = styled.div``;
+const DescBox = styled.div`
+  margin: 0 1rem;
+  @media only screen and (min-width: 0px) and (max-width: 700px) {
+    margin: 1rem 0;
+  }
+`;
 const LoginBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -188,7 +201,7 @@ const LoginBox = styled.div`
   height: fit-content;
   padding: 1rem 0;
   /* gap: 2rem; */
-  background-color: #ebe8e6;
+  background-color: #f6f6f6;
   h6 {
     margin: 0;
     font-size: 2rem;
@@ -393,6 +406,7 @@ const Property = () => {
               <DescBox>
                 <Descriptions
                   title="Property details"
+                  bordered
                   style={{ textTransform: "capitalize" }}
                 >
                   <Descriptions.Item label="title">
@@ -541,11 +555,14 @@ const Property = () => {
                   Login
                 </button>
               </LoginBox>
-            </DescAndContactBox>
+            </DescAndContactBox>{" "}
+            <MostViewd /> <Divider />
+            <News />
             <Divider />
+            <Footer />
           </LowerBox>
-          <MobileNav />
         </ContentBox>
+        <MobileBottomNavigation view={1} />
       </MainBox>
     </>
   );
