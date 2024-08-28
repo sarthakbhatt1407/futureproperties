@@ -6,6 +6,7 @@ import "aos/dist/aos.css";
 import styled from "styled-components";
 import Property from "./pages/Property";
 import Login from "./pages/Login";
+import AllProperties from "./pages/AllProperties";
 
 const MainDiv = styled.div`
   max-height: 100svh;
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/property" element={<Property />} />
+        <Route path="/properties" element={<AllProperties />} />
       </Routes>
     </MainDiv>
   );

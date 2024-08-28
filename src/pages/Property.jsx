@@ -290,6 +290,7 @@ const Property = () => {
   const property = {
     title: "3 BHK Flat",
     price: "1.5 Cr",
+    category: "Flat",
     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
     address: "Mayur Vihar 1, Dehradun",
     furnishing: "Furnished",

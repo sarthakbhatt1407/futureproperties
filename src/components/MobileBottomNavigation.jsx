@@ -32,6 +32,9 @@ export default function MobileBottomNavigation(props) {
           />
           <BottomNavigationAction
             label="Property"
+            onClick={() => {
+              navigate("/properties");
+            }}
             icon={<ApartmentOutlinedIcon />}
           />
           <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
