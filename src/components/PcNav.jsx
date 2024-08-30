@@ -117,10 +117,10 @@ const PcNav = (props) => {
           <span>future Properties</span>
         </LeftDiv>
         <RightDiv>
-          <Link>Home</Link>
-          <Link>Properties</Link>
+          <Link to={"/"}>Home</Link>
+          <Link to={"/properties"}>Properties</Link>
           <Link>Contact</Link>
-          <Link>
+          <Link to={"/login"}>
             <AccountCircle
               style={{ transform: "scale(1.3)", color: "#3F7BFF" }}
             />

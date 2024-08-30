@@ -13,6 +13,7 @@ import Videos from "../components/Videos";
 import Slideshow from "../components/Slideshow";
 import Handpicked from "../components/Handpicked";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
+import ReadyToLaunch from "../components/ReadyToLaunch";
 
 const MainBox = styled.div`
   position: relative;
@@ -59,6 +60,7 @@ const Home = () => {
         <News />
         <Videos />
         <ContactsUs />
+        <ReadyToLaunch />
         <Footer />
       </ContentBox>
       <MobileBottomNavigation view={0} />

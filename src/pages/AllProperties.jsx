@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
 import PcNav from "../components/PcNav";
 import { Link } from "react-router-dom";
-
+import { Select, Space } from "antd";
 import { BiArea } from "react-icons/bi";
 import { FaRegCompass } from "react-icons/fa";
 import { GrStatusGood } from "react-icons/gr";
 import { HiOutlineHomeModern } from "react-icons/hi2";
+import Footer from "../components/Footer";
+import ReadyToLaunch from "../components/ReadyToLaunch";
 const MainBox = styled.div`
   position: relative;
   height: 100svh;
@@ -19,6 +21,115 @@ const ContentBox = styled.div`
     height: 91.5svh;
   }
 `;
+const SearchBox = styled.div`
+  width: 85%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  div:first-child {
+    padding: 1rem 0;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    p {
+      margin: 0;
+    }
+    h2 {
+      margin: 0;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      font-weight: 500;
+      letter-spacing: 0.08rem;
+      color: #242424;
+      text-transform: capitalize;
+    }
+  }
+`;
+
+const DetailPara = styled.p`
+  color: #777;
+  font-size: 1.6rem;
+  @media only screen and (max-width: 1099px) {
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+`;
+const HeadingAndSearch = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin: auto;
+  span {
+    text-transform: capitalize;
+    color: #777;
+    font-size: 1rem;
+    margin-bottom: -2.3rem;
+    margin: 1rem 0;
+  }
+  h1 {
+    text-transform: capitalize;
+    font-size: 3rem;
+    font-weight: 400;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: black;
+  }
+  @media only screen and (max-width: 1099px) {
+    width: 100%;
+    h1 {
+      font-size: 2rem;
+      margin-top: 1rem;
+      margin-bottom: 0rem;
+      padding: 0 1rem;
+    }
+    span {
+      font-size: 0.8rem;
+      margin: 0;
+      margin-left: 1rem;
+    }
+  }
+`;
+
+const FilterAndSearchBox = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 40%;
+  @media only screen and (max-width: 1099px) {
+    width: 95%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    margin-top: -1rem;
+  }
+`;
+const Input = styled.input`
+  width: 70%;
+  padding: 1rem 2rem;
+  border: 1px solid #e8e8e8;
+  border-radius: 3rem;
+  box-shadow: 0.1rem 0.2rem 0.5rem #eaeaea;
+  outline: none;
+  @media only screen and (max-width: 1099px) {
+    width: 70%;
+  }
+`;
+const ResultAndFilter = styled.div`
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  margin: auto;
+  @media only screen and (max-width: 1099px) {
+    width: 97%;
+    flex-direction: column;
+    align-items: start;
+    margin-top: -1rem;
+  }
+`;
+
 const PropertiesBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -233,11 +344,174 @@ const AllProperties = () => {
       image:
         "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
     },
+    {
+      title: "3 BHK Flat",
+      category: "Flat",
+      price: "1.5 Cr",
+      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+      address: "Mayur Vihar 1, Dehradun",
+      furnishing: "Furnished",
+      propertystatus: "Ready to move",
+      area: "2430 sq.ft.",
+      floors: 2,
+      facing: "East Facing",
+      old: "0-5 yrs old",
+      facingRoad: "30 feet road facing road",
+      image:
+        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
+    {
+      title: "3 BHK Flat",
+      category: "Flat",
+      price: "1.5 Cr",
+      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+      address: "Mayur Vihar 1, Dehradun",
+      furnishing: "Furnished",
+      propertystatus: "Ready to move",
+      area: "2430 sq.ft.",
+      floors: 2,
+      facing: "East Facing",
+      old: "0-5 yrs old",
+      facingRoad: "30 feet road facing road",
+      image:
+        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
+    {
+      title: "3 BHK Flat",
+      category: "Flat",
+      price: "1.5 Cr",
+      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+      address: "Mayur Vihar 1, Dehradun",
+      furnishing: "Furnished",
+      propertystatus: "Ready to move",
+      area: "2430 sq.ft.",
+      floors: 2,
+      facing: "East Facing",
+      old: "0-5 yrs old",
+      facingRoad: "30 feet road facing road",
+      image:
+        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
+    {
+      title: "3 BHK Flat",
+      category: "Flat",
+      price: "1.5 Cr",
+      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+      address: "Mayur Vihar 1, Dehradun",
+      furnishing: "Furnished",
+      propertystatus: "Ready to move",
+      area: "2430 sq.ft.",
+      floors: 2,
+      facing: "East Facing",
+      old: "0-5 yrs old",
+      facingRoad: "30 feet road facing road",
+      image:
+        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
+    {
+      title: "3 BHK Flat",
+      category: "Flat",
+      price: "1.5 Cr",
+      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+      address: "Mayur Vihar 1, Dehradun",
+      furnishing: "Furnished",
+      propertystatus: "Ready to move",
+      area: "2430 sq.ft.",
+      floors: 2,
+      facing: "East Facing",
+      old: "0-5 yrs old",
+      facingRoad: "30 feet road facing road",
+      image:
+        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
+    {
+      title: "3 BHK Flat",
+      category: "Flat",
+      price: "1.5 Cr",
+      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+      address: "Mayur Vihar 1, Dehradun",
+      furnishing: "Furnished",
+      propertystatus: "Ready to move",
+      area: "2430 sq.ft.",
+      floors: 2,
+      facing: "East Facing",
+      old: "0-5 yrs old",
+      facingRoad: "30 feet road facing road",
+      image:
+        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+    },
   ];
+  const defaultField = [
+    {
+      value: "Popularity",
+      label: "Popularity",
+    },
+    {
+      value: "lowToHigh",
+      label: "Price: Low to High",
+    },
+    {
+      value: "highToLow",
+      label: "Price: High to Low",
+    },
+  ];
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+
   return (
     <MainBox>
       <ContentBox>
         <PcNav show={true} />
+
+        <HeadingAndSearch>
+          <span>Home / Properties</span>
+          <h1>All properties</h1>
+        </HeadingAndSearch>
+        <ResultAndFilter>
+          <DetailPara>Showing all results</DetailPara>{" "}
+          <FilterAndSearchBox>
+            <Input type="text" id="search" placeholder="Search products..." />
+
+            <Select
+              defaultValue="Popularity"
+              style={{
+                width: "15rem",
+                height: "3rem",
+              }}
+              dropdownStyle={{
+                textTransform: "capitalize",
+                width: "fit-content",
+              }}
+              onChange={handleChange}
+              options={defaultField}
+            />
+          </FilterAndSearchBox>
+        </ResultAndFilter>
+        {/* <SearchBox>
+          <div>
+            <p>Home/Properties</p>
+            <h2>all-properties</h2>
+          </div>
+          <div>
+            <input type="text" />
+            <Space wrap>
+              <p>Sort by :</p>
+              <Select
+                defaultValue="Popularity"
+                style={{
+                  width: "fit-content",
+                }}
+                dropdownStyle={{
+                  textTransform: "capitalize",
+                  width: "fit-content",
+                }}
+                onChange={handleChange}
+                options={defaultField}
+              />
+            </Space>
+          </div>
+        </SearchBox> */}
         <PropertiesBox>
           {properties.map((item) => {
             return (
@@ -245,7 +519,6 @@ const AllProperties = () => {
                 <PropertyBox>
                   <LeftDiv>
                     <img src={item.image.split(",")[0]} alt="" />
-
                     <p>
                       Seller : <span>Sarthak Bhatt</span>
                     </p>
@@ -300,6 +573,8 @@ const AllProperties = () => {
             );
           })}
         </PropertiesBox>
+        <ReadyToLaunch />
+        <Footer />
       </ContentBox>
       <MobileBottomNavigation view={1} />
       {/* <MobileNav /> */}
