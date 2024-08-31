@@ -11,31 +11,15 @@ const MainDiv = styled.div`
   border-radius: 0.7rem;
   display: grid;
   overflow-x: hidden;
-  grid-template-columns: 0.6fr 1fr;
+  grid-template-columns: 0.7fr 1fr;
   height: fit-content;
   background-color: #fff8e2;
 
-  /* &::before {
-    content: "";
-    background: url(${(props) => props.ready});
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: -1;
-    opacity: 1;
-    filter: blur(7px);
-    @media only screen and (min-width: 0px) and (max-width: 800px) {
-      filter: blur(10px);
-    }
-  } */
   @media only screen and (min-width: 0px) and (max-width: 800px) {
+    width: 90%;
     grid-template-columns: 1fr;
-    padding-bottom: 5rem;
+    height: fit-content;
+    padding: 1rem 0;
   }
 `;
 const LeftDiv = styled.div`
@@ -46,22 +30,27 @@ const LeftDiv = styled.div`
   justify-content: center;
 
   h2 {
-    font-size: 2.3rem;
+    font-size: 2.2rem;
     margin: 0;
   }
   p {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: #5c5c5c;
-    width: 100%;
+    width: 90%;
     margin: 0;
   }
   @media only screen and (min-width: 0px) and (max-width: 800px) {
     align-items: center;
     gap: 1rem;
+    padding: 0 1rem;
+    h2 {
+      font-size: 2rem;
+    }
     p {
       width: 100%;
       text-align: center;
       color: #393939;
+      font-size: 1rem;
     }
   }
 `;
