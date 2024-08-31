@@ -282,7 +282,6 @@ const Header = () => {
 
   return (
     <MainBox>
-      <PcNav show={true} />
       <SearchBox>
         <InpImgBox>
           <InpTextBox data-aos="fade-right">

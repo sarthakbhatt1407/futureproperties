@@ -14,6 +14,7 @@ import Slideshow from "../components/Slideshow";
 import Handpicked from "../components/Handpicked";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
 import ReadyToLaunch from "../components/ReadyToLaunch";
+import PcNav from "../components/PcNav";
 
 const MainBox = styled.div`
   position: relative;
@@ -51,6 +52,7 @@ const Home = () => {
   return (
     <MainBox>
       <ContentBox>
+        <PcNav show={true} clr={"#EFEFEE"} />
         <Header />
         <PropertyCategory />
         <Trending />

@@ -69,6 +69,7 @@ const RightDiv = styled.div`
 
 const MobileNavDiv = styled.div`
   display: none;
+
   @media only screen and (min-width: 0px) and (max-width: 699px) {
     display: flex;
     justify-content: space-between;
@@ -109,9 +110,10 @@ const MobileNavDiv = styled.div`
 
 const PcNav = (props) => {
   const show = props.show;
+  const clr = props.clr;
   return (
     <>
-      <MainDiv data-aos="fade-down">
+      <MainDiv data-aos="fade-down" clr={clr}>
         <LeftDiv>
           <img src={logo} alt="" />
           <span>future Properties</span>
@@ -128,7 +130,11 @@ const PcNav = (props) => {
         </RightDiv>
       </MainDiv>
       {show && (
-        <MobileNavDiv>
+        <MobileNavDiv
+          style={{
+            backgroundColor: `${clr ? clr : "white"}`,
+          }}
+        >
           <span>
             <IoLocationOutline /> Dehradun
           </span>
