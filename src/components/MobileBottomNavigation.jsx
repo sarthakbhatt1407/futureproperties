@@ -5,7 +5,11 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
-import { AccountCircle, Home } from "@mui/icons-material";
+import {
+  AccountCircle,
+  ChatBubbleOutlineOutlined,
+  Home,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
@@ -37,7 +41,10 @@ export default function MobileBottomNavigation(props) {
             }}
             icon={<ApartmentOutlinedIcon />}
           />
-          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationAction
+            label="Queries"
+            icon={<ChatBubbleOutlineOutlined />}
+          />
           <BottomNavigationAction
             label="Account"
             onClick={() => {

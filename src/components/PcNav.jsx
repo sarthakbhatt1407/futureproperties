@@ -113,7 +113,7 @@ const PcNav = (props) => {
   const clr = props.clr;
   return (
     <>
-      <MainDiv data-aos="fade-down" clr={clr}>
+      <MainDiv clr={clr}>
         <LeftDiv>
           <img src={logo} alt="" />
           <span>future Properties</span>

@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Property from "./pages/Property";
 import Login from "./pages/Login";
 import AllProperties from "./pages/AllProperties";
+import Profile from "./pages/Profile";
 
 const MainDiv = styled.div`
   max-height: 100svh;
@@ -28,7 +29,8 @@ const App = () => {
     <MainDiv>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Profile />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/property" element={<Property />} />
         <Route path="/properties" element={<AllProperties />} />
       </Routes>
