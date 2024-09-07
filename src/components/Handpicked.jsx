@@ -80,8 +80,11 @@ const HeaderBox = styled.div`
     }
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
+    h2 {
+      font-size: 1.35rem;
+    }
     a {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 `;
@@ -215,21 +218,23 @@ const Handpicked = () => {
       >
         {properties.map((p) => {
           return (
-            <ImgBox key={p.image} bg={p.image}>
-              <div>
-                <span>Dehradun</span>
-              </div>
-              <LowerBox>
-                <p>
-                  <span> {p.area}</span>
-                  <span>Mayur Vihar</span>
-                </p>
-                <p>
-                  <span>{p.title}</span>
-                  <span>{p.price}</span>
-                </p>
-              </LowerBox>
-            </ImgBox>
+            <Link to={"/property"}>
+              <ImgBox key={p.image} bg={p.image}>
+                <div>
+                  <span>Dehradun</span>
+                </div>
+                <LowerBox>
+                  <p>
+                    <span> {p.area}</span>
+                    <span>Mayur Vihar</span>
+                  </p>
+                  <p>
+                    <span>{p.title}</span>
+                    <span>{p.price}</span>
+                  </p>
+                </LowerBox>
+              </ImgBox>
+            </Link>
           );
         })}
       </Carousel>

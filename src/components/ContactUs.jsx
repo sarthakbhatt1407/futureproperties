@@ -6,6 +6,7 @@ import { message } from "antd";
 const MainDiv = styled.div`
   width: 90%;
   margin: 0 auto;
+  margin-top: 1rem;
   background-color: #f6f5f59b;
   display: grid;
   grid-template-columns: 1fr 1fr;

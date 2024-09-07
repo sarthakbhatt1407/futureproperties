@@ -27,7 +27,7 @@ const MainBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 80%;
+  width: 90%;
   margin: auto;
   p {
     margin-top: 1rem;
@@ -76,14 +76,14 @@ const LinksBox = styled.div`
   align-items: start;
   background-color: white;
   button {
-    width: 23rem;
-    padding: 2rem;
+    width: 20rem;
+    padding: 2rem 1rem;
     background-color: white;
     padding-left: 2rem;
     display: flex;
     align-items: center;
     justify-content: start;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     gap: 1rem;
     border: none;
     transition: all 1s;

@@ -8,6 +8,9 @@ import Property from "./pages/Property";
 import Login from "./pages/Login";
 import AllProperties from "./pages/AllProperties";
 import Profile from "./pages/Profile";
+import Contact from "./pages/Contact";
+import AllNews from "./pages/AllNews";
+import NewsDetail from "./pages/NewsDetail";
 
 const MainDiv = styled.div`
   max-height: 100svh;
@@ -33,6 +36,9 @@ const App = () => {
         {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/property" element={<Property />} />
         <Route path="/properties" element={<AllProperties />} />
+        <Route path="/contact-us" element={<Contact />} />
+        <Route path="/news" element={<AllNews />} />
+        <Route path="/news/1" element={<NewsDetail />} />
       </Routes>
     </MainDiv>
   );

@@ -8,6 +8,7 @@ import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
 import {
   AccountCircle,
   ChatBubbleOutlineOutlined,
+  EmailOutlined,
   Home,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router";

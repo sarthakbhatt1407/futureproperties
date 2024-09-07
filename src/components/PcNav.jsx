@@ -121,7 +121,7 @@ const PcNav = (props) => {
         <RightDiv>
           <Link to={"/"}>Home</Link>
           <Link to={"/properties"}>Properties</Link>
-          <Link>Contact</Link>
+          <Link to={"/contact-us"}>Contact</Link>
           <Link to={"/login"}>
             <AccountCircle
               style={{ transform: "scale(1.3)", color: "#3F7BFF" }}
@@ -141,7 +141,18 @@ const PcNav = (props) => {
           <div>
             <span>List Property</span>
             <span>
-              <VscAccount />
+              <Link
+                to={"/login"}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <VscAccount />
+              </Link>
             </span>
           </div>
         </MobileNavDiv>

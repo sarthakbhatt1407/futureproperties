@@ -471,7 +471,7 @@ const AllProperties = () => {
         <ResultAndFilter>
           <DetailPara>Showing all results</DetailPara>{" "}
           <FilterAndSearchBox>
-            <Input type="text" id="search" placeholder="Search products..." />
+            <Input type="text" id="search" placeholder="Search Properties..." />
 
             <Select
               defaultValue="Popularity"
@@ -483,7 +483,6 @@ const AllProperties = () => {
                 textTransform: "capitalize",
                 width: "fit-content",
               }}
-              onChange={handleChange}
               options={defaultField}
             />
           </FilterAndSearchBox>

@@ -122,12 +122,13 @@ const MobileSearchBox = styled.div`
   align-items: center;
   position: relative;
   z-index: 29;
+  gap: 1rem;
   div {
     display: flex;
     flex-direction: column;
 
     p {
-      font-size: 0.9rem;
+      font-size: 0.8em;
       width: 100%;
       margin: 0.7rem auto;
       display: flex;
@@ -216,6 +217,7 @@ const OwnerBox = styled.div`
     display: flex;
     gap: 0.5rem;
     color: #ecebeb;
+    font-size: 0.9rem;
     a {
       color: white;
       letter-spacing: 0.06rem;
@@ -236,7 +238,11 @@ const OwnerBox = styled.div`
 
 const SelectionBox = styled.div`
   display: flex;
-
+  h1 {
+    span {
+      font-size: 1.7rem;
+    }
+  }
   div {
     div {
       span:not(:first-child) {

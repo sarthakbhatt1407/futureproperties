@@ -42,8 +42,12 @@ const HeaderBox = styled.div`
     }
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
+    margin-top: 1rem;
+    h2 {
+      font-size: 1.2rem;
+    }
     a {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 `;
@@ -105,7 +109,7 @@ const PropertyBox = styled.div`
         height: 6.5rem;
       }
       div {
-        gap: 0.1rem;
+        gap: 0.3rem;
         span {
           font-size: 0.85rem;
         }
@@ -244,7 +248,7 @@ const MostViewd = () => {
         {properties.map((p) => {
           return (
             <PropertyBox key={p.image}>
-              <Link>
+              <Link to={"/property"}>
                 <img src={p.image} alt="" />
                 <div>
                   <span>{p.title}</span>

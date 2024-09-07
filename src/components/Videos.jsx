@@ -42,8 +42,11 @@ const HeaderBox = styled.div`
     }
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
+    h2 {
+      font-size: 1.35rem;
+    }
     a {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 `;
@@ -140,9 +143,6 @@ const Videos = () => {
         <h2>
           Real Estates<span> Updates</span>
         </h2>
-        <Link>
-          See All <FaChevronRight />
-        </Link>
       </HeaderBox>
 
       <PropertiesBox>

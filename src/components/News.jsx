@@ -42,8 +42,11 @@ const HeaderBox = styled.div`
     }
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
+    h2 {
+      font-size: 1.35rem;
+    }
     a {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 `;
@@ -113,7 +116,7 @@ const PropertyBox = styled.div`
 `;
 
 const News = () => {
-  const properties = [
+  const newsArticle = [
     {
       title: "Stamp duties in India's Tier-1 , 2, 3 cities",
       desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
@@ -164,16 +167,16 @@ const News = () => {
         <h2>
           <span>News & Article</span>
         </h2>
-        <Link>
+        <Link to={"/news"}>
           See All <FaChevronRight />
         </Link>
       </HeaderBox>
 
       <PropertiesBox>
-        {properties.map((p) => {
+        {newsArticle.map((p) => {
           return (
             <PropertyBox key={p.image}>
-              <Link>
+              <Link to={"/news/1"}>
                 <img src={p.image} alt="" />
                 <div>
                   <p>{p.title}</p>

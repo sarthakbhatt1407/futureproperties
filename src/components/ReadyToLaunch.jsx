@@ -6,8 +6,9 @@ import { useNavigate } from "react-router";
 
 const MainDiv = styled.div`
   position: relative;
-  width: 87%;
+  width: 90%;
   margin: 0 auto;
+  margin-top: 1rem;
   border-radius: 0.7rem;
   display: grid;
   overflow-x: hidden;
