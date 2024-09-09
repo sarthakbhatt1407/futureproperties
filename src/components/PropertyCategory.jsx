@@ -109,7 +109,7 @@ const PropertyCategory = () => {
       <AllCategoryBox>
         {categories.map((c) => {
           return (
-            <Link>
+            <Link key={c.label}>
               <CatgeoryBox key={c.icon}>
                 <IconBox>{c.icon}</IconBox>
                 <p>{c.label}</p>

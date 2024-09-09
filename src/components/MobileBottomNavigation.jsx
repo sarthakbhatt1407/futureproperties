@@ -13,6 +13,7 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const MainBox = styled.div`
   display: none;
@@ -22,6 +23,7 @@ const MainBox = styled.div`
 `;
 export default function MobileBottomNavigation(props) {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const [value, setValue] = useState(props.view ? props.view : 0);
 
   return (
@@ -46,13 +48,24 @@ export default function MobileBottomNavigation(props) {
             label="Queries"
             icon={<ChatBubbleOutlineOutlined />}
           />
-          <BottomNavigationAction
-            label="Account"
-            onClick={() => {
-              navigate("/login");
-            }}
-            icon={<AccountCircle />}
-          />
+          {isLoggedIn && (
+            <BottomNavigationAction
+              label="Account"
+              onClick={() => {
+                navigate("/profile");
+              }}
+              icon={<AccountCircle />}
+            />
+          )}
+          {!isLoggedIn && (
+            <BottomNavigationAction
+              label="Account"
+              onClick={() => {
+                navigate("/login");
+              }}
+              icon={<AccountCircle />}
+            />
+          )}
         </BottomNavigation>
       </Box>
     </MainBox>

@@ -6,6 +6,7 @@ import logo from "../assets/logo.png";
 import { AccountCircle } from "@mui/icons-material";
 import { IoLocationOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
+import { useSelector } from "react-redux";
 
 const MainDiv = styled.nav`
   display: flex;
@@ -109,6 +110,8 @@ const MobileNavDiv = styled.div`
 `;
 
 const PcNav = (props) => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
   const show = props.show;
   const clr = props.clr;
   return (
@@ -122,11 +125,20 @@ const PcNav = (props) => {
           <Link to={"/"}>Home</Link>
           <Link to={"/properties"}>Properties</Link>
           <Link to={"/contact-us"}>Contact</Link>
-          <Link to={"/login"}>
-            <AccountCircle
-              style={{ transform: "scale(1.3)", color: "#3F7BFF" }}
-            />
-          </Link>
+          {!isLoggedIn && (
+            <Link to={"/login"}>
+              <AccountCircle
+                style={{ transform: "scale(1.3)", color: "#3F7BFF" }}
+              />
+            </Link>
+          )}
+          {isLoggedIn && (
+            <Link to={"/profile"}>
+              <AccountCircle
+                style={{ transform: "scale(1.3)", color: "#3F7BFF" }}
+              />
+            </Link>
+          )}
         </RightDiv>
       </MainDiv>
       {show && (
@@ -141,18 +153,34 @@ const PcNav = (props) => {
           <div>
             <span>List Property</span>
             <span>
-              <Link
-                to={"/login"}
-                style={{
-                  textDecoration: "none",
-                  color: "white",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <VscAccount />
-              </Link>
+              {!isLoggedIn && (
+                <Link
+                  to={"/login"}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <VscAccount />
+                </Link>
+              )}
+              {isLoggedIn && (
+                <Link
+                  to={"/profile"}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <VscAccount />
+                </Link>
+              )}
             </span>
           </div>
         </MobileNavDiv>

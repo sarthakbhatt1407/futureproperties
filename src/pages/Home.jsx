@@ -58,9 +58,10 @@ const Home = () => {
         <Trending />
         <Handpicked />
         <MostViewed />
-        <OurWork />
+
         <News />
         <Videos />
+        <OurWork />
         <ContactsUs />
         <ReadyToLaunch />
         <Footer />

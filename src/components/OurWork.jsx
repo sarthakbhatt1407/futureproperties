@@ -41,6 +41,7 @@ const WorkBox = styled.div`
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     flex-direction: column;
+    gap: 0.7rem;
   }
 `;
 

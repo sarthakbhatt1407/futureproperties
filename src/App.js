@@ -11,13 +11,23 @@ import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
 import AllNews from "./pages/AllNews";
 import NewsDetail from "./pages/NewsDetail";
+import { useDispatch, useSelector } from "react-redux";
+import Error from "./pages/Error";
 
 const MainDiv = styled.div`
   max-height: 100svh;
 `;
 
 const App = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
   useEffect(() => {
+    const localStr = JSON.parse(localStorage.getItem("state"));
+
+    if (localStr) {
+      dispatch({ type: "reload", data: { ...localStr } });
+    }
     AOS.init({
       once: true,
       duration: 650,
@@ -31,14 +41,27 @@ const App = () => {
   return (
     <MainDiv>
       <Routes>
+        {!isLoggedIn && <Route path="/login" element={<Login />} />}
+        {isLoggedIn && <Route path="/login" element={<Home />} />}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Profile />} />
-        {/* <Route path="/login" element={<Login />} /> */}
+
         <Route path="/property" element={<Property />} />
         <Route path="/properties" element={<AllProperties />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/news" element={<AllNews />} />
         <Route path="/news/1" element={<NewsDetail />} />
+
+        {isLoggedIn && (
+          <>
+            <Route path="/profile" element={<Profile />} />
+          </>
+        )}
+        {!isLoggedIn && (
+          <>
+            <Route path="/profile" element={<Login />} />
+          </>
+        )}
+        <Route path="*" element={<Error />} />
       </Routes>
     </MainDiv>
   );
