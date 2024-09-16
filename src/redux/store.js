@@ -6,7 +6,7 @@ const defaultState = {
   userName: "",
   userContact: null,
   userSince: "",
-  city: "",
+  city: "dehradun",
 };
 
 const storeReducer = (state = defaultState, action) => {
@@ -40,6 +40,9 @@ const storeReducer = (state = defaultState, action) => {
   if (action.type === "logout") {
     localStorage.clear();
     return { ...defaultState };
+  }
+  if (action.type === "city") {
+    return { ...state, city: action.city.toLowerCase().trim() };
   }
 
   if (action.type === "reload") {

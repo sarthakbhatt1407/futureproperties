@@ -45,7 +45,7 @@ const App = () => {
         {isLoggedIn && <Route path="/login" element={<Home />} />}
         <Route path="/" element={<Home />} />
 
-        <Route path="/property" element={<Property />} />
+        <Route path="/property/:title/:id" element={<Property />} />
         <Route path="/properties" element={<AllProperties />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/news" element={<AllNews />} />

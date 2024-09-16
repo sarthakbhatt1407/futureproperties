@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Carousel, Divider, Image } from "antd";
 import styled from "styled-components";
 import { Descriptions } from "antd";
@@ -12,12 +12,13 @@ import {
   FaUser,
 } from "react-icons/fa6";
 import { FaChartPie, FaRegCompass } from "react-icons/fa";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
 import News from "../components/News";
 import MostViewd from "../components/MostViewed";
 import Footer from "../components/Footer";
+import Loader from "../components/Loader";
 
 const MainBox = styled.div`
   position: relative;
@@ -26,7 +27,11 @@ const MainBox = styled.div`
 `;
 const ContentBox = styled.div`
   height: 100svh;
+  position: relative;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     height: 91.5svh;
   }
@@ -58,7 +63,8 @@ const UpperBox = styled.div`
   display: flex;
   padding: 1rem;
   gap: 1rem;
-
+  width: 90%;
+  margin: auto;
   @media only screen and (min-width: 0px) and (max-width: 699px) {
     flex-direction: column;
     padding: 0;
@@ -182,6 +188,8 @@ const DescAndContactBox = styled.div`
   background-color: white;
   padding: 1rem 2rem;
   border-radius: 0.7rem;
+  width: 90%;
+  margin: auto;
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     grid-template-columns: 1fr;
   }
@@ -266,302 +274,325 @@ const Property = () => {
   const navigate = useNavigate();
   const w = window.screen.width > 700 ? "52vw" : "100vw";
   const h = window.screen.width > 700 ? "83vh" : "35vh";
-  const images = [
-    {
-      url: "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      url: "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-    {
-      url: "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      url: "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-    {
-      url: "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      url: "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-  ];
+  const [property, setProperty] = useState(null);
+  const [images, setImages] = useState([]);
+  const id = useParams().id;
+  const [loading, setLoading] = useState(true);
 
-  const property = {
-    title: "3 BHK Flat",
-    price: "1.5 Cr",
-    category: "Flat",
-    desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-    address: "Mayur Vihar 1, Dehradun",
-    furnishing: "Furnished",
-    propertystatus: "Ready to move",
-    area: "2430 sq.ft.",
-    floors: 2,
-    facing: "East Facing",
-    old: "0-5 yrs old",
-    facingRoad: "30 feet road facing road",
+  // const property = {
+  //   title: "3 BHK Flat",
+  //   price: "1.5 Cr",
+  //   category: "Flat",
+  //   desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //   address: "Mayur Vihar 1, Dehradun",
+  //   furnishing: "Furnished",
+  //   propertyStatus: "Ready to move",
+  //   area: "2430 sq.ft.",
+  //   floors: 2,
+  //   facing: "East Facing",
+  //   old: "0-5 yrs old",
+  //   facingRoad: "30 feet road facing road",
+  // };
+
+  const fetcher = async () => {
+    setLoading(true);
+    const res = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/property/get-property-by-id`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+
+    if (data.status) {
+      const imgArr = data.property.images.split("+");
+      const resArr = imgArr.map((img) => {
+        return { url: img };
+      });
+      setImages(resArr);
+
+      console.log(data.property);
+
+      setProperty(data.property);
+      setLoading(false);
+    }
   };
 
+  useEffect(() => {
+    fetcher();
+  }, [id]);
   return (
     <>
       <MainBox>
         <ContentBox>
           <PcNav show={false} />
-          <UpperBox>
-            <SliderBox>
-              <Carousel
-                arrows
-                infinite={false}
-                autoplay
-                dotPosition="bottom"
-                style={{ width: `${w}`, borderRadius: ".4rem" }}
-                adaptiveHeight={true}
-              >
-                {images.map((i) => {
-                  return (
-                    <div>
-                      <Image
-                        style={contentStyle}
-                        src={i.url}
-                        alt=""
-                        style={{
-                          width: "100%",
-                          height: `${h}`,
-                          opacity: ".95",
-                          borderRadius: ".4rem",
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </Carousel>
-            </SliderBox>
-            <UpperDetailsBox>
-              <h1>{property.title}</h1>
-              <h2>
-                ₹ {property.price} <span>+ Govt Charges & Tax</span>
-              </h2>{" "}
-              <Divider />
-              <h3>{property.desc}</h3>
-              <h4>{property.address}</h4>
-              <p>
-                <span>{property.propertystatus}</span>{" "}
-                <span>{property.furnishing}</span>
-              </p>{" "}
-              <Divider />
-              <AniBox>
-                <p>
-                  <span style={{ backgroundColor: "transparent" }}>
-                    <FaHouseChimneyWindow />
-                  </span>
-                  <span
-                    style={{
-                      backgroundColor: "transparent",
-                      marginLeft: "-1.2rem",
-                    }}
+          {loading && <Loader />}
+          {property && (
+            <>
+              <UpperBox>
+                <SliderBox>
+                  <Carousel
+                    arrows
+                    infinite={false}
+                    autoplay
+                    dotPosition="bottom"
+                    style={{ width: `${w}`, borderRadius: ".4rem" }}
+                    adaptiveHeight={true}
                   >
-                    Property Highlights
-                  </span>
-                </p>
-                <div>
-                  <div>
-                    <i style={{ backgroundColor: "#f5dfbf" }}>
-                      <BiArea />
-                    </i>
-                    <span>{property.area}</span>
-                  </div>
-                  <div>
-                    <i style={{ backgroundColor: "#e2f1f9" }}>
-                      <FaIndianRupeeSign />
-                    </i>
-                    <span>{property.price}</span>
-                  </div>
-                  <div>
-                    <i style={{ backgroundColor: "#f5dfbf" }}>
-                      <FaChartPie />
-                    </i>
-                    <span>₹ 4927 per sq.ft.</span>
-                  </div>
-                  <div>
-                    <i style={{ backgroundColor: "#d7f0c3" }}>
-                      <FaRegCompass />
-                    </i>
-                    <span>{property.facing}</span>
-                  </div>
-                </div>
-                <ul>
-                  <li>{property.propertystatus}</li>
-                  <li>{property.furnishing}</li>
-                  <li>{property.floors} floors</li>
-
-                  <li>{property.facingRoad}</li>
-                  <li>3 Bedrooms , 4 Bathrooms, 2 Balconies with Pooja Room</li>
-                </ul>
-              </AniBox>
-            </UpperDetailsBox>
-          </UpperBox>
-          <LowerBox>
-            {" "}
-            <Divider />
-            <DescAndContactBox>
-              <DescBox>
-                <Descriptions
-                  title="Property details"
-                  bordered
-                  style={{ textTransform: "capitalize" }}
-                >
-                  <Descriptions.Item label="title">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.title}
-                    </span>
-                  </Descriptions.Item>
-                  <Descriptions.Item label="price">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.price}
-                    </span>
-                  </Descriptions.Item>
-                  <Descriptions.Item label="address">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.address}
-                    </span>
-                  </Descriptions.Item>{" "}
-                  <Descriptions.Item label="furnishing">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {property.furnishing}
-                    </span>
-                  </Descriptions.Item>
-                  <Descriptions.Item label="propertystatus">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.propertystatus}
-                    </span>
-                  </Descriptions.Item>
-                  <Descriptions.Item label="area">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.area}
-                    </span>
-                  </Descriptions.Item>
-                  <Descriptions.Item label="floors">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.floors}
-                    </span>
-                  </Descriptions.Item>
-                  <Descriptions.Item label="facing">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.facing}
-                    </span>
-                  </Descriptions.Item>
-                  <Descriptions.Item label="old">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.old}
-                    </span>
-                  </Descriptions.Item>
-                  <Descriptions.Item label="facingRoad">
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: ".95rem",
-                        letterSpacing: "0.05rem",
-                      }}
-                    >
-                      {" "}
-                      {property.facingRoad}
-                    </span>
-                  </Descriptions.Item>{" "}
-                </Descriptions>
-              </DescBox>
-
-              <LoginBox>
-                <h6>Seller Details</h6>
-                <Divider />
-                <div>
-                  <Avatar
-                    style={{ backgroundColor: "#87d068" }}
-                    icon={<FaUser />}
-                  />
+                    {images.map((i) => {
+                      return (
+                        <div>
+                          <Image
+                            style={contentStyle}
+                            src={`${process.env.REACT_APP_BASE_URL}/${i.url}`}
+                            alt=""
+                            style={{
+                              width: "100%",
+                              height: `${h}`,
+                              opacity: ".95",
+                              borderRadius: ".4rem",
+                            }}
+                          />
+                        </div>
+                      );
+                    })}
+                  </Carousel>
+                </SliderBox>
+                <UpperDetailsBox>
+                  <h1>{property.title}</h1>
+                  <h2>
+                    ₹ {property.price} <span>+ Govt Charges & Tax</span>
+                  </h2>{" "}
+                  <Divider />
+                  <h3>{property.desc}</h3>
+                  <h4>{property.address}</h4>
                   <p>
-                    Sarthak bhatt <span> (Since 2020)</span>
-                  </p>
-                </div>
-                <p>
-                  <FaPhone /> +91-789XXXXXX4
-                </p>
-                <span>Login to see full contact details.</span>
-                <button
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  Login
-                </button>
-              </LoginBox>
-            </DescAndContactBox>{" "}
-            <MostViewd /> <Divider />
-            <News />
-            <Divider />
-            <Footer />
-          </LowerBox>
+                    <span>{property.propertyStatus}</span>{" "}
+                    <span>{property.furnishing}</span>
+                  </p>{" "}
+                  <Divider />
+                  <AniBox>
+                    <p>
+                      <span style={{ backgroundColor: "transparent" }}>
+                        <FaHouseChimneyWindow />
+                      </span>
+                      <span
+                        style={{
+                          backgroundColor: "transparent",
+                          marginLeft: "-1.2rem",
+                        }}
+                      >
+                        Property Highlights
+                      </span>
+                    </p>
+                    <div>
+                      <div>
+                        <i style={{ backgroundColor: "#f5dfbf" }}>
+                          <BiArea />
+                        </i>
+                        <span>{property.area}</span>
+                      </div>
+                      <div>
+                        <i style={{ backgroundColor: "#e2f1f9" }}>
+                          <FaIndianRupeeSign />
+                        </i>
+                        <span>{property.price}</span>
+                      </div>
+                      <div>
+                        <i style={{ backgroundColor: "#f5dfbf" }}>
+                          <FaChartPie />
+                        </i>
+                        <span>₹ 4927 per sq.ft.</span>
+                      </div>
+                      <div>
+                        <i style={{ backgroundColor: "#d7f0c3" }}>
+                          <FaRegCompass />
+                        </i>
+                        <span>{property.facing}</span>
+                      </div>
+                    </div>
+                    <ul>
+                      <li>{property.propertyStatus}</li>
+                      <li>{property.furnishing}</li>
+                      <li>{property.floors} floors</li>
+
+                      <li>{property.facingRoad}</li>
+                      <li>
+                        3 Bedrooms , 4 Bathrooms, 2 Balconies with Pooja Room
+                      </li>
+                    </ul>
+                  </AniBox>
+                </UpperDetailsBox>
+              </UpperBox>
+              <LowerBox>
+                {" "}
+                <Divider />
+                <DescAndContactBox>
+                  <DescBox>
+                    <Descriptions
+                      title="Property details"
+                      bordered
+                      style={{ textTransform: "capitalize" }}
+                    >
+                      <Descriptions.Item label="title">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.title}
+                        </span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="price">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.price}
+                        </span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="address">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.address}
+                        </span>
+                      </Descriptions.Item>{" "}
+                      <Descriptions.Item label="furnishing">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {property.furnishing}
+                        </span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="propertyStatus">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.propertyStatus}
+                        </span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="area">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.area}
+                        </span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="floors">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.floors}
+                        </span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="facing">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.facing}
+                        </span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="old">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.old}
+                        </span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="facingRoad">
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: ".95rem",
+                            letterSpacing: "0.05rem",
+                          }}
+                        >
+                          {" "}
+                          {property.facingRoad}
+                        </span>
+                      </Descriptions.Item>{" "}
+                    </Descriptions>
+                  </DescBox>
+
+                  <LoginBox>
+                    <h6>Seller Details</h6>
+                    <Divider />
+                    <div>
+                      <Avatar
+                        style={{ backgroundColor: "#87d068" }}
+                        icon={<FaUser />}
+                      />
+                      <p>
+                        Sarthak bhatt <span> (Since 2020)</span>
+                      </p>
+                    </div>
+                    <p>
+                      <FaPhone /> +91-789XXXXXX4
+                    </p>
+                    <span>Login to see full contact details.</span>
+                    <button
+                      onClick={() => {
+                        navigate("/login");
+                      }}
+                    >
+                      Login
+                    </button>
+                  </LoginBox>
+                </DescAndContactBox>{" "}
+                <MostViewd /> <Divider />
+                <News />
+                <Divider />
+                <Footer />
+              </LowerBox>
+            </>
+          )}
         </ContentBox>
         <MobileBottomNavigation view={1} />
       </MainBox>

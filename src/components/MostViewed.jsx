@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import CategoryLoader from "./CategoryLoader";
 
 const MainBox = styled.div`
   display: flex;
@@ -122,122 +124,41 @@ const PropertyBox = styled.div`
 `;
 
 const MostViewd = () => {
-  const properties = [
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3BHK Flat",
-      price: "2.35 Cr",
-      area: "1400sqft",
-      location: "Mayur Vihar 1, Dehradun",
-      category: "Flat",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg",
-    },
-  ];
+  const city = useSelector((state) => state.city);
+  const [loading, setLoading] = useState(true);
+  const [properties, setProperties] = useState([]);
+
+  const fetcher = async () => {
+    setLoading(true);
+    const res = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/property/get-property-by-subcategory`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          city: city,
+          subCategory: "mostviewed",
+        }),
+      }
+    );
+    const data = await res.json();
+    if (data.status) {
+      setProperties(data.properties);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetcher();
+  }, [city]);
 
   return (
     <MainBox>
       <HeaderBox>
         <h2>
-          MostViewed in <span>{`Dehradun`}</span>
+          Most Viewed in <span>{`${city}`}</span>
         </h2>
         <Link>
           See All <FaChevronRight />
@@ -245,21 +166,28 @@ const MostViewd = () => {
       </HeaderBox>
 
       <PropertiesBox>
-        {properties.map((p) => {
-          return (
-            <PropertyBox key={p.image}>
-              <Link to={"/property"}>
-                <img src={p.image} alt="" />
-                <div>
-                  <span>{p.title}</span>
-                  <p>₹ {p.price}</p>
-                  <span>{p.location}</span>
-                  <span>{p.category}</span>
-                </div>
-              </Link>
-            </PropertyBox>
-          );
-        })}
+        {loading && <CategoryLoader />}
+        {!loading &&
+          properties.map((p) => {
+            return (
+              <PropertyBox key={p.image}>
+                <Link to={`/property/${p.title.split(" ").join("-")}/${p.id}`}>
+                  <img
+                    src={`${process.env.REACT_APP_BASE_URL}/${
+                      p.images.split("+")[0]
+                    }`}
+                    alt=""
+                  />
+                  <div>
+                    <span>{p.title}</span>
+                    <p>₹ {p.price}</p>
+                    <span>{p.locality}</span>
+                    <span>{p.category}</span>
+                  </div>
+                </Link>
+              </PropertyBox>
+            );
+          })}
       </PropertiesBox>
     </MainBox>
   );

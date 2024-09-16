@@ -8,6 +8,7 @@ import { AutoComplete } from "antd";
 import { Search } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
 const MainBox = styled.div`
   background-color: #efefee;
@@ -260,6 +261,7 @@ const SelectionBox = styled.div`
 
 const Header = () => {
   const [p, setP] = useState("Dehradun");
+  const dispatch = useDispatch();
   const options = [
     {
       value: "Dehradun",
@@ -304,6 +306,7 @@ const Header = () => {
                 }}
                 options={options}
                 onSelect={(e) => {
+                  dispatch({ type: "city", city: e });
                   console.log(e);
                 }}
                 placeholder="Search City"
