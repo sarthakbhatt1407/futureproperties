@@ -307,7 +307,7 @@ const Header = () => {
                 options={options}
                 onSelect={(e) => {
                   dispatch({ type: "city", city: e });
-                  console.log(e);
+                  setP(e);
                 }}
                 placeholder="Search City"
                 filterOption={(inputValue, option) =>
@@ -316,7 +316,14 @@ const Header = () => {
                     .indexOf(inputValue.toUpperCase()) !== -1
                 }
               />
-              <button>
+              <button
+                style={{
+                  zIndex: 100000,
+                }}
+                onClick={() => {
+                  dispatch({ type: "city", city: p });
+                }}
+              >
                 <Search />
               </button>
             </InpBox>
@@ -345,7 +352,8 @@ const Header = () => {
             }}
             placeholder={`Search by city - ${p}`}
             onSelect={(e) => {
-              console.log(e);
+              dispatch({ type: "city", city: e });
+              setP(e);
             }}
             options={options}
             filterOption={(inputValue, option) =>
