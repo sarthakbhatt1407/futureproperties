@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import CategoryLoader from "./CategoryLoader";
 
 const MainBox = styled.div`
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   height: fit-content;
 `;
