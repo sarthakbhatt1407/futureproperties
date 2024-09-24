@@ -4,6 +4,7 @@ import { Carousel } from "antd";
 import { Link } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import CategoryLoader from "./CategoryLoader";
 
 const MainBox = styled.div`
   width: 80%;
@@ -112,8 +113,10 @@ const Handpicked = () => {
     );
     const data = await res.json();
     if (data.status) {
+      if (data.properties.length > 0) {
+        setLoading(false);
+      }
       setProperties(data.properties);
-      setLoading(false);
     }
   };
 
@@ -126,42 +129,44 @@ const Handpicked = () => {
         <h2>
           <span>Handpicked</span> Properties
         </h2>
-        <Link>
+        <Link to={"/properties"}>
           See All <FaChevronRight />
         </Link>
       </HeaderBox>
+      {loading && <CategoryLoader />}
       <Carousel
         autoplay
         style={
           window.screen.width > 700 ? { width: "90%", margin: "auto" } : ""
         }
       >
-        {properties.map((p) => {
-          return (
-            <Link to={`/property/${p.title.split(" ").join("-")}/${p.id}`}>
-              <ImgBox
-                key={p.image}
-                bg={`${process.env.REACT_APP_BASE_URL}/${
-                  p.images.split("+")[0]
-                }`}
-              >
-                <div>
-                  <span>{p.city}</span>
-                </div>
-                <LowerBox>
-                  <p>
-                    <span> {p.area}</span>
-                    <span>{p.locality}</span>
-                  </p>
-                  <p>
-                    <span>{p.title}</span>
-                    <span>{p.price}</span>
-                  </p>
-                </LowerBox>
-              </ImgBox>
-            </Link>
-          );
-        })}
+        {!loading &&
+          properties.map((p) => {
+            return (
+              <Link to={`/property/${p.title.split(" ").join("-")}/${p.id}`}>
+                <ImgBox
+                  key={p.image}
+                  bg={`${process.env.REACT_APP_BASE_URL}/${
+                    p.images.split("+")[0]
+                  }`}
+                >
+                  <div>
+                    <span>{p.city}</span>
+                  </div>
+                  <LowerBox>
+                    <p>
+                      <span> {p.area}</span>
+                      <span>{p.locality}</span>
+                    </p>
+                    <p>
+                      <span>{p.title}</span>
+                      <span>{p.price}</span>
+                    </p>
+                  </LowerBox>
+                </ImgBox>
+              </Link>
+            );
+          })}
       </Carousel>
     </MainBox>
   );

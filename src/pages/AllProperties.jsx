@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
 import PcNav from "../components/PcNav";
@@ -10,6 +10,9 @@ import { GrStatusGood } from "react-icons/gr";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import Footer from "../components/Footer";
 import ReadyToLaunch from "../components/ReadyToLaunch";
+import { useSelector } from "react-redux";
+import CategoryLoader from "../components/CategoryLoader";
+import Loader from "../components/Loader";
 const MainBox = styled.div`
   position: relative;
   height: 100svh;
@@ -275,6 +278,7 @@ const HighLightDiv = styled.div`
   align-items: center;
   width: 9rem;
   gap: 1rem;
+
   i {
     svg {
       transform: scale(1.5);
@@ -289,6 +293,7 @@ const HighLightDiv = styled.div`
     }
     p {
       margin: -0.5rem 0;
+      text-transform: capitalize;
     }
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
@@ -311,139 +316,174 @@ const HighLightDiv = styled.div`
 `;
 
 const AllProperties = () => {
-  const properties = [
-    {
-      title: "3 BHK Flat",
-      category: "Flat",
-      price: "1.5 Cr",
-      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-      address: "Mayur Vihar 1, Dehradun",
-      furnishing: "Furnished",
-      propertystatus: "Ready to move",
-      area: "2430 sq.ft.",
-      floors: 2,
-      facing: "East Facing",
-      old: "0-5 yrs old",
-      facingRoad: "30 feet road facing road",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3 BHK Flat",
-      category: "Flat",
-      price: "1.5 Cr",
-      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-      address: "Mayur Vihar 1, Dehradun",
-      furnishing: "Furnished",
-      propertystatus: "Ready to move",
-      area: "2430 sq.ft.",
-      floors: 2,
-      facing: "East Facing",
-      old: "0-5 yrs old",
-      facingRoad: "30 feet road facing road",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3 BHK Flat",
-      category: "Flat",
-      price: "1.5 Cr",
-      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-      address: "Mayur Vihar 1, Dehradun",
-      furnishing: "Furnished",
-      propertystatus: "Ready to move",
-      area: "2430 sq.ft.",
-      floors: 2,
-      facing: "East Facing",
-      old: "0-5 yrs old",
-      facingRoad: "30 feet road facing road",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3 BHK Flat",
-      category: "Flat",
-      price: "1.5 Cr",
-      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-      address: "Mayur Vihar 1, Dehradun",
-      furnishing: "Furnished",
-      propertystatus: "Ready to move",
-      area: "2430 sq.ft.",
-      floors: 2,
-      facing: "East Facing",
-      old: "0-5 yrs old",
-      facingRoad: "30 feet road facing road",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3 BHK Flat",
-      category: "Flat",
-      price: "1.5 Cr",
-      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-      address: "Mayur Vihar 1, Dehradun",
-      furnishing: "Furnished",
-      propertystatus: "Ready to move",
-      area: "2430 sq.ft.",
-      floors: 2,
-      facing: "East Facing",
-      old: "0-5 yrs old",
-      facingRoad: "30 feet road facing road",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3 BHK Flat",
-      category: "Flat",
-      price: "1.5 Cr",
-      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-      address: "Mayur Vihar 1, Dehradun",
-      furnishing: "Furnished",
-      propertystatus: "Ready to move",
-      area: "2430 sq.ft.",
-      floors: 2,
-      facing: "East Facing",
-      old: "0-5 yrs old",
-      facingRoad: "30 feet road facing road",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3 BHK Flat",
-      category: "Flat",
-      price: "1.5 Cr",
-      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-      address: "Mayur Vihar 1, Dehradun",
-      furnishing: "Furnished",
-      propertystatus: "Ready to move",
-      area: "2430 sq.ft.",
-      floors: 2,
-      facing: "East Facing",
-      old: "0-5 yrs old",
-      facingRoad: "30 feet road facing road",
-      image:
-        "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-    {
-      title: "3 BHK Flat",
-      category: "Flat",
-      price: "1.5 Cr",
-      desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-      address: "Mayur Vihar 1, Dehradun",
-      furnishing: "Furnished",
-      propertystatus: "Ready to move",
-      area: "2430 sq.ft.",
-      floors: 2,
-      facing: "East Facing",
-      old: "0-5 yrs old",
-      facingRoad: "30 feet road facing road",
-      image:
-        "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
-    },
-  ];
+  const city = useSelector((state) => state.city);
+  console.log(city);
+
+  const [loading, setLoading] = useState(true);
+  const [properties, setProperties] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
+  const [defaultSort, setDefaultSort] = useState("Popularity");
+
+  const fetcher = async () => {
+    setLoading(true);
+    const res = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/property/get-property-by-city`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          city: city,
+        }),
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+
+    if (data.status) {
+      if (data.properties.length > 0) {
+        setLoading(false);
+      }
+
+      setProperties(data.properties);
+      setFilteredProperties(data.properties);
+    }
+  };
+
+  // const properties = [
+  //   {
+  //     title: "3 BHK Flat",
+  //     category: "Flat",
+  //     price: "1.5 Cr",
+  //     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //     address: "Mayur Vihar 1, Dehradun",
+  //     furnishing: "Furnished",
+  //     propertystatus: "Ready to move",
+  //     area: "2430 sq.ft.",
+  //     floors: 2,
+  //     facing: "East Facing",
+  //     old: "0-5 yrs old",
+  //     facingRoad: "30 feet road facing road",
+  //     image:
+  //       "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+  //   },
+  //   {
+  //     title: "3 BHK Flat",
+  //     category: "Flat",
+  //     price: "1.5 Cr",
+  //     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //     address: "Mayur Vihar 1, Dehradun",
+  //     furnishing: "Furnished",
+  //     propertystatus: "Ready to move",
+  //     area: "2430 sq.ft.",
+  //     floors: 2,
+  //     facing: "East Facing",
+  //     old: "0-5 yrs old",
+  //     facingRoad: "30 feet road facing road",
+  //     image:
+  //       "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+  //   },
+  //   {
+  //     title: "3 BHK Flat",
+  //     category: "Flat",
+  //     price: "1.5 Cr",
+  //     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //     address: "Mayur Vihar 1, Dehradun",
+  //     furnishing: "Furnished",
+  //     propertystatus: "Ready to move",
+  //     area: "2430 sq.ft.",
+  //     floors: 2,
+  //     facing: "East Facing",
+  //     old: "0-5 yrs old",
+  //     facingRoad: "30 feet road facing road",
+  //     image:
+  //       "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+  //   },
+  //   {
+  //     title: "3 BHK Flat",
+  //     category: "Flat",
+  //     price: "1.5 Cr",
+  //     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //     address: "Mayur Vihar 1, Dehradun",
+  //     furnishing: "Furnished",
+  //     propertystatus: "Ready to move",
+  //     area: "2430 sq.ft.",
+  //     floors: 2,
+  //     facing: "East Facing",
+  //     old: "0-5 yrs old",
+  //     facingRoad: "30 feet road facing road",
+  //     image:
+  //       "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+  //   },
+  //   {
+  //     title: "3 BHK Flat",
+  //     category: "Flat",
+  //     price: "1.5 Cr",
+  //     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //     address: "Mayur Vihar 1, Dehradun",
+  //     furnishing: "Furnished",
+  //     propertystatus: "Ready to move",
+  //     area: "2430 sq.ft.",
+  //     floors: 2,
+  //     facing: "East Facing",
+  //     old: "0-5 yrs old",
+  //     facingRoad: "30 feet road facing road",
+  //     image:
+  //       "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+  //   },
+  //   {
+  //     title: "3 BHK Flat",
+  //     category: "Flat",
+  //     price: "1.5 Cr",
+  //     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //     address: "Mayur Vihar 1, Dehradun",
+  //     furnishing: "Furnished",
+  //     propertystatus: "Ready to move",
+  //     area: "2430 sq.ft.",
+  //     floors: 2,
+  //     facing: "East Facing",
+  //     old: "0-5 yrs old",
+  //     facingRoad: "30 feet road facing road",
+  //     image:
+  //       "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+  //   },
+  //   {
+  //     title: "3 BHK Flat",
+  //     category: "Flat",
+  //     price: "1.5 Cr",
+  //     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //     address: "Mayur Vihar 1, Dehradun",
+  //     furnishing: "Furnished",
+  //     propertystatus: "Ready to move",
+  //     area: "2430 sq.ft.",
+  //     floors: 2,
+  //     facing: "East Facing",
+  //     old: "0-5 yrs old",
+  //     facingRoad: "30 feet road facing road",
+  //     image:
+  //       "https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+  //   },
+  //   {
+  //     title: "3 BHK Flat",
+  //     category: "Flat",
+  //     price: "1.5 Cr",
+  //     desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
+  //     address: "Mayur Vihar 1, Dehradun",
+  //     furnishing: "Furnished",
+  //     propertystatus: "Ready to move",
+  //     area: "2430 sq.ft.",
+  //     floors: 2,
+  //     facing: "East Facing",
+  //     old: "0-5 yrs old",
+  //     facingRoad: "30 feet road facing road",
+  //     image:
+  //       "https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg, https://housing-images.n7net.in/4f2250e8/8c9937610110f5ffeaedf6688371d88e/v0/medium/anirudh_vansihka_greens-rajpur_dehradun-dehradun-anirudh_land_promoters_pvt_ltd.jpeg, https://img.staticmb.com/mbphoto/property/cropped_images/2023/Dec/17/Photo_h600_w900/70148533_1_PropertyImage1702792242603_600_900.jpg",
+  //   },
+  // ];
   const defaultField = [
     {
-      value: "Popularity",
+      value: "popularity",
       label: "Popularity",
     },
     {
@@ -456,9 +496,44 @@ const AllProperties = () => {
     },
   ];
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    console.log(`${value}`);
+    if (value === "popularity") {
+      setFilteredProperties(properties);
+    }
+
+    if (value === "lowToHigh") {
+      // Create a new copy of the array before sorting
+      const sortedByPriceAsc = [...properties].sort(
+        (a, b) => a.price - b.price
+      );
+      setFilteredProperties(sortedByPriceAsc); // This will trigger a re-render
+    }
+
+    if (value === "highToLow") {
+      // Create a new copy of the array before sorting
+      const sortedByPriceDesc = [...properties].sort(
+        (a, b) => b.price - a.price
+      );
+      console.log(sortedByPriceDesc);
+
+      setFilteredProperties(sortedByPriceDesc); // This will trigger a re-render
+    }
+  };
+  const onChangeHandler = (e) => {
+    const val = e.target.value.toLowerCase();
+    const arr = properties.filter((item) => {
+      return (
+        item.title.toLowerCase().includes(val) ||
+        item.price.toString().includes(val) ||
+        item.locality.toLowerCase().includes(val)
+      );
+    });
+    setFilteredProperties(arr);
   };
 
+  useEffect(() => {
+    fetcher();
+  }, [city]);
   return (
     <MainBox>
       <ContentBox>
@@ -471,10 +546,16 @@ const AllProperties = () => {
         <ResultAndFilter>
           <DetailPara>Showing all results</DetailPara>{" "}
           <FilterAndSearchBox>
-            <Input type="text" id="search" placeholder="Search Properties..." />
+            <Input
+              type="text"
+              id="search"
+              placeholder="Search Properties..."
+              onChange={onChangeHandler}
+            />
 
             <Select
               defaultValue="Popularity"
+              onChange={handleChange}
               style={{
                 width: "15rem",
                 height: "3rem",
@@ -512,65 +593,74 @@ const AllProperties = () => {
           </div>
         </SearchBox> */}
         <PropertiesBox>
-          {properties.map((item) => {
-            return (
-              <Link to="/property">
-                <PropertyBox>
-                  <LeftDiv>
-                    <img src={item.image.split(",")[0]} alt="" />
-                    <p>
-                      Seller : <span>Sarthak Bhatt</span>
-                    </p>
-                  </LeftDiv>
-                  <MidDiv>
-                    <h3>{item.title}</h3>
-                    <h4>₹ {item.price}</h4>
-                    <span>dehradun</span>
-                    <HighLights>
-                      <HighLightDiv>
-                        <i>
-                          <BiArea />
-                        </i>
-                        <div>
-                          <p>{item.area}</p>
-                        </div>
-                      </HighLightDiv>
-                      <HighLightDiv>
-                        <i>
-                          <FaRegCompass />
-                        </i>
-                        <div>
-                          <p>{item.facing}</p>
-                        </div>
-                      </HighLightDiv>
-                      <HighLightDiv>
-                        <i>
-                          <GrStatusGood />
-                        </i>
-                        <div>
-                          <p>{item.propertystatus}</p>
-                        </div>
-                      </HighLightDiv>
-                      <HighLightDiv>
-                        <i>
-                          <HiOutlineHomeModern />
-                        </i>
-                        <div>
-                          <p>Floors: {item.floors}</p>
-                        </div>
-                      </HighLightDiv>
-                    </HighLights>
-                    <p>{item.address}</p>
-                    <p>{item.desc}</p>
-                  </MidDiv>
-                  <RightDiv>
-                    <h3>₹ {item.price}</h3>
-                    <button>Contact Owner</button>
-                  </RightDiv>
-                </PropertyBox>
-              </Link>
-            );
-          })}
+          {loading && <Loader />}
+          {!loading &&
+            filteredProperties.map((item) => {
+              return (
+                <Link to={`/property/${item.title}/${item.id}`} key={item.id}>
+                  <PropertyBox>
+                    <LeftDiv>
+                      <img
+                        src={`${process.env.REACT_APP_BASE_URL}/${
+                          item.images.split("+")[0]
+                        }`}
+                        alt=""
+                      />
+                      <p>
+                        Seller : <span>Sarthak Bhatt</span>
+                      </p>
+                    </LeftDiv>
+                    <MidDiv>
+                      <h3>{item.title}</h3>
+                      <h4>₹ {item.price}</h4>
+                      <span>
+                        {item.locality}, {item.city}
+                      </span>
+                      <HighLights>
+                        <HighLightDiv>
+                          <i>
+                            <BiArea />
+                          </i>
+                          <div>
+                            <p>{item.area}</p>
+                          </div>
+                        </HighLightDiv>
+                        <HighLightDiv>
+                          <i>
+                            <FaRegCompass />
+                          </i>
+                          <div>
+                            <p>{item.facing}</p>
+                          </div>
+                        </HighLightDiv>
+                        <HighLightDiv>
+                          <i>
+                            <GrStatusGood />
+                          </i>
+                          <div>
+                            <p>{item.propertyStatus}</p>
+                          </div>
+                        </HighLightDiv>
+                        <HighLightDiv>
+                          <i>
+                            <HiOutlineHomeModern />
+                          </i>
+                          <div>
+                            <p>Floors: {item.floors}</p>
+                          </div>
+                        </HighLightDiv>
+                      </HighLights>
+                      <p>{item.address}</p>
+                      <p>{item.desc}</p>
+                    </MidDiv>
+                    <RightDiv>
+                      <h3>₹ {item.price}</h3>
+                      <button>Contact Owner</button>
+                    </RightDiv>
+                  </PropertyBox>
+                </Link>
+              );
+            })}
         </PropertiesBox>
         <ReadyToLaunch />
         <Footer />

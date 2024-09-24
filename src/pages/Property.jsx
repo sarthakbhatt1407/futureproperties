@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Avatar, Carousel, Divider, Image } from "antd";
 import styled from "styled-components";
 import { Descriptions } from "antd";
@@ -19,6 +19,8 @@ import News from "../components/News";
 import MostViewd from "../components/MostViewed";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
+import { useSelector } from "react-redux";
+import Trending from "../components/Trending";
 
 const MainBox = styled.div`
   position: relative;
@@ -277,7 +279,9 @@ const Property = () => {
   const [property, setProperty] = useState(null);
   const [images, setImages] = useState([]);
   const id = useParams().id;
+  const title = useParams().title;
   const [loading, setLoading] = useState(true);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
   // const property = {
   //   title: "3 BHK Flat",
@@ -293,6 +297,7 @@ const Property = () => {
   //   old: "0-5 yrs old",
   //   facingRoad: "30 feet road facing road",
   // };
+  const contentBoxRef = useRef(null); // Add a ref for ContentBox
 
   const fetcher = async () => {
     setLoading(true);
@@ -307,7 +312,6 @@ const Property = () => {
       }
     );
     const data = await res.json();
-    console.log(data);
 
     if (data.status) {
       const imgArr = data.property.images.split("+");
@@ -316,10 +320,13 @@ const Property = () => {
       });
       setImages(resArr);
 
-      console.log(data.property);
-
       setProperty(data.property);
       setLoading(false);
+    }
+
+    // Scroll the ContentBox to the top
+    if (contentBoxRef.current) {
+      contentBoxRef.current.scrollTop = 0;
     }
   };
 
@@ -329,7 +336,7 @@ const Property = () => {
   return (
     <>
       <MainBox>
-        <ContentBox>
+        <ContentBox ref={contentBoxRef}>
           <PcNav show={false} />
           {loading && <Loader />}
           {property && (
@@ -573,20 +580,41 @@ const Property = () => {
                         Sarthak bhatt <span> (Since 2020)</span>
                       </p>
                     </div>
-                    <p>
-                      <FaPhone /> +91-789XXXXXX4
-                    </p>
-                    <span>Login to see full contact details.</span>
-                    <button
-                      onClick={() => {
-                        navigate("/login");
-                      }}
-                    >
-                      Login
-                    </button>
+                    {!isLoggedIn && (
+                      <>
+                        <p>
+                          <FaPhone /> +91-789XXXXXX4
+                        </p>
+                        <span>Login to see full contact details.</span>
+                      </>
+                    )}
+                    {isLoggedIn && (
+                      <>
+                        <p>
+                          <FaPhone /> +91-7895603314
+                        </p>
+                        <span>Contact seller.</span>
+                      </>
+                    )}
+
+                    {!isLoggedIn && (
+                      <button
+                        onClick={() => {
+                          navigate("/login");
+                        }}
+                      >
+                        Login
+                      </button>
+                    )}
+                    {isLoggedIn && (
+                      <button onClick={() => {}}>Send Query</button>
+                    )}
                   </LoginBox>
-                </DescAndContactBox>{" "}
-                <MostViewd /> <Divider />
+                </DescAndContactBox>
+                {property.subCategory === "trending" && <MostViewd />}
+                {property.subCategory === "mostviewed" && <Trending />}
+                {property.subCategory === "handpicked" && <MostViewd />}
+                <Divider />
                 <News />
                 <Divider />
                 <Footer />

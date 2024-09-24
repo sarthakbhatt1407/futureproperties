@@ -33,7 +33,7 @@ const storeReducer = (state = defaultState, action) => {
       userName: user.name,
       userContact: user.contact,
       userSince: user.userSince,
-      city: "",
+      city: action.city,
     };
   }
 

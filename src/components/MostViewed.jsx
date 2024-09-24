@@ -10,7 +10,7 @@ const MainBox = styled.div`
   flex-direction: column;
   padding: 1rem;
   width: 80%;
-
+  z-index: 10000;
   margin: auto;
   gap: 1rem;
   @media only screen and (min-width: 0px) and (max-width: 700px) {
@@ -30,6 +30,7 @@ const HeaderBox = styled.div`
     letter-spacing: 0.07rem;
     span {
       border-bottom: 2px solid #3f7bff;
+      text-transform: capitalize;
     }
   }
   a {
@@ -146,8 +147,10 @@ const MostViewd = () => {
     const data = await res.json();
     if (data.status) {
       setProperties(data.properties);
+      if (data.properties.length > 0) {
+        setLoading(false);
+      }
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -160,7 +163,7 @@ const MostViewd = () => {
         <h2>
           Most Viewed in <span>{`${city}`}</span>
         </h2>
-        <Link>
+        <Link to={"/properties"}>
           See All <FaChevronRight />
         </Link>
       </HeaderBox>

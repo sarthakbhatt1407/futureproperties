@@ -139,8 +139,11 @@ const Trending = () => {
       }
     );
     const data = await res.json();
+
     if (data.status) {
-      setLoading(false);
+      if (data.properties.length > 0) {
+        setLoading(false);
+      }
 
       setProperties(data.properties);
     }
@@ -156,7 +159,7 @@ const Trending = () => {
         <h2>
           Trending in <span>{`${city}`}</span>
         </h2>
-        <Link>
+        <Link to={"/properties"}>
           See All <FaChevronRight />
         </Link>
       </HeaderBox>
