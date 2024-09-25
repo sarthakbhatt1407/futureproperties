@@ -153,10 +153,18 @@ const Handpicked = () => {
                     p.images.split("+")[0]
                   }`}
                 >
-                  <div>
+                  <div
+                    style={{
+                      textTransform: "capitalize",
+                    }}
+                  >
                     <span>{p.city}</span>
                   </div>
-                  <LowerBox>
+                  <LowerBox
+                    style={{
+                      textTransform: "capitalize",
+                    }}
+                  >
                     <p>
                       <span> {p.area}</span>
                       <span>{p.locality}</span>

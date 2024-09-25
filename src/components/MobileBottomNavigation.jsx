@@ -44,10 +44,16 @@ export default function MobileBottomNavigation(props) {
             }}
             icon={<ApartmentOutlinedIcon />}
           />
-          <BottomNavigationAction
-            label="Queries"
-            icon={<ChatBubbleOutlineOutlined />}
-          />
+
+          {isLoggedIn && (
+            <BottomNavigationAction
+              label="Queries"
+              onClick={() => {
+                navigate("/queries");
+              }}
+              icon={<ChatBubbleOutlineOutlined />}
+            />
+          )}
           {isLoggedIn && (
             <BottomNavigationAction
               label="Account"

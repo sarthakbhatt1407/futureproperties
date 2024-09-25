@@ -10,15 +10,27 @@ import {
 } from "@mui/icons-material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PcNav from "../components/PcNav";
+import MobileBottomNavigation from "../components/MobileBottomNavigation";
 
+const MainBox1 = styled.div`
+  position: relative;
+  height: 100svh;
+`;
+const ContentBox = styled.div`
+  height: 100svh;
+  overflow: scroll;
+  @media only screen and (min-width: 0px) and (max-width: 700px) {
+    height: 91.5svh;
+  }
+`;
 const OuterBox = styled.div`
   width: 100%;
   margin: auto;
   height: fit-content;
   background-color: #f7f7f7;
-  padding: 2rem;
+
   @media only screen and (max-width: 1099px) {
     padding: 0;
   }
@@ -27,7 +39,7 @@ const MainBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 90%;
+  width: 100%;
   margin: auto;
   p {
     margin-top: 1rem;
@@ -131,7 +143,7 @@ const Profile = () => {
 
   const userId = useParams().userId;
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -148,50 +160,68 @@ const Profile = () => {
 
   return (
     <>
-      <PcNav show={true} />
-      <OuterBox>
-        <MainBox>
-          <p>
-            Home / <span>My Account</span>
-          </p>
-          <h1>My Account</h1>
+      <MainBox1>
+        <ContentBox>
+          <PcNav show={true} />
+          <OuterBox>
+            <MainBox>
+              <p>
+                Home / <span>My Account</span>
+              </p>
+              <h1>My Account</h1>
 
-          <LinksAndDetailsBox>
-            <LinksBox>
-              {currentActive === "mydetails" && (
-                <button
-                  style={{ backgroundColor: "#eeeeee", color: "#3F7BFF" }}
-                  id="mydetails"
-                  onClick={activeHandler}
-                >
-                  <AccountCircle onClick={iconHandler} /> My details
-                </button>
-              )}
-              {!(currentActive === "mydetails") && (
-                <button id="mydetails" onClick={activeHandler}>
-                  <AccountCircle onClick={iconHandler} /> My details
-                </button>
-              )}
-              {currentActive === "myproperties" && (
-                <button
-                  style={{ backgroundColor: "#eeeeee", color: "#3F7BFF" }}
-                  onClick={activeHandler}
-                  id="myproperties"
-                >
-                  <LocationOn onClick={iconHandler} /> Properties
-                </button>
-              )}
-              {!(currentActive === "myproperties") && (
-                <button onClick={activeHandler} id="myproperties">
-                  <LocationOn onClick={iconHandler} /> Properties
-                </button>
-              )}
-            </LinksBox>
-            <DetailsBox></DetailsBox>
-          </LinksAndDetailsBox>
-        </MainBox>
-      </OuterBox>
-      <Footer />
+              <LinksAndDetailsBox>
+                <LinksBox>
+                  {currentActive === "mydetails" && (
+                    <button
+                      style={{ backgroundColor: "#eeeeee", color: "#3F7BFF" }}
+                      id="mydetails"
+                      onClick={activeHandler}
+                    >
+                      <AccountCircle onClick={iconHandler} /> My details
+                    </button>
+                  )}
+                  {!(currentActive === "mydetails") && (
+                    <button id="mydetails" onClick={activeHandler}>
+                      <AccountCircle onClick={iconHandler} /> My details
+                    </button>
+                  )}
+                  {currentActive === "myproperties" && (
+                    <button
+                      style={{ backgroundColor: "#eeeeee", color: "#3F7BFF" }}
+                      onClick={activeHandler}
+                      id="myproperties"
+                    >
+                      <LocationOn onClick={iconHandler} /> Properties
+                    </button>
+                  )}
+                  {!(currentActive === "myproperties") && (
+                    <button onClick={activeHandler} id="myproperties">
+                      <LocationOn onClick={iconHandler} /> Properties
+                    </button>
+                  )}
+                </LinksBox>
+                <DetailsBox>
+                  {currentActive === "mydetails" && (
+                    <>
+                      <button
+                        onClick={() => {
+                          dispatch({ type: "logout" });
+                        }}
+                      >
+                        Log out
+                      </button>
+                    </>
+                  )}
+                </DetailsBox>
+              </LinksAndDetailsBox>
+            </MainBox>
+          </OuterBox>
+
+          <Footer />
+        </ContentBox>
+        <MobileBottomNavigation view={3} />
+      </MainBox1>
     </>
   );
 };

@@ -21,6 +21,7 @@ import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
 import Trending from "../components/Trending";
+import { Button, message } from "antd";
 
 const MainBox = styled.div`
   position: relative;
@@ -190,7 +191,7 @@ const DescAndContactBox = styled.div`
   background-color: white;
   padding: 1rem 2rem;
   border-radius: 0.7rem;
-  width: 90%;
+  width: 80%;
   margin: auto;
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     grid-template-columns: 1fr;
@@ -271,10 +272,131 @@ const LoginBox = styled.div`
     }
   }
 `;
+const Modal = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #00000038;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+`;
+
+const ModalBox = styled.div`
+  background-color: white;
+  width: 30%;
+
+  height: fit-content;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  z-index: 20;
+
+  @media only screen and (min-width: 0px) and (max-width: 1000px) {
+    width: 90%;
+  }
+`;
+
+const ModalFormBox = styled.div`
+  background-color: white;
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  button {
+    background-color: #1677ff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.09rem;
+    &:last-child {
+      background-color: #bbb9b9;
+    }
+  }
+`;
+
+const LabelInpBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 74%;
+  span {
+    color: #ff0000ab;
+    font-size: 0.8rem;
+    margin-left: 0.2rem;
+  }
+  @media only screen and (min-width: 0px) and (max-width: 1000px) {
+    width: 100%;
+  }
+`;
+const Label = styled.label`
+  font-size: 0.9rem;
+  letter-spacing: 0.06rem;
+  color: #9e9e9e;
+  text-transform: capitalize;
+`;
+
+const Input = styled.textarea`
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  outline: none;
+  border: 1px solid #d7d7d7;
+
+  &::placeholder {
+    color: #d4cdcd;
+    letter-spacing: 0.09rem;
+    text-transform: capitalize;
+  }
+  &:focus {
+    border: 1px solid #c0c0c0;
+    box-shadow: 0.1rem 0.1rem 0.5rem #c0c0c0;
+  }
+`;
 
 const Property = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const success = (msg) => {
+    messageApi.open({
+      type: "success",
+      content: msg,
+    });
+  };
+
+  const error = (msg) => {
+    messageApi.open({
+      type: "error",
+      content: msg,
+    });
+  };
+
+  const warning = (msg) => {
+    messageApi.open({
+      type: "warning",
+      content: msg,
+    });
+  };
+
   const navigate = useNavigate();
-  const w = window.screen.width > 700 ? "52vw" : "100vw";
+  const w = window.screen.width > 700 ? "52vw" : "95vw";
   const h = window.screen.width > 700 ? "83vh" : "35vh";
   const [property, setProperty] = useState(null);
   const [images, setImages] = useState([]);
@@ -282,22 +404,30 @@ const Property = () => {
   const title = useParams().title;
   const [loading, setLoading] = useState(true);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-
-  // const property = {
-  //   title: "3 BHK Flat",
-  //   price: "1.5 Cr",
-  //   category: "Flat",
-  //   desc: "3bhk independent house with 4 bath 2kitchen separate stairs &car parking Located at posh area gated colony Mdda approved property.",
-  //   address: "Mayur Vihar 1, Dehradun",
-  //   furnishing: "Furnished",
-  //   propertyStatus: "Ready to move",
-  //   area: "2430 sq.ft.",
-  //   floors: 2,
-  //   facing: "East Facing",
-  //   old: "0-5 yrs old",
-  //   facingRoad: "30 feet road facing road",
-  // };
+  const userName = useSelector((state) => state.userName);
+  const userContact = useSelector((state) => state.userContact);
+  const [user, setUser] = useState(null);
   const contentBoxRef = useRef(null); // Add a ref for ContentBox
+  const userId = useSelector((state) => state.userId);
+  const [showModal, setShowModal] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const getUserData = async (id) => {
+    const res = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/user/get-user-by-id`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      }
+    );
+    const data = await res.json();
+    if (data.status) {
+      setUser(data.user);
+    }
+  };
 
   const fetcher = async () => {
     setLoading(true);
@@ -319,7 +449,7 @@ const Property = () => {
         return { url: img };
       });
       setImages(resArr);
-
+      getUserData(data.property.userId);
       setProperty(data.property);
       setLoading(false);
     }
@@ -329,6 +459,38 @@ const Property = () => {
       contentBoxRef.current.scrollTop = 0;
     }
   };
+  const querySubmit = async () => {
+    if (msg.length === 0) {
+      error("Message cannot be empty!");
+      return;
+    }
+    setLoading(true);
+    const res = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/query/add-query`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: userName,
+          contactNum: userContact,
+          message: msg,
+          property: id,
+          userTo: user.id,
+          userFrom: userId,
+        }),
+      }
+    );
+    const data = await res.json();
+    if (data.success) {
+      success(data.message);
+      setShowModal(false);
+    } else {
+      error(data.message);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     fetcher();
@@ -336,6 +498,36 @@ const Property = () => {
   return (
     <>
       <MainBox>
+        {contextHolder}
+        {showModal && (
+          <Modal>
+            <ModalBox>
+              <ModalFormBox>
+                <LabelInpBox>
+                  <Label htmlFor="msg">Message</Label>
+                  <Input
+                    type="text"
+                    id="msg"
+                    rows={10}
+                    onChange={(e) => {
+                      setMsg(e.target.value);
+                    }}
+                  />
+                </LabelInpBox>
+                <BtnBox>
+                  <button onClick={querySubmit}>Submit</button>
+                  <button
+                    onClick={() => {
+                      setShowModal(false);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </BtnBox>
+              </ModalFormBox>
+            </ModalBox>
+          </Modal>
+        )}
         <ContentBox ref={contentBoxRef}>
           <PcNav show={false} />
           {loading && <Loader />}
@@ -370,14 +562,20 @@ const Property = () => {
                     })}
                   </Carousel>
                 </SliderBox>
-                <UpperDetailsBox>
+                <UpperDetailsBox
+                  style={{
+                    textTransform: "capitalize",
+                  }}
+                >
                   <h1>{property.title}</h1>
                   <h2>
                     ₹ {property.price} <span>+ Govt Charges & Tax</span>
                   </h2>{" "}
                   <Divider />
                   <h3>{property.desc}</h3>
-                  <h4>{property.address}</h4>
+                  <h4>
+                    {property.locality}, {property.city}
+                  </h4>
                   <p>
                     <span>{property.propertyStatus}</span>{" "}
                     <span>{property.furnishing}</span>
@@ -437,7 +635,6 @@ const Property = () => {
                 </UpperDetailsBox>
               </UpperBox>
               <LowerBox>
-                {" "}
                 <Divider />
                 <DescAndContactBox>
                   <DescBox>
@@ -454,7 +651,6 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
                           {property.title}
                         </span>
                       </Descriptions.Item>
@@ -466,7 +662,6 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
                           {property.price}
                         </span>
                       </Descriptions.Item>
@@ -478,8 +673,7 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
-                          {property.address}
+                          {property.locality}, {property.city}
                         </span>
                       </Descriptions.Item>{" "}
                       <Descriptions.Item label="furnishing">
@@ -501,7 +695,6 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
                           {property.propertyStatus}
                         </span>
                       </Descriptions.Item>
@@ -513,7 +706,6 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
                           {property.area}
                         </span>
                       </Descriptions.Item>
@@ -525,7 +717,6 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
                           {property.floors}
                         </span>
                       </Descriptions.Item>
@@ -537,7 +728,6 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
                           {property.facing}
                         </span>
                       </Descriptions.Item>
@@ -549,7 +739,6 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
                           {property.old}
                         </span>
                       </Descriptions.Item>
@@ -561,55 +750,93 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {" "}
                           {property.facingRoad}
                         </span>
                       </Descriptions.Item>{" "}
                     </Descriptions>
                   </DescBox>
 
-                  <LoginBox>
-                    <h6>Seller Details</h6>
-                    <Divider />
-                    <div>
-                      <Avatar
-                        style={{ backgroundColor: "#87d068" }}
-                        icon={<FaUser />}
-                      />
-                      <p>
-                        Sarthak bhatt <span> (Since 2020)</span>
-                      </p>
-                    </div>
-                    {!isLoggedIn && (
-                      <>
+                  {user && userId != user.id && (
+                    <LoginBox>
+                      <h6>Seller Details</h6>
+                      <Divider />
+                      <div>
+                        <Avatar
+                          style={{ backgroundColor: "#87d068" }}
+                          icon={<FaUser />}
+                        />
                         <p>
-                          <FaPhone /> +91-789XXXXXX4
+                          {user.name} <span> ({user.userSince})</span>
                         </p>
-                        <span>Login to see full contact details.</span>
-                      </>
-                    )}
-                    {isLoggedIn && (
-                      <>
-                        <p>
-                          <FaPhone /> +91-7895603314
-                        </p>
-                        <span>Contact seller.</span>
-                      </>
-                    )}
+                      </div>
+                      {!isLoggedIn && (
+                        <>
+                          <p>
+                            <FaPhone /> +91-
+                            {user.contactNum.toString().slice(0, 3)}XXXXX
+                            {user.contactNum.toString().slice(-2)}
+                          </p>
+                          <span>Login to see full contact details.</span>
+                        </>
+                      )}
+                      {isLoggedIn && user && (
+                        <>
+                          <p>
+                            <FaPhone /> +91-{user.contactNum}
+                          </p>
+                          <span>Contact seller.</span>
+                        </>
+                      )}
 
-                    {!isLoggedIn && (
-                      <button
-                        onClick={() => {
-                          navigate("/login");
-                        }}
-                      >
-                        Login
-                      </button>
-                    )}
-                    {isLoggedIn && (
-                      <button onClick={() => {}}>Send Query</button>
-                    )}
-                  </LoginBox>
+                      {!isLoggedIn && (
+                        <button
+                          onClick={() => {
+                            navigate("/login");
+                          }}
+                        >
+                          Login
+                        </button>
+                      )}
+                      {isLoggedIn && (
+                        <button
+                          onClick={() => {
+                            setShowModal(true);
+                          }}
+                        >
+                          Send Query
+                        </button>
+                      )}
+                    </LoginBox>
+                  )}
+                  {user && userId === user.id && (
+                    <LoginBox>
+                      <h6>Profile</h6>
+                      <Divider />
+                      <div>
+                        <Avatar
+                          style={{ backgroundColor: "#87d068" }}
+                          icon={<FaUser />}
+                        />
+                        <p>
+                          {user.name} <span> ({user.userSince})</span>
+                        </p>
+                      </div>
+                      {isLoggedIn && (
+                        <>
+                          <span>Click to go to profile.</span>
+                        </>
+                      )}
+                      {isLoggedIn && (
+                        <button
+                          onClick={() => {
+                            navigate("/profile");
+                          }}
+                        >
+                          My account
+                        </button>
+                      )}
+                    </LoginBox>
+                  )}
                 </DescAndContactBox>
                 {property.subCategory === "trending" && <MostViewd />}
                 {property.subCategory === "mostviewed" && <Trending />}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import logo from "../assets/logo.png";
@@ -111,7 +111,8 @@ const MobileNavDiv = styled.div`
 
 const PcNav = (props) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-
+  const city = useSelector((state) => state.city);
+  const navigate = useNavigate();
   const show = props.show;
   const clr = props.clr;
   return (
@@ -147,8 +148,15 @@ const PcNav = (props) => {
             backgroundColor: `${clr ? clr : "white"}`,
           }}
         >
-          <span>
-            <IoLocationOutline /> Dehradun
+          <span
+            style={{
+              textTransform: "capitalize",
+            }}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <IoLocationOutline /> {city}
           </span>
           <div>
             <span>List Property</span>

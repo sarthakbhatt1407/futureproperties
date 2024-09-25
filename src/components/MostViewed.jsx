@@ -181,7 +181,11 @@ const MostViewd = () => {
                     }`}
                     alt=""
                   />
-                  <div>
+                  <div
+                    style={{
+                      textTransform: "capitalize",
+                    }}
+                  >
                     <span>{p.title}</span>
                     <p>₹ {p.price}</p>
                     <span>{p.locality}</span>

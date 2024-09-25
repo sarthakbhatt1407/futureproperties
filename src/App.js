@@ -13,6 +13,7 @@ import AllNews from "./pages/AllNews";
 import NewsDetail from "./pages/NewsDetail";
 import { useDispatch, useSelector } from "react-redux";
 import Error from "./pages/Error";
+import Queries from "./pages/Queries";
 
 const MainDiv = styled.div`
   max-height: 100svh;
@@ -54,6 +55,7 @@ const App = () => {
         {isLoggedIn && (
           <>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/queries" element={<Queries />} />
           </>
         )}
         {!isLoggedIn && (
