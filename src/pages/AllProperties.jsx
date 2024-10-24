@@ -317,7 +317,6 @@ const HighLightDiv = styled.div`
 
 const AllProperties = () => {
   const city = useSelector((state) => state.city);
-  console.log(city);
 
   const [loading, setLoading] = useState(true);
   const [properties, setProperties] = useState([]);
@@ -343,12 +342,12 @@ const AllProperties = () => {
 
     if (data.status) {
       if (data.properties.length > 0) {
-        setLoading(false);
       }
 
       setProperties(data.properties);
       setFilteredProperties(data.properties);
     }
+    setLoading(false);
   };
 
   // const properties = [

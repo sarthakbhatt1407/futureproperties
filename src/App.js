@@ -14,6 +14,7 @@ import NewsDetail from "./pages/NewsDetail";
 import { useDispatch, useSelector } from "react-redux";
 import Error from "./pages/Error";
 import Queries from "./pages/Queries";
+import AdminPanel from "./pages/AdminPanel";
 
 const MainDiv = styled.div`
   max-height: 100svh;
@@ -51,7 +52,8 @@ const App = () => {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/news" element={<AllNews />} />
         <Route path="/news/1" element={<NewsDetail />} />
-
+        <Route path="/admin-panel/:page" exact element={<AdminPanel />} />
+        <Route path="/admin-panel/:page/:id" exact element={<AdminPanel />} />
         {isLoggedIn && (
           <>
             <Route path="/profile" element={<Profile />} />

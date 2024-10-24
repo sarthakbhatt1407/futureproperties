@@ -177,11 +177,8 @@ const Login = () => {
           }
         );
         const loginData = await loginRes.json();
-        console.log(loginData);
 
         if (loginData.isloggedIn) {
-          success("Login Successfull.");
-
           setTimeout(() => {
             dispatch({ type: "log in", user: loginData.user, city: city });
             navigate("/");

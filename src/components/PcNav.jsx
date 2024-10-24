@@ -111,6 +111,7 @@ const MobileNavDiv = styled.div`
 
 const PcNav = (props) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const isAdmin = useSelector((state) => state.isAdmin);
   const city = useSelector((state) => state.city);
   const navigate = useNavigate();
   const show = props.show;
@@ -126,6 +127,7 @@ const PcNav = (props) => {
           <Link to={"/"}>Home</Link>
           <Link to={"/properties"}>Properties</Link>
           <Link to={"/contact-us"}>Contact</Link>
+          {isAdmin && <Link to={"/admin-panel/properties"}>Admin Panel</Link>}
           {!isLoggedIn && (
             <Link to={"/login"}>
               <AccountCircle

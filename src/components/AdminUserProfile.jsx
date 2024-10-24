@@ -400,10 +400,10 @@ const BTN = styled.button`
   font-weight: 600;
 `;
 
-const Profile = () => {
+const AdminUserProfile = () => {
   const [currentActive, setCurrentActive] = useState("mydetails");
   const [properties, setProperties] = useState([]);
-  const userId = useSelector((state) => state.userId);
+  const userId = useParams().id;
   const userName = useSelector((state) => state.userName);
   const userContact = useSelector((state) => state.userContact);
   const userSince = useSelector((state) => state.userSince);
@@ -452,167 +452,64 @@ const Profile = () => {
 
   return (
     <>
-      <MainBox1>
-        <ContentBox>
-          <PcNav show={true} />
-          <OuterBox>
-            <MainBox>
-              {loading && <Loader />}
-              <p>
-                Home / <span>My Account</span>
-              </p>
-              <h1>My Account</h1>
+      <MainBox>
+        {loading && <Loader />}
+        <p>
+          Home / <span>User's Account</span>
+        </p>
+        <h1>User's Account</h1>
 
-              <LinksAndDetailsBox>
-                <LinksBox>
-                  {currentActive === "mydetails" && (
-                    <>
-                      <button
-                        style={{ backgroundColor: "#eeeeee", color: "#3F7BFF" }}
-                        id="mydetails"
-                        onClick={activeHandler}
-                      >
-                        <AccountCircle onClick={iconHandler} /> My details
-                      </button>
-                    </>
-                  )}
-                  {!(currentActive === "mydetails") && (
-                    <button id="mydetails" onClick={activeHandler}>
-                      <AccountCircle onClick={iconHandler} /> My details
-                    </button>
-                  )}
-                  {currentActive === "myproperties" && (
-                    <button
-                      style={{ backgroundColor: "#eeeeee", color: "#3F7BFF" }}
-                      onClick={activeHandler}
-                      id="myproperties"
-                    >
-                      <LocationOn onClick={iconHandler} /> Properties
-                    </button>
-                  )}
-                  {!(currentActive === "myproperties") && (
-                    <button onClick={activeHandler} id="myproperties">
-                      <LocationOn onClick={iconHandler} /> Properties
-                    </button>
-                  )}
-                </LinksBox>
-                <DetailsBox>
-                  {currentActive === "mydetails" && (
-                    <>
-                      <MyDetailsBox>
-                        <h3>My details</h3>
-                        <p>Personal Information</p>
-                        <UserInformationBox>
-                          <span>User Information</span>
-                          <InfoBox>
-                            <LabelInputBox>
-                              <label htmlFor="">Name</label>
-                              <input type="text" disabled value={userName} />
-                            </LabelInputBox>
+        <LinksAndDetailsBox>
+          <LinksBox>
+            {currentActive === "mydetails" && (
+              <>
+                <button
+                  style={{ backgroundColor: "#eeeeee", color: "#3F7BFF" }}
+                  id="mydetails"
+                  onClick={activeHandler}
+                >
+                  <AccountCircle onClick={iconHandler} /> User's details
+                </button>
+              </>
+            )}
+            {!(currentActive === "mydetails") && (
+              <button id="mydetails" onClick={activeHandler}>
+                <AccountCircle onClick={iconHandler} /> My details
+              </button>
+            )}
+          </LinksBox>
+          <DetailsBox>
+            {currentActive === "mydetails" && (
+              <>
+                <MyDetailsBox>
+                  <h3>User's details</h3>
+                  <p>Personal Information</p>
+                  <UserInformationBox>
+                    <span>User Information</span>
+                    <InfoBox>
+                      <LabelInputBox>
+                        <label htmlFor="">Name</label>
+                        <input type="text" disabled value={userName} />
+                      </LabelInputBox>
 
-                            <LabelInputBox>
-                              <label htmlFor="">Contact Number</label>
-                              <input type="text" disabled value={userContact} />
-                            </LabelInputBox>
-                            <LabelInputBox>
-                              <label htmlFor="">User Since</label>
-                              <input type="text" disabled value={userSince} />
-                            </LabelInputBox>
-                          </InfoBox>
-                        </UserInformationBox>
-                      </MyDetailsBox>
-                      <BTN
-                        onClick={() => {
-                          dispatch({ type: "logout" });
-                        }}
-                      >
-                        Log out
-                      </BTN>
-                    </>
-                  )}
-                  {currentActive === "myproperties" && (
-                    <>
-                      <PropertiesBox>
-                        {!loading &&
-                          properties.map((item) => {
-                            return (
-                              <Link
-                                to={`/property/${item.title}/${item.id}`}
-                                key={item.id}
-                              >
-                                <PropertyBox>
-                                  <LeftDiv>
-                                    <img
-                                      src={`${process.env.REACT_APP_BASE_URL}/${
-                                        item.images.split("+")[0]
-                                      }`}
-                                      alt=""
-                                    />
-                                  </LeftDiv>
-                                  <MidDiv>
-                                    <h3>{item.title}</h3>
-                                    <h4>₹ {item.price}</h4>
-                                    <span>
-                                      {item.locality}, {item.city}
-                                    </span>
-                                    <HighLights>
-                                      <HighLightDiv>
-                                        <i>
-                                          <BiArea />
-                                        </i>
-                                        <div>
-                                          <p>{item.area}</p>
-                                        </div>
-                                      </HighLightDiv>
-                                      <HighLightDiv>
-                                        <i>
-                                          <FaRegCompass />
-                                        </i>
-                                        <div>
-                                          <p>{item.facing}</p>
-                                        </div>
-                                      </HighLightDiv>
-                                      <HighLightDiv>
-                                        <i>
-                                          <GrStatusGood />
-                                        </i>
-                                        <div>
-                                          <p>{item.propertyStatus}</p>
-                                        </div>
-                                      </HighLightDiv>
-                                      <HighLightDiv>
-                                        <i>
-                                          <HiOutlineHomeModern />
-                                        </i>
-                                        <div>
-                                          <p>Floors: {item.floors}</p>
-                                        </div>
-                                      </HighLightDiv>
-                                    </HighLights>
-                                    <p>{item.address}</p>
-                                    <p>{item.desc}</p>
-                                  </MidDiv>
-                                  <RightDiv>
-                                    <h3>₹ {item.price}</h3>
-                                  </RightDiv>
-                                </PropertyBox>
-                              </Link>
-                            );
-                          })}
-                      </PropertiesBox>
-                    </>
-                  )}
-                </DetailsBox>
-              </LinksAndDetailsBox>
-            </MainBox>
-          </OuterBox>
-
-          <Footer />
-        </ContentBox>
-        <MobileBottomNavigation view={3} />
-      </MainBox1>
+                      <LabelInputBox>
+                        <label htmlFor="">Contact Number</label>
+                        <input type="text" disabled value={userContact} />
+                      </LabelInputBox>
+                      <LabelInputBox>
+                        <label htmlFor="">User Since</label>
+                        <input type="text" disabled value={userSince} />
+                      </LabelInputBox>
+                    </InfoBox>
+                  </UserInformationBox>
+                </MyDetailsBox>
+              </>
+            )}
+          </DetailsBox>
+        </LinksAndDetailsBox>
+      </MainBox>
     </>
   );
 };
 
-export default Profile;
+export default AdminUserProfile;

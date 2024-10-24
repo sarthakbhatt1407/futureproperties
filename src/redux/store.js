@@ -7,6 +7,7 @@ const defaultState = {
   userContact: null,
   userSince: "",
   city: "dehradun",
+  isAdmin: "",
 };
 
 const storeReducer = (state = defaultState, action) => {
@@ -21,6 +22,7 @@ const storeReducer = (state = defaultState, action) => {
       userContact: user.contact,
       userSince: user.userSince,
       city: action.city,
+      isAdmin: user.isAdmin,
     };
     console.log(obj);
 
@@ -34,6 +36,7 @@ const storeReducer = (state = defaultState, action) => {
       userContact: user.contact,
       userSince: user.userSince,
       city: action.city,
+      isAdmin: user.isAdmin,
     };
   }
 
