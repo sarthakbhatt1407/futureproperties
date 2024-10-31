@@ -396,7 +396,7 @@ const Property = () => {
   };
 
   const navigate = useNavigate();
-  const w = window.screen.width > 700 ? "52vw" : "95vw";
+  const w = window.screen.width > 700 ? "52vw" : "92vw";
   const h = window.screen.width > 700 ? "83vh" : "35vh";
   const [property, setProperty] = useState(null);
   const [images, setImages] = useState([]);
