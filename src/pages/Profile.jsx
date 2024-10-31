@@ -146,6 +146,7 @@ const DetailsBox = styled.div`
     padding: 2rem;
     width: 83%;
     margin: auto;
+    height: 70svh;
   }
 `;
 
@@ -687,7 +688,7 @@ const Profile = () => {
             </MainBox>
           </OuterBox>
 
-          <Footer />
+          {/* <Footer /> */}
         </ContentBox>
         <MobileBottomNavigation view={4} />
       </MainBox1>
