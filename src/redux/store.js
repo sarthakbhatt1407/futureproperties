@@ -7,7 +7,7 @@ const defaultState = {
   userContact: null,
   userSince: "",
   city: "dehradun",
-  isAdmin: "",
+  isAdmin: false,
 };
 
 const storeReducer = (state = defaultState, action) => {
