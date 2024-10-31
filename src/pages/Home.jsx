@@ -15,6 +15,7 @@ import Handpicked from "../components/Handpicked";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
 import ReadyToLaunch from "../components/ReadyToLaunch";
 import PcNav from "../components/PcNav";
+import Rental from "../components/Rental";
 
 const MainBox = styled.div`
   position: relative;
@@ -54,10 +55,11 @@ const Home = () => {
       <ContentBox>
         <PcNav show={true} clr={"#EFEFEE"} />
         <Header />
-        <PropertyCategory />
+        {/* <PropertyCategory /> */}
         <Trending />
         <Handpicked />
         <MostViewed />
+        <Rental />
 
         <News />
         <Videos />
