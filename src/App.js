@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Error from "./pages/Error";
 import Queries from "./pages/Queries";
 import AdminPanel from "./pages/AdminPanel";
+import PostProperty from "./pages/PostProperty";
 
 const MainDiv = styled.div`
   max-height: 100svh;
@@ -45,6 +46,9 @@ const App = () => {
       <Routes>
         {!isLoggedIn && <Route path="/login" element={<Login />} />}
         {isLoggedIn && <Route path="/login" element={<Home />} />}
+        {isLoggedIn && (
+          <Route path="/post-property" element={<PostProperty />} />
+        )}
         <Route path="/" element={<Home />} />
 
         <Route path="/property/:title/:id" element={<Property />} />

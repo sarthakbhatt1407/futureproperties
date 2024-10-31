@@ -161,7 +161,17 @@ const PcNav = (props) => {
             <IoLocationOutline /> {city}
           </span>
           <div>
-            <span>List Property</span>
+            <span
+              onClick={() => {
+                if (isLoggedIn) {
+                  navigate("/post-property");
+                } else {
+                  navigate("/login");
+                }
+              }}
+            >
+              List Property
+            </span>
             <span>
               {!isLoggedIn && (
                 <Link

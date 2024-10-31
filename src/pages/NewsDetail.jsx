@@ -4,6 +4,7 @@ import PcNav from "../components/PcNav";
 import ReadyToLaunch from "../components/ReadyToLaunch";
 import Footer from "../components/Footer";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
+import { allNews } from "../data/news";
 
 const MainBox = styled.div`
   position: relative;
@@ -58,18 +59,7 @@ const NewsBox = styled.div`
 `;
 
 const NewsDetail = () => {
-  const news = {
-    title: "Stamp duties in India's Tier-1 , 2, 3 cities",
-    desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
-    image:
-      "https://www.rajyasameeksha.com/Uploads/7c3fe97e-1d0d-4f93-beb8-566e492dd953.jpg",
-    paraFirst:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste aliquid facilis quasi possimus, quo impedit eius amet officiis hic, suscipit soluta exercitationem explicabo asperiores earum voluptatem nobis velit ad, distinctio sint officia nam est? Accusamus magni ipsum voluptatum excepturi rerum eius rem repellat voluptate soluta. ",
-    paraSec:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste aliquid facilis quasi possimus, quo impedit eius amet officiis hic, suscipit soluta exercitationem explicabo asperiores earum voluptatem nobis velit ad, distinctio sint officia nam est? Accusamus magni ipsum voluptatum excepturi rerum eius rem repellat voluptate soluta. ",
-    paratir:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus perspiciatis fugiat quisquam! Ea explicabo deserunt, consequuntur saepe sit labore facilis numquam dicta, debitis earum dolor ad velit nihil aperiam accusantium id assumenda corporis perferendis beatae commodi. Corrupti voluptate fugiat ut assumenda quo modi nobis beatae veritatis ex! Assumenda voluptatibus dolorum reiciendis fugit consequuntur error optio odit sit doloribus consectetur molestiae repudiandae eligendi dolor saepe vero quas, eaque rerum nisi numquam repellendus debitis rem consequatur fugiat. Quam, deleniti doloremque repudiandae harum dicta maxime ex consequatur quis repellendus vitae! Amet, suscipit porro!",
-  };
+  const news = allNews[0];
   return (
     <MainBox>
       <ContentBox>

@@ -2,6 +2,7 @@ import React from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { allNews } from "../data/news";
 
 const MainBox = styled.div`
   display: flex;
@@ -116,51 +117,7 @@ const PropertyBox = styled.div`
 `;
 
 const News = () => {
-  const newsArticle = [
-    {
-      title: "Stamp duties in India's Tier-1 , 2, 3 cities",
-      desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
-      image:
-        "https://www.rajyasameeksha.com/Uploads/7c3fe97e-1d0d-4f93-beb8-566e492dd953.jpg",
-    },
-    {
-      title: "Stamp duties in India's Tier-1 , 2, 3 cities",
-      desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
-      image:
-        "https://www.rajyasameeksha.com/Uploads/7c3fe97e-1d0d-4f93-beb8-566e492dd953.jpg",
-    },
-    {
-      title: "Stamp duties in India's Tier-1 , 2, 3 cities",
-      desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
-      image:
-        "https://www.rajyasameeksha.com/Uploads/7c3fe97e-1d0d-4f93-beb8-566e492dd953.jpg",
-    },
-    {
-      title: "Stamp duties in India's Tier-1 , 2, 3 cities",
-      desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
-      image:
-        "https://www.rajyasameeksha.com/Uploads/7c3fe97e-1d0d-4f93-beb8-566e492dd953.jpg",
-    },
-    {
-      title: "Stamp duties in India's Tier-1 , 2, 3 cities",
-      desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
-      image:
-        "https://www.rajyasameeksha.com/Uploads/7c3fe97e-1d0d-4f93-beb8-566e492dd953.jpg",
-    },
-    {
-      title: "Stamp duties in India's Tier-1 , 2, 3 cities",
-      desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
-      image:
-        "https://www.rajyasameeksha.com/Uploads/7c3fe97e-1d0d-4f93-beb8-566e492dd953.jpg",
-    },
-    {
-      title: "Stamp duties in India's Tier-1 , 2, 3 cities",
-      desc: "Our user-friendly platform simplifies the real estate journey. Start by browsing our extensive listings of homes and properties",
-      image:
-        "https://www.rajyasameeksha.com/Uploads/7c3fe97e-1d0d-4f93-beb8-566e492dd953.jpg",
-    },
-  ];
-
+  const newsArticle = allNews;
   return (
     <MainBox>
       <HeaderBox>

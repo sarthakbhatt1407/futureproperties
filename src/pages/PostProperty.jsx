@@ -5,6 +5,7 @@ import MobileNav from "../components/MobileNav";
 import PropertyCategory from "../components/PropertyCategory";
 import OurWork from "../components/OurWork";
 import ContactsUs from "../components/ContactUs";
+import Form from "../components/Form";
 import Footer from "../components/Footer";
 import Trending from "../components/Trending";
 import MostViewed from "../components/MostViewed";
@@ -134,7 +135,7 @@ const NoQueriesBox = styled.div`
   }
 `;
 
-const Queries = () => {
+const PostProperty = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const success = (msg) => {
@@ -185,119 +186,14 @@ const Queries = () => {
   }, [userId]);
   return (
     <MainBox>
-      {" "}
       {contextHolder}
       <ContentBox>
-        {loading && <Loader />}
-        <PcNav show={true} />
-        <HeadingAndSearch>
-          <span>Home / Queries</span>
-          <h1>Queries</h1>
-        </HeadingAndSearch>
-        <ResultAndFilter>
-          <DetailPara>Showing all results</DetailPara>{" "}
-        </ResultAndFilter>
-        <QueriesBox>
-          {queries.length > 0 &&
-            queries.map((q, i) => {
-              return (
-                <div key={q.id}>
-                  <Collapse
-                    size="large"
-                    items={[
-                      {
-                        key: "1",
-                        label: `${q.name} - ${q.dateTime.split("_")[0]}`,
-                        children: (
-                          <p
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              gap: ".7rem",
-                            }}
-                          >
-                            <span>
-                              <strong>Message - </strong> {q.message}
-                            </span>
-                            <span
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 10,
-                              }}
-                            >
-                              <strong>Property - </strong>
-                              <LinkOutlined
-                                onClick={() => {
-                                  navigate(`/property/by-query/${q.property}`);
-                                }}
-                                style={{
-                                  color: "#3F7BFF",
-                                }}
-                              />
-                            </span>
-                            <button
-                              style={{
-                                width: "20%",
-                                border: "none",
-                                padding: ".5rem 1rem",
-                                borderRadius: ".6rem",
-                                cursor: "pointer",
-                              }}
-                              onClick={async () => {
-                                setLoading(true);
-
-                                const res = await fetch(
-                                  `${process.env.REACT_APP_BASE_URL}/query/delete-query`,
-                                  {
-                                    method: "DELETE",
-                                    headers: {
-                                      "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify({
-                                      id: q.id,
-                                    }),
-                                  }
-                                );
-                                const data = await res.json();
-                                console.log(data);
-
-                                if (res.ok) {
-                                  success(data.message);
-                                  setTimeout(() => {
-                                    window.location.reload();
-                                  }, 700);
-                                } else {
-                                  error(data.message);
-                                }
-                                setLoading(false);
-                              }}
-                            >
-                              <DeleteForeverOutlined />
-                            </button>
-                          </p>
-                        ),
-                      },
-                    ]}
-                  />
-                  {i < queries.length - 1 && (
-                    <Divider orientation="left"></Divider>
-                  )}
-                </div>
-              );
-            })}
-          {!loading && queries.length === 0 && (
-            <NoQueriesBox>
-              <p>No queries till now.</p>
-            </NoQueriesBox>
-          )}
-        </QueriesBox>
-
-        <Footer />
+        <PcNav />
+        <Form />
       </ContentBox>
-      <MobileBottomNavigation view={3} />
+      <MobileBottomNavigation view={2} />
     </MainBox>
   );
 };
 
-export default Queries;
+export default PostProperty;

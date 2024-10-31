@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import {
   AccountCircle,
+  DeleteOutline,
   LocalShipping,
   LocationOn,
   Settings,
@@ -19,6 +20,8 @@ import { FaRegCompass } from "react-icons/fa";
 import { GrStatusGood } from "react-icons/gr";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import Loader from "../components/Loader";
+import { message, Popconfirm } from "antd";
+import { MdDeleteOutline } from "react-icons/md";
 
 const MainBox1 = styled.div`
   position: relative;
@@ -234,7 +237,8 @@ const UserInformationBox = styled.div`
     font-size: 1.3rem;
   }
   @media only screen and (max-width: 1099px) {
-    grid-template-columns: 1fr 2.4fr;
+    display: flex;
+    flex-direction: column;
     span {
       font-size: 1.1rem;
     }
@@ -401,7 +405,21 @@ const BTN = styled.button`
 `;
 
 const Profile = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = (msg) => {
+    messageApi.open({
+      type: "success",
+      content: msg,
+    });
+  };
+  const error = (msg) => {
+    messageApi.open({
+      type: "error",
+      content: msg,
+    });
+  };
   const [currentActive, setCurrentActive] = useState("mydetails");
+  const [refresher, setRefresher] = useState(0);
   const [properties, setProperties] = useState([]);
   const userId = useSelector((state) => state.userId);
   const userName = useSelector((state) => state.userName);
@@ -440,7 +458,7 @@ const Profile = () => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     fecther();
     return () => {};
-  }, [userId]);
+  }, [userId, refresher]);
 
   const activeHandler = (e) => {
     setCurrentActive(e.target.id);
@@ -593,12 +611,74 @@ const Profile = () => {
                                     <p>{item.desc}</p>
                                   </MidDiv>
                                   <RightDiv>
-                                    <h3>₹ {item.price}</h3>
+                                    <h3>₹ {item.price}</h3>{" "}
+                                    <Popconfirm
+                                      title="Confirm"
+                                      description="Delete Property?"
+                                      onConfirm={async () => {
+                                        const id = item.id;
+                                        console.log(id);
+
+                                        const res = await fetch(
+                                          `${process.env.REACT_APP_BASE_URL}/property/update-property`,
+                                          {
+                                            method: "POST",
+                                            headers: {
+                                              "Content-Type":
+                                                "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                              id: id,
+                                              action: "delete",
+                                            }),
+                                          }
+                                        );
+                                        const data = await res.json();
+                                        console.log(data);
+
+                                        if (data.success) {
+                                          success(data.message);
+                                          setTimeout(() => {
+                                            setRefresher((prev) => {
+                                              return prev + 1;
+                                            });
+                                          }, 600);
+                                        } else {
+                                          error(data.message);
+                                        }
+                                      }}
+                                    >
+                                      <Link
+                                        style={{
+                                          marginRight: `1.3rem`,
+                                          backgroundColor: "#3F7BFF",
+                                          padding: ".5rem 1rem",
+                                          color: "white",
+                                          borderRadius: 10,
+                                        }}
+                                      >
+                                        <MdDeleteOutline
+                                          style={{
+                                            transform: "scale(1.4)",
+                                          }}
+                                        />
+                                      </Link>
+                                    </Popconfirm>
                                   </RightDiv>
                                 </PropertyBox>
                               </Link>
                             );
                           })}
+                        {properties.length == 0 && (
+                          <p
+                            style={{
+                              textAlign: "center",
+                              fontSize: 20,
+                            }}
+                          >
+                            No Properties found!
+                          </p>
+                        )}
                       </PropertiesBox>
                     </>
                   )}
@@ -609,7 +689,7 @@ const Profile = () => {
 
           <Footer />
         </ContentBox>
-        <MobileBottomNavigation view={3} />
+        <MobileBottomNavigation view={4} />
       </MainBox1>
     </>
   );

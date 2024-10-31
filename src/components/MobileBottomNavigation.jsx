@@ -7,6 +7,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
 import {
   AccountCircle,
+  AddOutlined,
   ChatBubbleOutlineOutlined,
   EmailOutlined,
   Home,
@@ -45,6 +46,26 @@ export default function MobileBottomNavigation(props) {
             icon={<ApartmentOutlinedIcon />}
           />
 
+          {isLoggedIn && (
+            <BottomNavigationAction
+              label="Post"
+              onClick={() => {
+                navigate("/post-property");
+              }}
+              icon={
+                <AddOutlined
+                  style={{
+                    backgroundColor: "#3F7BFF",
+                    color: "white",
+                    width: 30,
+                    height: 30,
+                    borderRadius: "50%",
+                    marginBottom: 5,
+                  }}
+                />
+              }
+            />
+          )}
           {isLoggedIn && (
             <BottomNavigationAction
               label="Queries"

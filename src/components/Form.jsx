@@ -13,6 +13,7 @@ import {
   DatePicker,
   List,
   Image,
+  Grid,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
@@ -21,7 +22,11 @@ import Loader from "./Loader";
 const { Title } = Typography;
 const { Option } = Select;
 
+const { useBreakpoint } = Grid;
+
 const PropertyCreationPage = () => {
+  const screens = useBreakpoint();
+  const isAdmin = useSelector((state) => state.isAdmin);
   const userId = useSelector((state) => state.userId);
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
@@ -51,6 +56,9 @@ const PropertyCreationPage = () => {
       formData.append(key, value);
     });
     formData.append("userId", userId);
+    if (!isAdmin) {
+      formData.append("subCategory", "trending");
+    }
     try {
       const response = await fetch(
         `${process.env.REACT_APP_BASE_URL}/property/create-new-property`,
@@ -79,12 +87,16 @@ const PropertyCreationPage = () => {
     }
     setLoading(false);
   };
-
+  const getColumnCount = () => {
+    if (screens.xs) return 2; // For extra small screens, 2 columns
+    if (screens.sm) return 3; // For small screens, 3 columns
+    return 4; // Default for medium and larger screens
+  };
   return (
     <div
       style={{
         padding: "20px",
-        width: "100%",
+        width: `${screens.xs ? "90%" : "100%"}`,
         margin: "0 auto",
         overflowY: "scroll",
         height: "100%",
@@ -95,7 +107,7 @@ const PropertyCreationPage = () => {
       <Card title="Property Details">
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Title"
                 name="title"
@@ -104,7 +116,7 @@ const PropertyCreationPage = () => {
                 <Input placeholder="Enter property title" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Description"
                 name="desc"
@@ -117,7 +129,7 @@ const PropertyCreationPage = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Locality"
                 name="locality"
@@ -128,7 +140,7 @@ const PropertyCreationPage = () => {
                 <Input placeholder="Enter locality" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Property Status"
                 name="propertyStatus"
@@ -143,7 +155,7 @@ const PropertyCreationPage = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="City"
                 name="city"
@@ -152,7 +164,7 @@ const PropertyCreationPage = () => {
                 <Input placeholder="Enter city" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="State"
                 name="state"
@@ -163,7 +175,7 @@ const PropertyCreationPage = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Area (sq. ft)"
                 name="area"
@@ -172,7 +184,7 @@ const PropertyCreationPage = () => {
                 <Input placeholder="Enter area" type="number" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Price"
                 name="price"
@@ -183,7 +195,7 @@ const PropertyCreationPage = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Facing"
                 name="facing"
@@ -197,24 +209,29 @@ const PropertyCreationPage = () => {
                 </Select>
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Sub Category"
-                name="subCategory"
-                rules={[
-                  { required: true, message: "Please select a sub-category!" },
-                ]}
-              >
-                <Select placeholder="Select sub-category">
-                  <Option value="trending">Trending</Option>
-                  <Option value="mostviewed">Most viewed</Option>
-                  <Option value="handpicked">Hand picked</Option>
-                </Select>
-              </Form.Item>
-            </Col>
+            {isAdmin && (
+              <Col span={screens.xs ? 24 : 12}>
+                <Form.Item
+                  label="Sub Category"
+                  name="subCategory"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select a sub-category!",
+                    },
+                  ]}
+                >
+                  <Select placeholder="Select sub-category">
+                    <Option value="trending">Trending</Option>
+                    <Option value="mostviewed">Most viewed</Option>
+                    <Option value="handpicked">Hand picked</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+            )}
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Furnishing"
                 name="furnishing"
@@ -229,7 +246,7 @@ const PropertyCreationPage = () => {
                 </Select>
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Floors"
                 name="floors"
@@ -245,7 +262,7 @@ const PropertyCreationPage = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Facing Road (sq. ft.)"
                 name="facingRoad"
@@ -256,7 +273,7 @@ const PropertyCreationPage = () => {
                 <Input placeholder="Enter facing road" type="number" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Property Age"
                 name="old"
@@ -272,7 +289,7 @@ const PropertyCreationPage = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={screens.xs ? 24 : 12}>
               <Form.Item
                 label="Category"
                 name="category"
@@ -309,7 +326,7 @@ const PropertyCreationPage = () => {
               </Upload>
             </Form.Item>
             <List
-              grid={{ gutter: 16, column: 4 }}
+              grid={{ gutter: 16, column: getColumnCount() }}
               dataSource={previewImages}
               renderItem={(item) => (
                 <List.Item>
@@ -328,7 +345,7 @@ const PropertyCreationPage = () => {
                 margin: "20px auto",
               }}
             >
-              Submit Property
+              Submit
             </Button>
           </Form.Item>
         </Form>
