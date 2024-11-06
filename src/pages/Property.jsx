@@ -444,6 +444,8 @@ const Property = () => {
     const data = await res.json();
 
     if (data.status) {
+      console.log(data);
+
       const imgArr = data.property.images.split("+");
       const resArr = imgArr.map((img) => {
         return { url: img };
@@ -600,7 +602,7 @@ const Property = () => {
                         <i style={{ backgroundColor: "#f5dfbf" }}>
                           <BiArea />
                         </i>
-                        <span>{property.area}</span>
+                        <span>{property.area} sq.ft.</span>
                       </div>
                       <div>
                         <i style={{ backgroundColor: "#e2f1f9" }}>
@@ -612,7 +614,10 @@ const Property = () => {
                         <i style={{ backgroundColor: "#f5dfbf" }}>
                           <FaChartPie />
                         </i>
-                        <span>₹ 4927 per sq.ft.</span>
+                        <span>
+                          ₹ {Math.round(property.area / property.price)} per
+                          sq.ft.
+                        </span>
                       </div>
                       <div>
                         <i style={{ backgroundColor: "#d7f0c3" }}>
@@ -627,9 +632,7 @@ const Property = () => {
                       <li>{property.floors} floors</li>
 
                       <li>{property.facingRoad}</li>
-                      <li>
-                        3 Bedrooms , 4 Bathrooms, 2 Balconies with Pooja Room
-                      </li>
+                      <li>{property.desc}</li>
                     </ul>
                   </AniBox>
                 </UpperDetailsBox>
