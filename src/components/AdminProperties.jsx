@@ -229,7 +229,7 @@ const AdminProperties = () => {
   const fetcher = async () => {
     setIsloading(true);
     const res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/property/get-all-properties`
+      `${process.env.REACT_APP_BASE_URL}/property/all-properties-admin`
     );
     const data = await res.json();
     console.log(data.properties);
