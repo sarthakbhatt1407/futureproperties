@@ -76,8 +76,8 @@ const PropertyBox = styled.div`
 
   border-radius: 0.6rem;
   img {
-    width: 18rem;
-    height: 12rem;
+    width: 20rem;
+    height: 14rem;
     border-top-right-radius: 0.6rem;
     border-top-left-radius: 0.6rem;
   }
@@ -148,6 +148,18 @@ const Trending = () => {
       setProperties(data.properties);
     }
   };
+  function formatToIndianCurrency(number) {
+    if (number >= 10000000) {
+      // Convert to crore
+      return `${(number / 10000000).toFixed(2)} cr`;
+    } else if (number >= 100000) {
+      // Convert to lakh
+      return `${(number / 100000).toFixed(2)} lakh`;
+    } else {
+      // Format as standard currency if below 1 lakh
+      return `${number.toLocaleString("en-IN")}`;
+    }
+  }
 
   useEffect(() => {
     fetcher();
@@ -179,7 +191,7 @@ const Trending = () => {
                   />
                   <div>
                     <span>{p.title}</span>
-                    <p>₹ {p.price}</p>
+                    <p>₹ {formatToIndianCurrency(p.price)}</p>
                     <span>{p.locality}</span>
                     <span>{p.category}</span>
                   </div>

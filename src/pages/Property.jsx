@@ -397,7 +397,7 @@ const Property = () => {
 
   const navigate = useNavigate();
   const w = window.screen.width > 700 ? "52vw" : "92vw";
-  const h = window.screen.width > 700 ? "83vh" : "35vh";
+  const h = window.screen.width > 700 ? "70vh" : "30vh";
   const [property, setProperty] = useState(null);
   const [images, setImages] = useState([]);
   const id = useParams().id;
@@ -493,6 +493,18 @@ const Property = () => {
     }
     setLoading(false);
   };
+  function formatToIndianCurrency(number) {
+    if (number >= 10000000) {
+      // Convert to crore
+      return `${(number / 10000000).toFixed(2)} cr`;
+    } else if (number >= 100000) {
+      // Convert to lakh
+      return `${(number / 100000).toFixed(2)} lakh`;
+    } else {
+      // Format as standard currency if below 1 lakh
+      return `${number.toLocaleString("en-IN")}`;
+    }
+  }
 
   useEffect(() => {
     fetcher();
@@ -571,7 +583,8 @@ const Property = () => {
                 >
                   <h1>{property.title}</h1>
                   <h2>
-                    ₹ {property.price} <span>+ Govt Charges & Tax</span>
+                    ₹ {formatToIndianCurrency(property.price)}{" "}
+                    <span>+ Govt Charges & Tax</span>
                   </h2>{" "}
                   <Divider />
                   <h3>{property.desc}</h3>
@@ -608,17 +621,9 @@ const Property = () => {
                         <i style={{ backgroundColor: "#e2f1f9" }}>
                           <FaIndianRupeeSign />
                         </i>
-                        <span>{property.price}</span>
+                        <span>{formatToIndianCurrency(property.price)}</span>
                       </div>
-                      <div>
-                        <i style={{ backgroundColor: "#f5dfbf" }}>
-                          <FaChartPie />
-                        </i>
-                        <span>
-                          ₹ {Math.round(property.area / property.price)} per
-                          sq.ft.
-                        </span>
-                      </div>
+
                       <div>
                         <i style={{ backgroundColor: "#d7f0c3" }}>
                           <FaRegCompass />

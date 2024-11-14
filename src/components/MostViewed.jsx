@@ -72,7 +72,7 @@ const PropertiesBox = styled.div`
 
 const PropertyBox = styled.div`
   a {
-    width: 26rem;
+    width: 30rem;
     box-shadow: 0.1rem 0.1rem 0.5rem #eeeded;
     display: flex;
     border-radius: 0.4rem;
@@ -104,7 +104,7 @@ const PropertyBox = styled.div`
   }
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     a {
-      width: 17rem;
+      width: 23rem;
       height: fit-content;
       gap: 0.5rem;
       img {
@@ -114,10 +114,10 @@ const PropertyBox = styled.div`
       div {
         gap: 0.3rem;
         span {
-          font-size: 0.85rem;
+          font-size: 0.75rem;
         }
         p {
-          font-size: 1rem;
+          font-size: 0.9rem;
         }
       }
     }
@@ -128,7 +128,18 @@ const MostViewd = () => {
   const city = useSelector((state) => state.city);
   const [loading, setLoading] = useState(true);
   const [properties, setProperties] = useState([]);
-
+  function formatToIndianCurrency(number) {
+    if (number >= 10000000) {
+      // Convert to crore
+      return `${(number / 10000000).toFixed(2)} cr`;
+    } else if (number >= 100000) {
+      // Convert to lakh
+      return `${(number / 100000).toFixed(2)} lakh`;
+    } else {
+      // Format as standard currency if below 1 lakh
+      return `${number.toLocaleString("en-IN")}`;
+    }
+  }
   const fetcher = async () => {
     setLoading(true);
     const res = await fetch(
@@ -187,7 +198,7 @@ const MostViewd = () => {
                     }}
                   >
                     <span>{p.title}</span>
-                    <p>₹ {p.price}</p>
+                    <p>₹ {formatToIndianCurrency(p.price)}</p>
                     <span>{p.locality}</span>
                     <span>{p.category}</span>
                   </div>

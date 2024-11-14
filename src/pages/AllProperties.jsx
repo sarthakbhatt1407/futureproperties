@@ -494,6 +494,18 @@ const AllProperties = () => {
       label: "Price: High to Low",
     },
   ];
+  function formatToIndianCurrency(number) {
+    if (number >= 10000000) {
+      // Convert to crore
+      return `${(number / 10000000).toFixed(2)} cr`;
+    } else if (number >= 100000) {
+      // Convert to lakh
+      return `${(number / 100000).toFixed(2)} lakh`;
+    } else {
+      // Format as standard currency if below 1 lakh
+      return `${number.toLocaleString("en-IN")}`;
+    }
+  }
   const handleChange = (value) => {
     console.log(`${value}`);
     if (value === "popularity") {
@@ -611,7 +623,7 @@ const AllProperties = () => {
                     </LeftDiv>
                     <MidDiv>
                       <h3>{item.title}</h3>
-                      <h4>₹ {item.price}</h4>
+                      <h4>₹ {formatToIndianCurrency(item.price)}</h4>
                       <span>
                         {item.locality}, {item.city}
                       </span>
@@ -653,7 +665,7 @@ const AllProperties = () => {
                       <p>{item.desc}</p>
                     </MidDiv>
                     <RightDiv>
-                      <h3>₹ {item.price}</h3>
+                      <h3>₹ {formatToIndianCurrency(item.price)}</h3>
                       <button>Contact Owner</button>
                     </RightDiv>
                   </PropertyBox>

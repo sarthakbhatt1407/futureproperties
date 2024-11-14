@@ -59,7 +59,7 @@ const Home = () => {
         <Trending />
         <Handpicked />
         <MostViewed />
-        <Rental />
+        {/* <Rental /> */}
 
         <News />
         <Videos />

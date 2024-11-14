@@ -98,7 +98,18 @@ const Handpicked = () => {
   const city = useSelector((state) => state.city);
   const [loading, setLoading] = useState(true);
   const [properties, setProperties] = useState([]);
-
+  function formatToIndianCurrency(number) {
+    if (number >= 10000000) {
+      // Convert to crore
+      return `${(number / 10000000).toFixed(2)} cr`;
+    } else if (number >= 100000) {
+      // Convert to lakh
+      return `${(number / 100000).toFixed(2)} lakh`;
+    } else {
+      // Format as standard currency if below 1 lakh
+      return `${number.toLocaleString("en-IN")}`;
+    }
+  }
   const fetcher = async () => {
     setLoading(true);
     const res = await fetch(
@@ -171,7 +182,7 @@ const Handpicked = () => {
                     </p>
                     <p>
                       <span>{p.title}</span>
-                      <span>{p.price}</span>
+                      <span> ₹ {formatToIndianCurrency(p.price)}</span>
                     </p>
                   </LowerBox>
                 </ImgBox>

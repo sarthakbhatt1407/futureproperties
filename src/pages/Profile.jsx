@@ -555,11 +555,11 @@ const Profile = () => {
                         {!loading &&
                           properties.map((item) => {
                             return (
-                              <Link
-                                to={`/property/${item.title}/${item.id}`}
-                                key={item.id}
-                              >
-                                <PropertyBox>
+                              <PropertyBox>
+                                <Link
+                                  to={`/property/${item.title}/${item.id}`}
+                                  key={item.id}
+                                >
                                   <LeftDiv>
                                     <img
                                       src={`${process.env.REACT_APP_BASE_URL}/${
@@ -611,63 +611,60 @@ const Profile = () => {
                                     <p>{item.address}</p>
                                     <p>{item.desc}</p>
                                   </MidDiv>
-                                  <RightDiv>
-                                    <h3>₹ {item.price}</h3>{" "}
-                                    <Popconfirm
-                                      title="Confirm"
-                                      description="Delete Property?"
-                                      onConfirm={async () => {
-                                        const id = item.id;
-                                        console.log(id);
+                                </Link>
+                                <RightDiv>
+                                  <h3>₹ {item.price}</h3>{" "}
+                                  <Popconfirm
+                                    title="Confirm"
+                                    description="Delete Property?"
+                                    onConfirm={async () => {
+                                      const id = item.id;
+                                      console.log(id);
 
-                                        const res = await fetch(
-                                          `${process.env.REACT_APP_BASE_URL}/property/update-property`,
-                                          {
-                                            method: "POST",
-                                            headers: {
-                                              "Content-Type":
-                                                "application/json",
-                                            },
-                                            body: JSON.stringify({
-                                              id: id,
-                                              action: "delete",
-                                            }),
-                                          }
-                                        );
-                                        const data = await res.json();
-                                        console.log(data);
-
-                                        if (data.success) {
-                                          success(data.message);
-                                          setTimeout(() => {
-                                            setRefresher((prev) => {
-                                              return prev + 1;
-                                            });
-                                          }, 600);
-                                        } else {
-                                          error(data.message);
+                                      const res = await fetch(
+                                        `${process.env.REACT_APP_BASE_URL}/property/update-property`,
+                                        {
+                                          method: "POST",
+                                          headers: {
+                                            "Content-Type": "application/json",
+                                          },
+                                          body: JSON.stringify({
+                                            id: id,
+                                            action: "delete",
+                                          }),
                                         }
+                                      );
+                                      const data = await res.json();
+                                      console.log(data);
+
+                                      if (data.success) {
+                                        success(data.message);
+                                        setTimeout(() => {
+                                          window.location.reload();
+                                        }, 600);
+                                      } else {
+                                        error(data.message);
+                                      }
+                                    }}
+                                  >
+                                    <Link
+                                      style={{
+                                        marginRight: `1.3rem`,
+                                        backgroundColor: "#3F7BFF",
+                                        padding: ".5rem 1rem",
+                                        color: "white",
+                                        borderRadius: 10,
                                       }}
                                     >
-                                      <Link
+                                      <MdDeleteOutline
                                         style={{
-                                          marginRight: `1.3rem`,
-                                          backgroundColor: "#3F7BFF",
-                                          padding: ".5rem 1rem",
-                                          color: "white",
-                                          borderRadius: 10,
+                                          transform: "scale(1.4)",
                                         }}
-                                      >
-                                        <MdDeleteOutline
-                                          style={{
-                                            transform: "scale(1.4)",
-                                          }}
-                                        />
-                                      </Link>
-                                    </Popconfirm>
-                                  </RightDiv>
-                                </PropertyBox>
-                              </Link>
+                                      />
+                                    </Link>
+                                  </Popconfirm>
+                                </RightDiv>
+                              </PropertyBox>
                             );
                           })}
                         {properties.length == 0 && (
