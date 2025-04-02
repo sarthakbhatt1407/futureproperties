@@ -324,6 +324,10 @@ const AllProperties = () => {
   const [defaultSort, setDefaultSort] = useState("Popularity");
 
   const fetcher = async () => {
+    console.log(
+      `${process.env.REACT_APP_BASE_URL}/property/get-property-by-city`
+    );
+
     setLoading(true);
     const res = await fetch(
       `${process.env.REACT_APP_BASE_URL}/property/get-property-by-city`,

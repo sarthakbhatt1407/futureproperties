@@ -206,6 +206,10 @@ const PropertyCreationPage = () => {
                   <Option value="South">South</Option>
                   <Option value="East">East</Option>
                   <Option value="West">West</Option>
+                  <Option value="North-East">North-East</Option>
+                  <Option value="North-West">North-West</Option>
+                  <Option value="South-East">South-East</Option>
+                  <Option value="South-West">South-West</Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -302,7 +306,7 @@ const PropertyCreationPage = () => {
                     Independent House/Villa
                   </Option>
                   <Option value="Flat/Appartment">Flat/Appartment</Option>
-                  <Option value="Plot/Land">Plot/Land</Option>
+                  {/* <Option value="Plot/Land">Plot/Land</Option> */}
                   <Option value="Rental">Rental</Option>
                 </Select>
               </Form.Item>
