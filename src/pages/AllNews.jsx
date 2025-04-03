@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PcNav from "../components/PcNav";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
-import { Select, Space } from "antd";
+import { Select } from "antd";
 import { Link } from "react-router-dom";
 import ReadyToLaunch from "../components/ReadyToLaunch";
 import Footer from "../components/Footer";
-import { allNews } from "../data/news";
+import Loader from "../components/Loader";
+
 const MainBox = styled.div`
   position: relative;
   height: 100svh;
@@ -101,18 +102,6 @@ const ResultAndFilter = styled.div`
 `;
 
 const PropertiesBox = styled.div`
-  /* display: flex;
-
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 0.2rem 1rem 0.5rem;
-  a {
-    text-decoration: none;
-    margin: 0;
-  }
-  &::-webkit-scrollbar {
-    display: none;
-  } */
   width: 90%;
   margin: 3rem auto;
 `;
@@ -184,13 +173,42 @@ const PropertyBox = styled.div`
 `;
 
 const AllNews = () => {
-  const newsArticle = allNews;
-  const defaultField = [
-    {
-      value: "Popularity",
-      label: "Popularity",
-    },
-  ];
+  const [newsArticles, setNewsArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/blog/all-blogs`
+        );
+        const data = await response.json();
+        if (response.ok) {
+          setNewsArticles(data);
+        } else {
+          console.error("Error fetching blogs:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  const filteredArticles = newsArticles.filter(
+    (article) =>
+      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.desc.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <MainBox>
       <ContentBox>
@@ -200,10 +218,15 @@ const AllNews = () => {
           <h1>News and Article</h1>
         </HeadingAndSearch>
         <ResultAndFilter>
-          <DetailPara>Showing all results</DetailPara>{" "}
+          <DetailPara>Showing all results</DetailPara>
           <FilterAndSearchBox>
-            <Input type="text" id="search" placeholder="Search News..." />
-
+            <Input
+              type="text"
+              id="search"
+              placeholder="Search News..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
             <Select
               defaultValue="Popularity"
               style={{
@@ -214,30 +237,29 @@ const AllNews = () => {
                 textTransform: "capitalize",
                 width: "fit-content",
               }}
-              //   onChange={handleChange}
-              options={defaultField}
+              options={[{ value: "Popularity", label: "Popularity" }]}
             />
           </FilterAndSearchBox>
         </ResultAndFilter>
         <PropertiesBox>
-          {newsArticle.map((p) => {
-            return (
-              <PropertyBox key={p.image}>
-                <Link to={"/news/1"}>
-                  <img src={p.image} alt="" />
-                  <div>
-                    <p>{p.title}</p>
-                    <span>{p.desc}</span>
-                  </div>
-                </Link>
-              </PropertyBox>
-            );
-          })}
+          {filteredArticles.map((article) => (
+            <PropertyBox key={article._id}>
+              <Link to={`/news/${article._id}`}>
+                <img
+                  src={`${process.env.REACT_APP_BASE_URL}/${article.image}`}
+                  alt={article.title}
+                />
+                <div>
+                  <p>{article.title}</p>
+                  <span>{article.desc}</span>
+                </div>
+              </Link>
+            </PropertyBox>
+          ))}
         </PropertiesBox>
         <ReadyToLaunch />
         <Footer />
       </ContentBox>
-
       <MobileBottomNavigation />
     </MainBox>
   );
