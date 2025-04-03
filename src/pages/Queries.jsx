@@ -176,6 +176,8 @@ const Queries = () => {
       }
     );
     const data = await res.json();
+    console.log(data);
+
     setQueries(data.queries);
     setLoading(false);
   };
@@ -218,6 +220,9 @@ const Queries = () => {
                           >
                             <span>
                               <strong>Message - </strong> {q.message}
+                            </span>
+                            <span>
+                              <strong>Contact - </strong> {q.contactNum}
                             </span>
                             <span
                               style={{

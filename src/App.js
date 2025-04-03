@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/properties" element={<AllProperties />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/news" element={<AllNews />} />
-        <Route path="/news/1" element={<NewsDetail />} />
+        <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/admin-panel/:page" exact element={<AdminPanel />} />
         <Route path="/admin-panel/:page/:id" exact element={<AdminPanel />} />
         {isLoggedIn && (

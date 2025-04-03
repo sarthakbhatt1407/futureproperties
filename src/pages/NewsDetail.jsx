@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PcNav from "../components/PcNav";
 import ReadyToLaunch from "../components/ReadyToLaunch";
 import Footer from "../components/Footer";
 import MobileBottomNavigation from "../components/MobileBottomNavigation";
-import { allNews } from "../data/news";
 
 const MainBox = styled.div`
   position: relative;
@@ -59,18 +59,72 @@ const NewsBox = styled.div`
 `;
 
 const NewsDetail = () => {
-  const news = allNews[0];
+  const { id } = useParams(); // Extract the news ID from the URL
+  const [news, setNews] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNewsById = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/blog/${id}`
+        );
+        const data = await response.json();
+        if (response.ok) {
+          setNews(data);
+        } else {
+          console.error("Error fetching news:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNewsById();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <MainBox>
+        <ContentBox>
+          <PcNav show={true} />
+          <NewsBox>
+            <h2>Loading...</h2>
+          </NewsBox>
+        </ContentBox>
+        <MobileBottomNavigation />
+      </MainBox>
+    );
+  }
+
+  if (!news) {
+    return (
+      <MainBox>
+        <ContentBox>
+          <PcNav show={true} />
+          <NewsBox>
+            <h2>News not found</h2>
+          </NewsBox>
+        </ContentBox>
+        <MobileBottomNavigation />
+      </MainBox>
+    );
+  }
+
   return (
     <MainBox>
       <ContentBox>
         <PcNav show={true} />
         <NewsBox>
-          {" "}
-          <h2>{news.title}</h2> <p>{news.desc}</p>
-          <img src={news.image} alt="" />
-          <span>{news.paraFirst}</span>
-          <span>{news.paraSec}</span>
-          <span>{news.paratir}</span>
+          <h2>{news.title}</h2>
+          <p>{news.desc}</p>
+          <img
+            src={`${process.env.REACT_APP_BASE_URL}/${news.image}`}
+            alt={news.title}
+          />
+          <span>{news.summary}</span>
         </NewsBox>
         <ReadyToLaunch />
         <Footer />

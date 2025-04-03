@@ -6,7 +6,7 @@ const defaultState = {
   userName: "",
   userContact: null,
   userSince: "",
-  city: "dehradun",
+  city: "Dehradun",
   isAdmin: false,
 };
 

@@ -191,7 +191,7 @@ const DescAndContactBox = styled.div`
   background-color: white;
   padding: 1rem 2rem;
   border-radius: 0.7rem;
-  width: 80%;
+  width: 85%;
   margin: auto;
   @media only screen and (min-width: 0px) and (max-width: 700px) {
     grid-template-columns: 1fr;
@@ -396,7 +396,8 @@ const Property = () => {
   };
 
   const navigate = useNavigate();
-  const w = window.screen.width > 700 ? "52vw" : "92vw";
+  const w = window.screen.width > 700 ? "52vw" : "92.2vw";
+  const t = window.screen.width > 700 ? "0" : "1rem";
   const h = window.screen.width > 700 ? "70vh" : "30vh";
   const [property, setProperty] = useState(null);
   const [images, setImages] = useState([]);
@@ -554,7 +555,11 @@ const Property = () => {
                     infinite={false}
                     autoplay
                     dotPosition="bottom"
-                    style={{ width: `${w}`, borderRadius: ".4rem" }}
+                    style={{
+                      width: `${w}`,
+                      borderRadius: ".4rem",
+                      marginTop: `${t}`,
+                    }}
                     adaptiveHeight={true}
                   >
                     {images.map((i) => {
@@ -636,8 +641,8 @@ const Property = () => {
                       <li>{property.furnishing}</li>
                       <li>{property.floors} floors</li>
 
-                      <li>{property.facingRoad}</li>
-                      <li>{property.desc}</li>
+                      <li>Facing Road :{property.facingRoad} ft.</li>
+                      {/* <li>{property.desc}</li> */}
                     </ul>
                   </AniBox>
                 </UpperDetailsBox>
@@ -670,7 +675,7 @@ const Property = () => {
                             letterSpacing: "0.05rem",
                           }}
                         >
-                          {property.price}
+                          {formatToIndianCurrency(property.price)}
                         </span>
                       </Descriptions.Item>
                       <Descriptions.Item label="address">
@@ -790,7 +795,16 @@ const Property = () => {
                       {isLoggedIn && user && (
                         <>
                           <p>
-                            <FaPhone /> +91-{user.contactNum}
+                            <FaPhone />{" "}
+                            <a
+                              href={`tel:+91-${user.contactNum}`}
+                              style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                              }}
+                            >
+                              +91-{user.contactNum}
+                            </a>
                           </p>
                           <span>Contact seller.</span>
                         </>

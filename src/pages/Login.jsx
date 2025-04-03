@@ -180,7 +180,11 @@ const Login = () => {
 
         if (loginData.isloggedIn) {
           setTimeout(() => {
-            dispatch({ type: "log in", user: loginData.user, city: city });
+            dispatch({
+              type: "log in",
+              user: loginData.user,
+              city: "Dehradun",
+            });
             navigate("/");
           }, 700);
         }

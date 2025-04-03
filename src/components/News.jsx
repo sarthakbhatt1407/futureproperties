@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { allNews } from "../data/news";
 
 const MainBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
   width: 80%;
-
   margin: auto;
   gap: 1rem;
   @media only screen and (min-width: 0px) and (max-width: 700px) {
@@ -17,6 +15,7 @@ const MainBox = styled.div`
     gap: 0.5rem;
   }
 `;
+
 const HeaderBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -117,7 +116,50 @@ const PropertyBox = styled.div`
 `;
 
 const News = () => {
-  const newsArticle = allNews;
+  const [newsArticles, setNewsArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/blog/all-blogs`
+        );
+        const data = await response.json();
+        if (response.ok) {
+          setNewsArticles(data);
+        } else {
+          console.error("Error fetching blogs:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+  const truncateText = (text, charLimit) => {
+    if (text.length > charLimit) {
+      return text.slice(0, charLimit) + " ...";
+    }
+    return text;
+  };
+
+  if (loading) {
+    return (
+      <MainBox>
+        <HeaderBox>
+          <h2>
+            <span>News & Article</span>
+          </h2>
+        </HeaderBox>
+        <p>Loading...</p>
+      </MainBox>
+    );
+  }
+
   return (
     <MainBox>
       <HeaderBox>
@@ -130,19 +172,20 @@ const News = () => {
       </HeaderBox>
 
       <PropertiesBox>
-        {newsArticle.map((p) => {
-          return (
-            <PropertyBox key={p.image}>
-              <Link to={"/news/1"}>
-                <img src={p.image} alt="" />
-                <div>
-                  <p>{p.title}</p>
-                  <span>{p.desc}</span>
-                </div>
-              </Link>
-            </PropertyBox>
-          );
-        })}
+        {newsArticles.map((article) => (
+          <PropertyBox key={article._id}>
+            <Link to={`/news/${article._id}`}>
+              <img
+                src={`${process.env.REACT_APP_BASE_URL}/${article.image}`}
+                alt={article.title}
+              />
+              <div>
+                <p>{truncateText(article.title, 80)}</p>
+                <span>{truncateText(article.desc, 100)}</span>
+              </div>
+            </Link>
+          </PropertyBox>
+        ))}
       </PropertiesBox>
     </MainBox>
   );

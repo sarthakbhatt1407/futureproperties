@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const MainDiv = styled.div`
   position: relative;
@@ -117,6 +118,7 @@ const BtnBox = styled.div`
 `;
 const ReadyToLaunch = () => {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <MainDiv>
       <RightDiv>
@@ -130,13 +132,23 @@ const ReadyToLaunch = () => {
           illum neque?
         </p>
         <BtnBox>
-          <button
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Login
-          </button>
+          {!isLoggedIn ? (
+            <button
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                navigate("/post-property");
+              }}
+            >
+              Post Property
+            </button>
+          )}
         </BtnBox>
       </LeftDiv>
     </MainDiv>

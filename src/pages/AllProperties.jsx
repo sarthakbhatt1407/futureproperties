@@ -626,7 +626,10 @@ const AllProperties = () => {
                       </p>
                     </LeftDiv>
                     <MidDiv>
-                      <h3>{item.title}</h3>
+                      <h3>
+                        {item.title.split(" ").slice(0, 4).join(" ")}
+                        {item.title.split(" ").length > 4 && "..."}
+                      </h3>
                       <h4>₹ {formatToIndianCurrency(item.price)}</h4>
                       <span>
                         {item.locality}, {item.city}

@@ -197,7 +197,10 @@ const MostViewd = () => {
                       textTransform: "capitalize",
                     }}
                   >
-                    <span>{p.title}</span>
+                    <span>
+                      {p.title.split(" ").slice(0, 4).join(" ")}
+                      {p.title.split(" ").length > 4 && "..."}
+                    </span>
                     <p>₹ {formatToIndianCurrency(p.price)}</p>
                     <span>{p.locality}</span>
                     <span>{p.category}</span>

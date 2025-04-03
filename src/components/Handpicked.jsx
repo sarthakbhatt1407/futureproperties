@@ -181,7 +181,10 @@ const Handpicked = () => {
                       <span>{p.locality}</span>
                     </p>
                     <p>
-                      <span>{p.title}</span>
+                      <span>
+                        {p.title.split(" ").slice(0, 4).join(" ")}
+                        {p.title.split(" ").length > 4 && "..."}
+                      </span>
                       <span> ₹ {formatToIndianCurrency(p.price)}</span>
                     </p>
                   </LowerBox>

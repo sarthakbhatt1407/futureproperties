@@ -11,9 +11,11 @@ import { Dropdown, Space } from "antd";
 import { Layout, Menu, Button, theme, Avatar } from "antd";
 import {
   AccountCircleOutlined,
+  CollectionsBookmark,
   Copyright,
   HistoryOutlined,
   LibraryMusicOutlined,
+  Newspaper,
   PeopleOutlineOutlined,
   QuestionAnswerOutlined,
   RestoreFromTrashOutlined,
@@ -75,6 +77,9 @@ const AdminDrawerPanel = (props) => {
     if (page === "all-users") {
       return ["3"];
     }
+    if (page === "upload-blog") {
+      return ["4"];
+    }
   };
 
   const [collapsed, setCollapsed] = useState(true);
@@ -121,6 +126,30 @@ const AdminDrawerPanel = (props) => {
                 </Link>
               ),
               label: "Add New",
+            },
+            {
+              key: "4",
+              icon: (
+                <Link
+                  to={"/admin-panel/upload-blog"}
+                  onClick={() => setCollapsed(true)}
+                >
+                  <Newspaper />
+                </Link>
+              ),
+              label: "Add New Blog",
+            },
+            {
+              key: "5",
+              icon: (
+                <Link
+                  to={"/admin-panel/all-blogs"}
+                  onClick={() => setCollapsed(true)}
+                >
+                  <CollectionsBookmark />
+                </Link>
+              ),
+              label: "All Blogs",
             },
 
             {
