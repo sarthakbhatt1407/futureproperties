@@ -621,9 +621,7 @@ const AllProperties = () => {
                         }`}
                         alt=""
                       />
-                      <p>
-                        Seller : <span>Sarthak Bhatt</span>
-                      </p>
+                      <p>{/* Seller : <span>{item.}</span> */}</p>
                     </LeftDiv>
                     <MidDiv>
                       <h3>
@@ -669,7 +667,11 @@ const AllProperties = () => {
                         </HighLightDiv>
                       </HighLights>
                       <p>{item.address}</p>
-                      <p>{item.desc}</p>
+                      <p style={{ whiteSpace: "pre-line" }}>
+                        {item.desc.length > 200
+                          ? `${item.desc.slice(0, 200)}...`
+                          : item.desc}
+                      </p>
                     </MidDiv>
                     <RightDiv>
                       <h3>₹ {formatToIndianCurrency(item.price)}</h3>

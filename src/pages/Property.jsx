@@ -592,7 +592,7 @@ const Property = () => {
                     <span>+ Govt Charges & Tax</span>
                   </h2>{" "}
                   <Divider />
-                  <h3>{property.desc}</h3>
+                  <h3 style={{ whiteSpace: "pre-line" }}>{property.desc}</h3>
                   <h4>
                     {property.locality}, {property.city}
                   </h4>

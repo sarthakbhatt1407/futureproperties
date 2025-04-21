@@ -16,6 +16,7 @@ import Error from "./pages/Error";
 import Queries from "./pages/Queries";
 import AdminPanel from "./pages/AdminPanel";
 import PostProperty from "./pages/PostProperty";
+import AboutUs from "./pages/AboutUs";
 
 const MainDiv = styled.div`
   max-height: 100svh;
@@ -55,6 +56,7 @@ const App = () => {
         <Route path="/properties" element={<AllProperties />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/news" element={<AllNews />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/admin-panel/:page" exact element={<AdminPanel />} />
         <Route path="/admin-panel/:page/:id" exact element={<AdminPanel />} />

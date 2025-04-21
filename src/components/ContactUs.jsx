@@ -331,13 +331,13 @@ const ContactsUs = () => {
         </TextBox>
         <TextBox>
           <p>Contact Number</p>
-          <span>+911234567890 +910987654321</span>
+          <span>+919058241229 +919058241436</span>
         </TextBox>
         <TextBox>
           <p>office address</p>
           <span style={{ textTransform: "capitalize" }}>
-            Tarun Vihar Lane 4, mothrowala road, banjarawla, near sidheshwar
-            temple.
+            4th Floor, NV TOWER, NH7, Haridwar-Dehradun Highway, Opposite Nilaya
+            Heights, Dehradun
           </span>
         </TextBox>
       </RightDiv>

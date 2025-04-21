@@ -119,12 +119,13 @@ const NewsDetail = () => {
         <PcNav show={true} />
         <NewsBox>
           <h2>{news.title}</h2>
+
           <p>{news.desc}</p>
           <img
             src={`${process.env.REACT_APP_BASE_URL}/${news.image}`}
             alt={news.title}
           />
-          <span>{news.summary}</span>
+          <span style={{ whiteSpace: "pre-line" }}>{news.summary}</span>
         </NewsBox>
         <ReadyToLaunch />
         <Footer />

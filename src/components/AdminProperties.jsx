@@ -224,6 +224,18 @@ const AdminProperties = () => {
     "Most Viewed",
     "Handpicked",
   ]);
+  function formatToIndianCurrency(number) {
+    if (number >= 10000000) {
+      // Convert to crore
+      return `${(number / 10000000).toFixed(2)} cr`;
+    } else if (number >= 100000) {
+      // Convert to lakh
+      return `${(number / 100000).toFixed(2)} lakh`;
+    } else {
+      // Format as standard currency if below 1 lakh
+      return `${number.toLocaleString("en-IN")}`;
+    }
+  }
   const [isLoading, setIsloading] = useState(true);
   let sNo = 0;
   const fetcher = async () => {
@@ -368,7 +380,7 @@ const AdminProperties = () => {
                 <td>Title</td>
                 <td>Price</td>
                 <td>Locality</td>
-                <td>City</td>
+
                 <td>Status</td>
                 <td>User</td>
                 <td>View</td>
@@ -415,7 +427,7 @@ const AdminProperties = () => {
                           src={th}
                           alt=""
                           style={{
-                            width: "8rem",
+                            width: "7rem",
                           }}
                         />
                       </span>
@@ -434,7 +446,7 @@ const AdminProperties = () => {
                         textTransform: "capitalize",
                       }}
                     >
-                      <span>{price}</span>
+                      <span>{formatToIndianCurrency(price)}</span>
                     </td>
                     <td
                       style={{
@@ -442,16 +454,9 @@ const AdminProperties = () => {
                         textTransform: "capitalize",
                       }}
                     >
-                      <span>{locality}</span>
+                      <span>{locality + ", " + city}</span>
                     </td>
-                    <td
-                      style={{
-                        textAlign: "center",
-                        textTransform: "capitalize",
-                      }}
-                    >
-                      <span>{city}</span>
-                    </td>
+
                     <td
                       style={{
                         color: `${status === "pending" ? "orange" : "green"}`,

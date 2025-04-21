@@ -204,7 +204,7 @@ const AdminAllUsers = () => {
 
               <td>Since</td>
 
-              <td>View Profile</td>
+              {/* <td>View Profile</td> */}
               <td>Action</td>
             </tr>
           </TableHead>
@@ -236,11 +236,11 @@ const AdminAllUsers = () => {
 
                       <td>{userSince}</td>
 
-                      <td>
+                      {/* <td>
                         <Link to={`/admin-panel/user-profile/${id}`}>
                           <RemoveRedEyeOutlined />
                         </Link>
-                      </td>
+                      </td> */}
                       <td>
                         <Popconfirm
                           title="Confirm"

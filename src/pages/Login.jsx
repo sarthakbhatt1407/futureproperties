@@ -257,7 +257,7 @@ const Login = () => {
           dispatch({
             type: "log in",
             user: loginData.user,
-            city: loginData.user.city,
+            city: "Dehradun",
           });
           navigate("/");
         }, 700);

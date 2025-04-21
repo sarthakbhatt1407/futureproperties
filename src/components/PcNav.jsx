@@ -32,6 +32,7 @@ const LeftDiv = styled.div`
 
   align-items: center;
   text-transform: uppercase;
+  cursor: pointer;
   span {
     font-weight: 600;
     font-size: 1.6rem;
@@ -119,7 +120,7 @@ const PcNav = (props) => {
   return (
     <>
       <MainDiv clr={clr}>
-        <LeftDiv>
+        <LeftDiv onClick={() => navigate("/")}>
           <img src={logo} alt="" />
           <span>future Properties</span>
         </LeftDiv>
@@ -127,6 +128,7 @@ const PcNav = (props) => {
           <Link to={"/"}>Home</Link>
           <Link to={"/properties"}>Properties</Link>
           <Link to={"/contact-us"}>Contact</Link>
+          <Link to={"/about-us"}>About Us</Link>
           {isAdmin && <Link to={"/admin-panel/properties"}>Admin Panel</Link>}
           {!isLoggedIn && (
             <Link to={"/login"}>

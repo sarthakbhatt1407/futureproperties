@@ -260,7 +260,8 @@ const SelectionBox = styled.div`
 `;
 
 const Header = () => {
-  const [p, setP] = useState("Dehradun");
+  const [cities, setCities] = useState([]); // State to store cities
+  const [p, setP] = useState("DEHRADUN");
   const dispatch = useDispatch();
   const options = [
     {
@@ -275,14 +276,43 @@ const Header = () => {
   ];
   let c = 1;
 
+  // Fetch cities from the API
   useEffect(() => {
-    const intv = setInterval(() => {
-      if (c == 3) {
-        c = 0;
+    let intv;
+    const fetchCities = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/property/get-city`
+        );
+        const data = await response.json();
+
+        if (response.ok) {
+          const arr = data.cities.map((city) => ({
+            value: city.toUpperCase(),
+          }));
+
+          setCities(arr); // Format cities for AutoComplete
+          intv = setInterval(() => {
+            if (c == cities.length) {
+              c = 0;
+            }
+            if (cities.length > 0) {
+              setP(cities[c].value);
+              console.log(cities[c].value);
+
+              c++;
+            }
+          }, 2000);
+        } else {
+          console.error("Error fetching cities:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching cities:", error);
       }
-      setP(options[c].value);
-      c++;
-    }, 2000);
+    };
+
+    fetchCities();
+
     return () => {
       clearInterval(intv);
     };
@@ -304,12 +334,12 @@ const Header = () => {
                   height: "3rem",
                   border: "none",
                 }}
-                options={options}
+                options={cities}
                 onSelect={(e) => {
                   dispatch({ type: "city", city: e });
                   setP(e);
                 }}
-                placeholder="Search City"
+                placeholder={`Search by city - ${p}`}
                 filterOption={(inputValue, option) =>
                   option.value
                     .toUpperCase()
@@ -328,8 +358,10 @@ const Header = () => {
               </button>
             </InpBox>
             <p>
-              Popular Searches : <span>Dehradun</span> <span>Haridwar</span>{" "}
-              <span>Rishikesh</span>
+              Popular Searches :{" "}
+              {cities.slice(0, 2).map((city, index) => (
+                <span key={index}>{city.value}</span>
+              ))}
             </p>
           </InpTextBox>
           <img src={home} alt="" data-aos="fade-left" />
@@ -355,15 +387,17 @@ const Header = () => {
               dispatch({ type: "city", city: e });
               setP(e);
             }}
-            options={options}
+            options={cities}
             filterOption={(inputValue, option) =>
               option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
               -1
             }
           />
           <p>
-            Popular Searches : <span>Dehradun</span> <span>Haridwar</span>{" "}
-            <span>Rishikesh</span>
+            Popular Searches :{" "}
+            {cities.slice(0, 2).map((city, index) => (
+              <span key={index}>{city.value}</span>
+            ))}
           </p>
           <button data-aos="zoom-in">Search</button>
           {/* <img data-aos="zoom-in" src={home} alt="" /> */}

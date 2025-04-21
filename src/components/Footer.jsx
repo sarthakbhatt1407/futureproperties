@@ -32,7 +32,7 @@ const FirstDiv = styled.div`
   padding: 1rem 2rem;
   border-bottom: 1px solid #eee;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
   @media only screen and (min-width: 351px) and (max-width: 950px) {
     display: flex;
@@ -54,7 +54,7 @@ const LeftDiv = styled.div`
   width: 90%;
   img {
     width: 12rem;
-    margin: auto;
+    /* margin: auto; */
   }
   div {
     display: flex;
@@ -137,21 +137,30 @@ const Footer = () => {
         <LeftDiv>
           <img src={logo} alt="" />
           <div>
-            <Link>
+            <Link
+              to={"https://www.facebook.com/futureproperties1010"}
+              target="_blank"
+            >
               <FacebookOutlined
                 style={{
                   color: "#3338A3",
                 }}
               />
             </Link>
-            <Link>
+            <Link
+              to={"https://www.instagram.com/futureproperties_"}
+              target="_blank"
+            >
               <Instagram
                 style={{
                   color: "#F77D41",
                 }}
               />
             </Link>
-            <Link>
+            <Link
+              to={"https://youtube.com/@futureproperties?si=zrFP_Yq6tWolG31y"}
+              target="_blank"
+            >
               <YouTube
                 style={{
                   color: "#ff0015",
@@ -180,7 +189,7 @@ const Footer = () => {
             <span>
               {" "}
               <Link
-                to="/"
+                to="/properties"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -193,7 +202,7 @@ const Footer = () => {
             <span>
               {" "}
               <Link
-                to="/"
+                to="/properties"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -207,7 +216,7 @@ const Footer = () => {
             <span>
               {" "}
               <Link
-                to="/"
+                to="/properties"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -217,7 +226,7 @@ const Footer = () => {
                 Shop
               </Link>
             </span>
-            <span>
+            {/* <span>
               {" "}
               <Link
                 to="/about-us"
@@ -229,7 +238,7 @@ const Footer = () => {
               >
                 Plot/Land
               </Link>
-            </span>
+            </span> */}
           </div>
         </MidDiv>
         <MidDiv>
@@ -251,7 +260,7 @@ const Footer = () => {
             <span>
               {" "}
               <Link
-                to="/"
+                to="/properties"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -265,7 +274,7 @@ const Footer = () => {
             <span>
               {" "}
               <Link
-                to="/"
+                to="/contact-us"
                 style={{
                   textDecoration: "none",
                   color: "black",

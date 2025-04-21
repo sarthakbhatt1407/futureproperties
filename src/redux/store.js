@@ -45,14 +45,25 @@ const storeReducer = (state = defaultState, action) => {
     return { ...defaultState };
   }
   if (action.type === "city") {
+    let obj = {
+      ...state,
+      city: action.city.toLowerCase().trim(),
+    };
+    localStorage.setItem("state", JSON.stringify(obj));
+
     return { ...state, city: action.city.toLowerCase().trim() };
   }
 
   if (action.type === "reload") {
-    console.log(action.data);
+    let obj = {
+      ...action.data,
+      city: "dehradun",
+    };
+    localStorage.setItem("state", JSON.stringify(obj));
 
     return {
       ...action.data,
+      city: "dehradun",
     };
   }
 

@@ -268,7 +268,7 @@ const PropertyCreationPage = () => {
           <Row gutter={16}>
             <Col span={screens.xs ? 24 : 12}>
               <Form.Item
-                label="Facing Road (sq. ft.)"
+                label="Facing Road (ft.)"
                 name="facingRoad"
                 rules={[
                   { required: true, message: "Please enter the facing road!" },

@@ -185,7 +185,7 @@ const AllNews = () => {
         );
         const data = await response.json();
         if (response.ok) {
-          setNewsArticles(data);
+          setNewsArticles(data.reverse());
         } else {
           console.error("Error fetching blogs:", data.message);
         }

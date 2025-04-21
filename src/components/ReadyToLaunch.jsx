@@ -127,9 +127,8 @@ const ReadyToLaunch = () => {
       <LeftDiv>
         <h2>Post Property</h2>
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsa
-          perspiciatis quisquam a sit nam quae inventore consequuntur ipsum
-          illum neque?
+          Post your property with ease and reach verified buyers across
+          Uttarakhand. It’s quick, secure, and absolutely free!
         </p>
         <BtnBox>
           {!isLoggedIn ? (
